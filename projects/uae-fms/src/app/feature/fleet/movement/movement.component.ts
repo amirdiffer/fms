@@ -53,7 +53,7 @@ export class MovementComponent
       filterTagColor: '#EF7A85'
     }
   ];
- 
+
 
   requestFilter: boolean = false;
   selectedTab;
@@ -372,14 +372,14 @@ export class MovementComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-          'Reject Request', 
+        const dialog = this._dialogService.show('success' ,
+          'Reject Request',
           'The Request Rejected Successfully','Ok')
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
             if (result === 'confirm') {
-              this._movementRequestsFacade.loadAll(); 
+              this._movementRequestsFacade.loadAll();
             }
             dialogClose$?.unsubscribe();
             })
@@ -388,8 +388,8 @@ export class MovementComponent
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' , 
-          'Request', 
+        const dialog = this._dialogService.show('danger' ,
+          'Request',
           'We Have Some Error','Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -427,7 +427,6 @@ export class MovementComponent
     });
   }
   rejectRow() {
-    // console.log('reject');
   }
 
 

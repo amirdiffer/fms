@@ -276,7 +276,6 @@ export class SubAssetComponent implements OnInit, OnDestroy {
 
   customFilterEvent(data: object[]) {
     this.facade.loadAll();
-    console.log(data);
   }
 
   setFiltersColumns() {

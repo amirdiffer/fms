@@ -316,7 +316,6 @@ export class AddJobCardComponent extends Utility implements OnInit {
           .pipe(map((x) => x.message))
           .subscribe((x) => {
             if (x) {
-              console.log(x);
               this._jobCard = x;
               this.inputForm.patchValue({
                 assetId: { id: x.assetId, name: x.assetDpd },
@@ -351,8 +350,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
     this._facadeJobCard.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ), 
+        const dialog = this._dialogService.show('success' ,
+        (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ),
         (this.isEdit ? 'Changes Saved Successfully' : 'jobCard Added Successfully'),'Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -373,8 +372,8 @@ export class AddJobCardComponent extends Utility implements OnInit {
 
     this._facadeJobCard.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ), 
+        const dialog = this._dialogService.show('danger' ,
+          (this.isEdit ? 'Edit jobCard': 'Add new jobCard' ),
           'We Have Some Error','Ok')
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
@@ -449,14 +448,13 @@ export class AddJobCardComponent extends Utility implements OnInit {
   }
 
   addRequest() {
-    console.log(this.inputForm.value);
     this.submited = true;
     if (this.inputForm.invalid) {
       this.inputForm.markAllAsTouched();
       return;
     }
 
-    const dialog = this._dialogService.show('warning' , 
+    const dialog = this._dialogService.show('warning' ,
               (this.isEdit ? 'Edit jobCard' : 'Add new jobCard') ,
               (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new jobCard?') , 'Yes','Cancel')
     const dialogClose$:Subscription = dialog.dialogClosed$
@@ -535,6 +533,5 @@ export class AddJobCardComponent extends Utility implements OnInit {
   }
 
   searchInTable($event) {
-    console.log($event);
   }
 }

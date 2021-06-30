@@ -60,7 +60,6 @@ export class AssetPolicyComponent implements OnInit, OnDestroy {
       floatButton: [
         {
           onClick: (col, data) => {
-            console.log(data.id);
             this._router.navigate([
               '/configuration/asset-policy/edit-asset-policy/' + data.id
             ]);

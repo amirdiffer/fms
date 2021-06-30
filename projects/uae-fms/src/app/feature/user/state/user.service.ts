@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/responseBody';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,6 @@ export class UserProfileService {
   loadAllPermission() {
     this.http
       .get(environment.baseApiUrl + 'configuration/role/permission')
-      .subscribe((x) => console.log(x));
+      .subscribe();
   }
 }

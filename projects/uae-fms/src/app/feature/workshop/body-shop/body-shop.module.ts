@@ -22,6 +22,7 @@ import { BodyShopLocationStateModule } from '../+state/body-shop/location/body-s
 import { BodyShopRequestStateModule } from '../+state/body-shop/request/body-shop-request-state.module';
 import { BodyShopTechnicianStateModule } from '../+state/body-shop/technician/body-shop-technician-state.module';
 import { TaskMasterStateModule } from "../+state/task-master/task-master-state.module";
+import { UsersStateModule } from '@feature/configuration/+state/users/users-state.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { TaskMasterStateModule } from "../+state/task-master/task-master-state.m
     BodyShopLocationStateModule,
     BodyShopRequestStateModule,
     BodyShopTechnicianStateModule,
-    TaskMasterStateModule
+    TaskMasterStateModule,
+    UsersStateModule
   ]
 })
 export class BodyShopModule {}

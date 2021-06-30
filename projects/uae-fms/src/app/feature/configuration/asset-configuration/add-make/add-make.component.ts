@@ -102,7 +102,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
                 if (x) {
                   this.selectedCategory = x.name ? x.name : '';
                   if (this.isEditing) {
-                    console.log(x);
                     let makes = {
                       name: x.makes.find((y) => y.id == id),
                       description: x.makes.find((y) => y.id == id)
@@ -130,7 +129,6 @@ export class AddMakeComponent extends Utility implements OnInit, OnDestroy {
           if (load) {
             this._subAssetTypeFacade.specificSubAssetType$.subscribe((x) => {
               if (x) {
-                console.log(x);
                 this.selectedCategory = x.name;
                 if (this.isEditing) {
                   let makes = {

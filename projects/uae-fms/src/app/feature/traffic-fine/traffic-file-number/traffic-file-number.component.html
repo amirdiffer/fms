@@ -1,0 +1,16 @@
+<div class="table-container component_wrapper">
+  <div class="table-wreapper">
+    <span class="search-container card-table-header">
+      <div class="search-box">
+        <input type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
+        <button>
+          <img [src]="searchIcon" alt="">
+        </button>
+      </div>
+      <button class="btn-primary-small ml-2" (click)="addClicked()"><i>+</i><a>{{'search.add' | translate}}</a></button>
+    </span>
+    <div title="tabs.traffic_fine" id="trafficFineTab">
+      <app-table [setting]='trafficFine_Table' [tableData]='trafficFine$' pagination="traffic_file_number"></app-table>
+    </div>
+  </div>
+</div>

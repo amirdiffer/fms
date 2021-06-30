@@ -137,7 +137,6 @@ export class AssetTypeComponent implements OnInit, OnDestroy {
   }
 
   onTypeClick(item: AssetTypeExtension): void {
-    console.log(item);
     if (this.activeAssetType == 'ACCESSORY') return;
     this.selectedCategory = +item.id;
     this.selectedMake = -1;

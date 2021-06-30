@@ -1,0 +1,142 @@
+
+
+<div *ngIf="type!='job-card'">
+  <span class="vehicle-sec">
+    <!-- <div class="toolbar">
+      <img class="toolbar-edit" src="assets/icons/edit.svg" alt="">
+    </div> -->
+    <div class="vehicle">
+      <img src="assets/vehicle.png" alt="">
+    </div>
+  </span>
+  <hr class="seprator">
+  <div class="ml-3 mr-3">
+    <h6 class="vehicle-title">Fleet No. {{ asset?.dpd }}</h6>
+  </div>
+  <div class="vehicle-info">
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.overview.vin_sn' | translate }}</h5>
+      <h5 class="info">{{asset.vin_sn}}</h5>
+    </span> -->
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.overview.license_plate' | translate }}</h5>
+      <h5 class="info">{{asset.licensePlate}}</h5>
+    </span> -->
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.status' | translate }}</h5>
+      <h5 class="info">{{asset?.status}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.department' | translate }}</h5>
+      <h5 class="info">{{asset?.department?.name}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.operator' | translate }}</h5>
+      <h5 class="info">{{asset?.operator?.firstName + ' ' + asset?.operator?.lastName}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.asset_type' | translate }}</h5>
+      <h5 class="info">{{asset?.assetConfigurationName}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.make' | translate }}</h5>
+      <h5 class="info">{{asset?.makeName}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.model' | translate }}</h5>
+      <h5 class="info">{{asset?.modelName}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.year' | translate }}</h5>
+      <h5 class="info">{{asset?.year}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.trim' | translate }}</h5>
+      <h5 class="info">{{asset?.trimName}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.color' | translate }}</h5>
+      <h5 class="info">{{asset?.colorName}}</h5>
+    </span>
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.overview.body_type' | translate }}</h5>
+      <h5 class="info">{{asset.bodyType}}</h5>
+    </span> -->
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.overview.salik' | translate }}</h5>
+      <h5 class="info">{{asset.salik}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.warranty' | translate }}</h5>
+      <h5 class="info">{{asset.warranty}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.job_card_status' | translate }}</h5>
+      <h5 class="info">Open</h5>
+    </span> -->
+  </div>
+  
+</div>
+
+<div *ngIf="type=='job-card'">
+  <span class="vehicle-sec">
+    <div class="vehicle">
+      <img src="assets/vehicle.png" alt="">
+    </div>
+  </span>
+  <hr class="seprator">
+  <div class="ml-3 mr-3">
+    <h6 class="vehicle-title">{{'assets.overview.job_card.active_job_card_info'|translate}}</h6>
+  </div>
+  <div class="vehicle-info">
+    <span>
+      <h5 class="title">{{ 'assets.overview.overview.status' | translate }}</h5>
+      <h5 class="info">{{asset?.status}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.start_date' | translate }}</h5>
+      <h5 class="info">{{asset?.startDate}}</h5>
+    </span>
+   <!--  <span>
+      <h5 class="title">{{ 'assets.overview.job_card.duration' | translate }}</h5>
+      <h5 class="info">{{asset?.department?.duration}}</h5>
+    </span> -->
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.estimated_end_data' | translate }}</h5>
+      <h5 class="info">{{asset?.endDate}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.total_tasks' | translate }}</h5>
+      <h5 class="info">{{asset?.tasks?.length}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.created_by' | translate }}</h5>
+      <h5 class="info">{{asset?.creatorId}}</h5>
+    </span>
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.job_card.attachment' | translate }}</h5>
+      <h5 class="info">{{asset?.attachment}}</h5>
+    </span> -->
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.job_card.labor_cast' | translate }}</h5>
+      <h5 class="info">{{asset?.labor_cast}}</h5>
+    </span> -->
+    <!-- <span>
+      <h5 class="title">{{ 'assets.overview.job_card.part_cost' | translate }}</h5>
+      <h5 class="info">{{asset?.trimName}}</h5>
+    </span> -->
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.total_cost' | translate }}</h5>
+      <h5 class="info">{{asset?.cost}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.location_id' | translate }}</h5>
+      <h5 class="info">{{asset?.location?.id}}</h5>
+    </span>
+    <span>
+      <h5 class="title">{{ 'assets.overview.job_card.description' | translate }}</h5>
+      <h5 class="info">{{asset?.description}}</h5>
+    </span>
+  </div>
+
+</div>

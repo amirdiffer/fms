@@ -15,6 +15,7 @@ export class AddFuelCardComponent extends Utility implements OnInit {
   inputForm: FormGroup;
   submited = false;
   currentTab: string;
+  yearRange =`2000:${new Date().getFullYear()}`;
   constructor(
     private _fb: FormBuilder,
     injector: Injector,

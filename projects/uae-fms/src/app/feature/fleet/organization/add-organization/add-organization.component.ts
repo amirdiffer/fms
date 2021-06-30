@@ -129,8 +129,8 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     });
     this.facade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' , 
-          (this.isEdit ? 'Edit Department': 'Add New Department' ), 
+        const dialog = this._dialogService.show('success' ,
+          (this.isEdit ? 'Edit Department': 'Add New Department' ),
           (this.isEdit ? 'Changes Saved Successfully' : 'Department Added Successfully'),'Ok')
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
@@ -148,8 +148,8 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     });
     this.facade.error$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('danger' , 
-          (this.isEdit ? 'Edit Department': 'Add New Department' ), 
+        const dialog = this._dialogService.show('danger' ,
+          (this.isEdit ? 'Edit Department': 'Add New Department' ),
           'We Have Some Error','Ok')
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
@@ -169,7 +169,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
       this.organizationService.searchDepartment(z.id).subscribe((x: any) => {
         const res = x.message;
         this.id = res.id;
-        console.log(res)
         let f = this.organizationForm.get('tags') as FormArray;
         f.controls = [this.createTagField()];
         res.tags.forEach((a, i) => {
@@ -276,7 +275,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     if (this.organizationForm.invalid) {
       return;
     } else {
-      const dialog = this._dialogService.show('warning' , 
+      const dialog = this._dialogService.show('warning' ,
     (this.isEdit ? 'Edit Department' : 'Add New Department') ,
        (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new department?') , 'Yes','Cancel')
       const dialogClose$:Subscription = dialog.dialogClosed$
@@ -299,8 +298,6 @@ export class AddOrganizationComponent extends Utility implements OnInit {
                 };
               })
             };
-            console.log(formValue)
-            console.log(value)
             if(value.tags[value.tags.length -1] == ''){
               value.tags.splice(value.tags.length -1, 1)
             };

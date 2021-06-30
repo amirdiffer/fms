@@ -248,7 +248,6 @@ export class IserveComponent implements OnInit {
     ],
     rowSettings: {
       onClick: (col, data) => {
-        // console.log(col, data);
       },
       floatButton: [
         {
@@ -462,7 +461,6 @@ export class IserveComponent implements OnInit {
     ],
     rowSettings: {
       onClick: (col, data) => {
-        // console.log(col, data);
       },
       floatButton: [
         {

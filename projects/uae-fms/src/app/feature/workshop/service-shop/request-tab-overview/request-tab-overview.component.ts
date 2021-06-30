@@ -142,15 +142,12 @@ export class RequestTabOverviewServiceShopComponent implements OnInit {
   ngOnInit(): void {
     this.assetId = +this._activatedRoute.snapshot.params.id;
     this._facadeRequest.resetParams();
-    console.log(this.assetId);
     this._facadeRequest.getAssetRequest(this.assetId);
     this.tableData$ = this._facadeRequest.assetRequest$.pipe(
       map((x) => {
         if (x) {
-          console.log(x);
           return x.map((request) => {
             let jobType;
-            console.log(request);
             switch (request.jobType) {
               case 'TECHNICAL_REPORT':
                 jobType = 'Technical Report';

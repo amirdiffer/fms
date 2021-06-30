@@ -63,6 +63,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   policyTypeTableData$ = new BehaviorSubject<any>([]);
   private _asset;
   private csvText = [];
+  yearRange =`2000:${new Date().getFullYear()}`
   /* Forms */
   formGroupAssetDetail: FormGroup;
   formGroupFinancial: FormGroup;
@@ -454,7 +455,6 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
                   .value
             )
             .map((department) => {
-              console.log(department);
               return {
                 ...department.departments
               };
@@ -605,20 +605,19 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         const dialog = this._dialogService.show('success' ,
                   (this.isEdit? 'Edit Asset': 'Add new asset') , 
                   (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') , 
-                  (this.isEdit ? 'Ok': 'Register Now'),
-                  (this.isEdit ? undefined : 'Register Later') 
+                  ((this.isEdit || this.formGroupGenerate.get('quantity').value =='multipleAsset') ? 'Ok': 'Register Now'),
+                  ((this.isEdit || this.formGroupGenerate.get('quantity').value =='multipleAsset')? undefined : 'Register Later') 
                   )
         const dialogClose$:Subscription = dialog.dialogClosed$
         .pipe(
           tap((result) => {
             if (result === 'confirm') {
-              if (this.assetId > 0 && !this.isEdit) {
+              if(this.formGroupGenerate.get('quantity').value =='singleAsset' && this.assetId > 0 && !this.isEdit){
                 this._router.navigate([
                   '/fleet/assets/' + this.assetId + '/registration'
                 ]);
+                
               }
-              if(this.isEdit) {this._router.navigate(['/fleet/assets'])}
-            }else{
               this._router.navigate(['/fleet/assets']);
             }
             dialogClose$?.unsubscribe();
@@ -795,16 +794,15 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     }
   }
   buttonUpload(): void {
+    this.maintenanceServiceDocRequired = true;
+    this.thumbnailRequired = true;
     if (
       this.formGroupGenerate.get('uploadFile').invalid ||
-      this.formGroupGenerate.get('uploadFile').value == ''
+      this.formGroupGenerate.get('uploadFile').value == '' ||
+      !this.avatarDocId
     ) {
-      this.maintenanceServiceDocRequired = true;
       return;
-    } else if (!this.avatarDocId) {
-      this.thumbnailRequired = true;
-      return;
-    } else {
+    }  else {
       let formVal_AssetDetail = this.formGroupAssetDetail.getRawValue();
       let data = [];
       let DPD = this.dpdGenerate(formVal_AssetDetail.businessInfo.ownership);
@@ -916,7 +914,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
     let formVal_Generate = this.formGroupGenerate.getRawValue();
     let dpdcodes = this.dpdGenerate(formVal_AssetDetail.businessInfo.ownership);
     this.submitted_Generate = true;
-    if (this.formGroupGenerate.invalid) {
+    this.thumbnailRequired = true;
+    if (this.formGroupGenerate.invalid || !this.avatarDocId) {
       return;
     }
     let data = {
@@ -992,10 +991,10 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
               this.assetId = -1;
             }
           const dialog = this._dialogService.show('success' ,
-                  (this.isEdit? 'Edit Asset': 'Add new asset') , 
-                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') , 
+                  (this.isEdit? 'Edit Asset': 'Add new asset') ,
+                  (this.isEdit ? 'Changes Asset Successfully.': 'Asset Added Successfully.') ,
                   (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? 'Ok': 'Register Now'),
-                  (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? undefined : 'Register Later') 
+                  (this.isEdit || formVal_Generate.quantity === 'multipleAsset' ? undefined : 'Register Later')
                   )
           const dialogClose$:Subscription = dialog.dialogClosed$
           .pipe(
@@ -1015,7 +1014,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
           ).subscribe();
           this._facade.loadAll();
           this._assetRegistrationFacade.loadAll();
-          } 
+          }
         }
       });
     }
@@ -1033,7 +1032,7 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
       })
     )
     .subscribe();
-    
+
   }
 
 

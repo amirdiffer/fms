@@ -187,7 +187,6 @@ export class TableGeneralButtonRendererComponent implements OnInit {
   }
 
   clickButton(button, col?): void {
-    console.log(col);
     if (col && col.onClick instanceof Function) {
       col.onClick(this.button, col);
     }

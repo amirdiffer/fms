@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DeactivateFormGuard } from '@core/Permission/deactivate-form.guard';
 import { PermissionGuard } from '@core/Permission/permission.guard';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AssetsComponent } from './assets.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
     data: {
       permission: ['ASSET_ADD']
-    }
+    },
+    canDeactivate:[DeactivateFormGuard]
   },
   {
     path: 'edit-asset/:id',
@@ -22,7 +24,8 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
     data: {
       permission: ['ASSET_UPDATE_OWN', 'ASSET_UPDATE_OTHERS']
-    }
+    },
+    canDeactivate:[DeactivateFormGuard]
   },
   {
     path: ':id',
