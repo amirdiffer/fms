@@ -1,12 +1,14 @@
-.sub-asset-overview {
-  margin-top: 16px;
-  padding-bottom: 25px;
+.accessory-overview {
+  .component_wrapper{
+    padding: 1em;
+    font-family: '29LT Bukra - Bold';
+  }
   .imageAccessory {
     display: flex;
     justify-content: center;
     img {
-      width: 10rem;
-      height: 10rem;
+      width: 12em;
+      height: 100%;
       border-radius: 5px;
     }
   }
@@ -51,18 +53,21 @@
   }
 
   &__title {
-    padding: 10px;
     color: #0da06e;
-    font-size: 17px;
+    padding: 1.1em;
+    &>h3{
+      font-size: 1.1em
+    }
   }
 
   &__subtitle {
-    padding: 3px 10px;
+    padding: 1.1em 0;
     color: #0da06e;
-    font-size: 18px;
-    font-weight: bold;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid #EDEDED;
     margin-top: 25px;
+    & > h4 {
+      font-size: 1.1em;
+    }
   }
 
   &__info {
@@ -71,8 +76,8 @@
     &.bordered {
       td,
       th {
-        border-bottom: 1px solid #eee;
-        border-top: 1px solid #eee;
+        border-bottom: 1px solid #EDEDED;
+        border-top: 1px solid #EDEDED;
       }
 
       tr:last-child {
@@ -86,19 +91,39 @@
     th {
       width: 15em;
       color: #707070;
+      font-size: .8em;
     }
-
+    th.right , td.right{
+      padding: 1.1em;
+    }
+    th.left , td.left{
+      padding-bottom: 1em;
+    }
     td {
-      color: #005844;
-    }
-    td,
-    th {
-      padding: 10px;
-      font-size: 15px;
+      color: #0da06e;
+      font-size: .9em;
     }
   }
 }
 
 .overview-container {
   padding: 10px;
+}
+
+.edit-button-section{
+  display: flex;
+  height: 0;
+  justify-content: flex-end;
+  margin: 0 -1em;
+  & > button {
+    width: 3.5em;
+    height: 3.5em;
+    border: none;
+    background: #fff;
+    transform: translateY(-4.4em);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    justify-self: flex-end;
+    box-shadow: 0 -1px 2px #0000003d;
+  }
 }
