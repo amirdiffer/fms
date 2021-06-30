@@ -14,7 +14,11 @@ import { MovementConfirmComponent } from './movement-confirm/movement-confirm.co
 import { MovementOverviewFacade } from '../+state/movement/permanent/overview';
 import { MovementRequestsFacade } from '../+state/movement/permanent/requests';
 import { map, tap } from 'rxjs/operators';
-import { ButtonType, TableComponent } from '@core/table/table.component';
+import {
+  ButtonType,
+  FilterType,
+  TableComponent
+} from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { DialogService } from '@core/dialog/dialog-template.component';
 
@@ -31,6 +35,11 @@ export class MovementComponent
 
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = {
+    MovementOverViewTab: [],
+    requestTab: []
+  };
   filterSetting = [
     {
       filterTitle: 'statistic.total',
@@ -53,7 +62,6 @@ export class MovementComponent
       filterTagColor: '#EF7A85'
     }
   ];
-
 
   requestFilter: boolean = false;
   selectedTab;
@@ -135,6 +143,7 @@ export class MovementComponent
   );
 
   requestTableSetting = {
+    name: 'movement_permanent_request',
     columns: [
       {
         lable: 'tables.column.user',
@@ -142,7 +151,9 @@ export class MovementComponent
         width: 140,
         type: 1,
         thumbField: '',
-        renderer: 'assetsRenderer'
+        renderer: 'assetsRenderer',
+        filterApiKey: 'requester',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.movement_type',
@@ -150,7 +161,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'movementType',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.request_type',
@@ -158,7 +171,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'requestType',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.asset_type',
@@ -166,7 +181,9 @@ export class MovementComponent
         width: 70,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'assetConfiguration',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.reason',
@@ -174,7 +191,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'reason',
+        filterType: FilterType.string
       },
       {
         lable: 'tables.column.date',
@@ -182,7 +201,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'createdAt',
+        filterType: FilterType.range_date
       },
       {
         lable: 'tables.column.request_status',
@@ -190,7 +211,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'status',
+        filterType: FilterType.status
       },
       {
         lable: '',
@@ -238,6 +261,7 @@ export class MovementComponent
   };
 
   movementOverViewTableSetting = {
+    name: 'movement_permanent_overview',
     columns: [
       {
         lable: 'tables.column.asset',
@@ -245,7 +269,9 @@ export class MovementComponent
         width: 140,
         type: 1,
         thumbField: '',
-        renderer: 'assetsRenderer'
+        renderer: 'assetsRenderer',
+        filterApiKey: 'asset',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.duration',
@@ -269,7 +295,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'organization',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.operator',
@@ -277,7 +305,9 @@ export class MovementComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: 'subtextRenderer'
+        renderer: 'subtextRenderer',
+        filterApiKey: 'operator',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.fine',
@@ -306,13 +336,15 @@ export class MovementComponent
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacade,
     private _movementRequestsFacade: MovementRequestsFacade,
-    private _dialogService : DialogService,
+    private _dialogService: DialogService,
     injector: Injector
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
+    this.setFiltersColumns_overviewTab();
+    this.setFiltersColumns_requestTab();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
       if (x) {
@@ -372,33 +404,41 @@ export class MovementComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' ,
+        const dialog = this._dialogService.show(
+          'success',
           'Reject Request',
-          'The Request Rejected Successfully','Ok')
-          const dialogClose$:Subscription = dialog.dialogClosed$
+          'The Request Rejected Successfully',
+          'Ok'
+        );
+        const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
-            if (result === 'confirm') {
-              this._movementRequestsFacade.loadAll();
-            }
-            dialogClose$?.unsubscribe();
+              if (result === 'confirm') {
+                this._movementRequestsFacade.loadAll();
+              }
+              dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' ,
+        const dialog = this._dialogService.show(
+          'danger',
           'Request',
-          'We Have Some Error','Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+          'We Have Some Error',
+          'Ok'
+        );
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          )
+          .subscribe();
       }
     });
   }
@@ -426,10 +466,7 @@ export class MovementComponent
       this._movementRequestsFacade.loadAll();
     });
   }
-  rejectRow() {
-  }
-
-
+  rejectRow() {}
 
   eventPagination_overview() {
     this._movementOverviewFacade.loadAll();
@@ -476,16 +513,58 @@ export class MovementComponent
   reject(data) {
     if (data?.id) {
       this.rejectId = data.id;
-      const dialog = this._dialogService.show('warning' , 'Reject request' , 'Are you sure you want to reject this request?' , 'Yes','Cancel')
-      const dialogClose$:Subscription = dialog.dialogClosed$
-      .pipe(
-        tap((result) => {
-        if (result === 'confirm') {
-          this._movementRequestsFacade.rejecting(this.rejectId);
-        }
-        dialogClose$?.unsubscribe();
-        })
-      ).subscribe();
+      const dialog = this._dialogService.show(
+        'warning',
+        'Reject request',
+        'Are you sure you want to reject this request?',
+        'Yes',
+        'Cancel'
+      );
+      const dialogClose$: Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+              this._movementRequestsFacade.rejecting(this.rejectId);
+            }
+            dialogClose$?.unsubscribe();
+          })
+        )
+        .subscribe();
+    }
+  }
+
+  setFiltersColumns_requestTab() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.requestTableSetting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.requestTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_overviewTab() {
+    let removeField = ['duration', 'startDate', 'fine', 'reason'];
+    let filtersColumns = Object.values({
+      ...this.movementOverViewTableSetting.columns
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.MovementOverViewTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'requestTab': {
+        this._movementRequestsFacade.loadAll();
+        break;
+      }
+      case 'MovementOverViewTab': {
+        this._movementOverviewFacade.loadAll();
+        break;
+      }
     }
   }
 }

@@ -279,14 +279,18 @@ export class SubAssetComponent implements OnInit, OnDestroy {
   }
 
   setFiltersColumns() {
+    let removeField = ['AssetCategory'];
     let filtersColumns = Object.values({ ...this.assetTraffic_TableColumns });
     filtersColumns.splice(2, 0, {
       lable: 'tables.column.sub_asset_type',
-      type: 1,
       field: 'sub-asset-type',
       filterApiKey: 'sub-asset-type',
       filterType: FilterType.list
     });
-    this.filtersColumns = filtersColumns;
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
   }
 }

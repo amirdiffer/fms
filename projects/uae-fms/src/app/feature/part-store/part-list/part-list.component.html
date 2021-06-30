@@ -14,8 +14,8 @@
             <ng-container *ngIf="selectedTab == 'assetPartTab'">
               <span class="p-float-label mx-2">
                 <p-dropdown
-                      placeholder="" 
-                      optionLabel="name" 
+                      placeholder=""
+                      optionLabel="name"
                       optionValue="id"
                       [options]="assetType$ | async"
                       (onChange)="assetTypeChanges($event.value)"
@@ -24,20 +24,20 @@
               </span>
               <span class="p-float-label">
                 <p-dropdown
-                      placeholder="" 
-                      optionLabel="name" 
+                      placeholder=""
+                      optionLabel="name"
                       optionValue="id"
                       [options]="assetPartCategory$ | async"
                       (onChange)="assetCategoryChanges($event.value)">
                 </p-dropdown>
               </span>
             </ng-container>
-            
+
             <ng-container *ngIf="selectedTab == 'subAssetPartTab'">
               <span class="p-float-label mx-2">
                 <p-dropdown
-                      placeholder="" 
-                      optionLabel="name" 
+                      placeholder=""
+                      optionLabel="name"
                       optionValue="id"
                       [options]="subAssetType$ | async"
                       (onChange)="subAssetTypeChanges($event.value)">
@@ -45,17 +45,20 @@
               </span>
               <span class="p-float-label ">
                 <p-dropdown
-                      placeholder="" 
-                      optionLabel="name" 
+                      placeholder=""
+                      optionLabel="name"
                       optionValue="id"
                       [options]="subAssetPartCategory$ | async"
                       (onChange)="subAssetCategoryChanges($event.value)">
                 </p-dropdown>
               </span>
             </ng-container>
-            <button class="btn-filter text-center">
-              <img src='assets/icons/filter.png' class="filter-button">
+            <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+              <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
             </button>
+<!--            <button class="btn-filter text-center">-->
+<!--              <img src='assets/icons/filter.png' class="filter-button">-->
+<!--            </button>-->
               <div class="search-box">
                   <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
                   <button>
@@ -67,10 +70,10 @@
               </button>
           </span>
           <div title="tabs.asset" id="assetPartTab">
-              <app-table (onPagination)="eventPagination_accumulatedPartOfAsset()" pagination="asset-accumulated-part-list" [setting]="tableAssetPart" [tableData]="tableAssetPartData$"></app-table>
+              <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['assetPartTab']" (customFilterEvent)="customFilterEvent($event, 'assetPartTab')" (onPagination)="eventPagination_accumulatedPartOfAsset()" pagination="asset-accumulated-part-list" [setting]="tableAssetPart" [tableData]="tableAssetPartData$"></app-table>
           </div>
           <div title="tabs.sub_asset" id="subAssetPartTab">
-              <app-table (onPagination)="eventPagination_accumulatedPartOfSubAsset()" pagination="subasset-accumulated-part-list" [setting]="tableSubAssetPart" [tableData]="tableSubAssetPartData$"></app-table>
+              <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['subAssetPartTab']" (customFilterEvent)="customFilterEvent($event, 'subAssetPartTab')" (onPagination)="eventPagination_accumulatedPartOfSubAsset()" pagination="subasset-accumulated-part-list" [setting]="tableSubAssetPart" [tableData]="tableSubAssetPartData$"></app-table>
           </div>
       </app-tab-view>
     </div>

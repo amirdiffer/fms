@@ -4,6 +4,9 @@
 </div>
 <div class="table-container component_wrapper">
   <div class="search-container card-table-header">
+    <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+      <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+    </button>
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
         <button>
@@ -15,5 +18,5 @@
       </button>
       <button  *hasPermission="['ACCESSORY_VIEW_LIST_OWN' , 'ACCESSORY_VIEW_LIST_OTHERS']" class="btn-primary-small" routerLink="add-new-accessory"><i>+</i><a>{{'search.add' | translate}}</a></button>
   </div>
-  <app-table *hasPermission="['ACCESSORY_ADD']" searchInput="searchInput" (onPagination)="eventPagination()" pagination="accessory" [setting]='accessory_Table' [tableData]="accessory$"></app-table>
+  <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" *hasPermission="['ACCESSORY_ADD']" searchInput="searchInput" (onPagination)="eventPagination()" pagination="accessory" [setting]='accessory_Table' [tableData]="accessory$"></app-table>
 </div>

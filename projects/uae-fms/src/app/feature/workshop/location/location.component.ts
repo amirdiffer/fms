@@ -1,4 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
@@ -6,6 +5,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BodyShopLocationFacade } from '../+state/body-shop/location';
 import { ServiceShopLocationFacade } from '../+state/service-shop/location';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-location',
@@ -14,6 +14,8 @@ import { ServiceShopLocationFacade } from '../+state/service-shop/location';
 })
 export class LocationComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = [];
   bodyshop = [];
   serviceshop = [];
 
@@ -21,10 +23,12 @@ export class LocationComponent implements OnInit {
   locationData$ = this.locationData.asObservable();
 
   tableSetting: TableSetting = {
+    name: 'workshop_location',
     columns: [
       {
         lable: 'tables.column.location_id',
-        field: 'locationId'
+        field: 'locationId',
+        filterApiKey: 'id'
       },
       {
         lable: 'tables.column.services',
@@ -34,7 +38,8 @@ export class LocationComponent implements OnInit {
       {
         lable: 'tables.column.address',
         field: 'address',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        filterApiKey: 'address'
       },
       {
         lable: 'tables.column.job_card',
@@ -52,7 +57,9 @@ export class LocationComponent implements OnInit {
         lable: 'tables.column.type',
         field: 'type',
         type: ColumnType.lable,
-        sortable: true
+        sortable: true,
+        filterApiKey: 'shopType',
+        filterType: FilterType.status
       },
       {
         lable: '',
@@ -80,7 +87,10 @@ export class LocationComponent implements OnInit {
                 data.id
             ]);
           },
-          permission: ['WORKSHOP_BODY_SHOP_LOCATION_UPDATE' , 'WORKSHOP_SERVICE_SHOP_LOCATION_UPDATE']
+          permission: [
+            'WORKSHOP_BODY_SHOP_LOCATION_UPDATE',
+            'WORKSHOP_SERVICE_SHOP_LOCATION_UPDATE'
+          ]
         }
         /* {
           button: 'external',
@@ -105,6 +115,7 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this.bodyshopFacadeLocation.bodyShop$
       .pipe(
         map((x) => {
@@ -157,4 +168,19 @@ export class LocationComponent implements OnInit {
   }
 
   exportTable() {}
+
+  setFiltersColumns() {
+    let removeField = ['service', 'technician', 'jobCard'];
+    let filtersColumns = Object.values({ ...this.tableSetting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
+    this.bodyshopFacadeLocation.loadAll();
+    this.serviceshopFacadeLocation.loadAll();
+  }
 }

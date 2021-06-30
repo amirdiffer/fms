@@ -490,7 +490,6 @@ export enum ButtonType {
   playAndPause
 }
 
-
 export enum FilterType {
   list = 'list',
   checkbox_list = 'checkbox_list',
@@ -498,7 +497,8 @@ export enum FilterType {
   range_date = 'range_date',
   number = 'number',
   string = 'string',
-  boolean = 'boolean'
+  boolean = 'boolean',
+  status = 'status'
 }
 
 export interface FloatButtonType {

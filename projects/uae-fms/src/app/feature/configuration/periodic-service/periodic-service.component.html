@@ -1,6 +1,9 @@
 <div class="table-container component_wrapper" >
   <div class="card-table">
     <div class="card-table-header">
+      <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+        <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+      </button>
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
         <button><img class="search-icon" src="assets/icons/search-solid.svg" alt=""></button>
@@ -10,7 +13,7 @@
       </button>
       <button  *hasPermission="['PERIODIC_SERVICE_ADD']" class="btn-primary-small" [routerLink]="'./add-periodic-service'"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
     </div>
-    <app-table  *hasPermission="['PERIODIC_SERVICE_VIEW_LIST']"  searchInput="searchInput" (onPagination)="eventPagination()" pagination="periodic-service" [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
+    <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" *hasPermission="['PERIODIC_SERVICE_VIEW_LIST']"  searchInput="searchInput" (onPagination)="eventPagination()" pagination="periodic-service" [setting]="tableSetting" [tableData]="periodicServices$"></app-table>
   </div>
 </div>
 <alert-dialog [settings]="dialogCancelSetting" [displayModal]="displayCancelModal" (confirm)="dialogConfirm($event)">

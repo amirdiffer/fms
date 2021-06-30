@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilterCardSetting } from '@core/filter';
 import { TableSetting } from '@core/table';
-import { ButtonType, ColumnType } from '@core/table/table.component';
+import { ColumnType, FilterType } from '@core/table/table.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestListFacade } from '@feature/part-store/+state/order-list/request/index';
 import { Observable, Subscription } from 'rxjs';
@@ -20,6 +20,12 @@ export class OrderListComponent implements OnInit, OnDestroy {
   chooseReuqestId: number;
   activeTab = 'request_list';
   orderListType = 'asset';
+  showCustomFilter = false;
+  filtersColumns = {
+    request_list: [],
+    my_order: [],
+    suppliers: []
+  };
 
   requestStatisticsSubscription: Subscription;
   orderStatisticsSubscription: Subscription;
@@ -107,14 +113,22 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ];
 
   requestList_Table: TableSetting = {
+    name: 'partStore_request',
     columns: [
-      { lable: 'tables.column.item', type: ColumnType.lable, field: 'Item' },
+      {
+        lable: 'tables.column.item',
+        type: ColumnType.lable,
+        field: 'Item',
+        filterApiKey: 'name'
+      },
       { lable: 'tables.column.part_id', type: 1, field: 'Part_ID' },
       {
         lable: 'tables.column.status',
         type: ColumnType.lable,
         field: 'Status',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'status',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.quantity',
@@ -136,7 +150,9 @@ export class OrderListComponent implements OnInit, OnDestroy {
         lable: 'tables.column.date',
         type: ColumnType.lable,
         field: 'Date',
-        sortable: true
+        sortable: true,
+        filterApiKey: 'createdAt',
+        filterType: FilterType.range_date
       },
       {
         lable: '',
@@ -209,11 +225,13 @@ export class OrderListComponent implements OnInit, OnDestroy {
     }
   };
   myOrder_Table: TableSetting = {
+    name: 'partStore_order',
     columns: [
       {
         lable: 'tables.column.item',
         type: ColumnType.lable,
-        field: 'Item'
+        field: 'Item',
+        filterApiKey: 'name'
       },
       {
         lable: 'tables.column.part_id',
@@ -223,7 +241,9 @@ export class OrderListComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.status',
         type: ColumnType.lable,
-        field: 'Status'
+        field: 'Status',
+        filterApiKey: 'status',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.quantity',
@@ -234,12 +254,15 @@ export class OrderListComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.date',
         type: ColumnType.lable,
-        field: 'Date'
+        field: 'Date',
+        filterApiKey: 'createdAt',
+        filterType: FilterType.range_date
       },
       {
         lable: 'tables.column.description',
         type: ColumnType.lable,
-        field: 'Description'
+        field: 'Description',
+        filterApiKey: 'description'
       },
       {
         lable: 'tables.column.cost',
@@ -309,19 +332,37 @@ export class OrderListComponent implements OnInit, OnDestroy {
   };
 
   suppliers_Table: TableSetting = {
+    name: 'partStore_suppliers',
     columns: [
       {
         lable: 'tables.column.company',
         type: ColumnType.lable,
-        field: 'company'
+        field: 'company',
+        filterApiKey: 'companyName'
       },
-      { lable: 'tables.column.name', type: ColumnType.lable, field: 'name' },
-      { lable: 'tables.column.email', type: ColumnType.lable, field: 'email' },
-      { lable: 'tables.column.phone', type: ColumnType.lable, field: 'phone' },
+      {
+        lable: 'tables.column.name',
+        type: ColumnType.lable,
+        field: 'name',
+        filterApiKey: 'agentName'
+      },
+      {
+        lable: 'tables.column.email',
+        type: ColumnType.lable,
+        field: 'email',
+        filterApiKey: 'agentEmail'
+      },
+      {
+        lable: 'tables.column.phone',
+        type: ColumnType.lable,
+        field: 'phone',
+        filterApiKey: 'agentPhoneNumber'
+      },
       {
         lable: 'tables.column.address',
         type: ColumnType.lable,
-        field: 'address'
+        field: 'address',
+        filterApiKey: 'address'
       },
       {
         lable: '',
@@ -356,6 +397,9 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns_my_order();
+    this.setFiltersColumns_request_list();
+    this.setFiltersColumns_suppliers();
     this._requestListFacade.reset();
     let activateRoute = this._activatedRoute.snapshot.url;
     this.orderListType = activateRoute[activateRoute.length - 1].path;
@@ -633,6 +677,61 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.requestStatisticsSubscription.unsubscribe();
     this.orderStatisticsSubscription.unsubscribe();
+  }
+
+  setFiltersColumns_request_list() {
+    let removeField = ['Department', 'Part_ID', 'Quantity'];
+    let filtersColumns = Object.values({ ...this.requestList_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.request_list = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_my_order() {
+    let removeField = ['Cost', 'Part_ID', 'Quantity'];
+    let filtersColumns = Object.values({ ...this.myOrder_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.my_order = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_suppliers() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.suppliers_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.suppliers = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'request_list': {
+        if (this.orderListType == 'asset') {
+          this._requestListFacade.loadRequestPartforAsset();
+        } else {
+          this._requestListFacade.loadRequestPartforSubAsset();
+        }
+        break;
+      }
+      case 'my_order': {
+        if (this.orderListType == 'asset') {
+          this._facadeOrderList.loadOrderPartforAsset();
+        } else {
+          this._facadeOrderList.loadOrderPartforSubAsset();
+        }
+        break;
+      }
+      case 'suppliers': {
+        this._supplierListFacade.loadAll();
+        break;
+      }
+    }
   }
 }
 

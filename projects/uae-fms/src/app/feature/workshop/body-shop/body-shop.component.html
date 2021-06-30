@@ -6,6 +6,9 @@
   <div class="table-container component_wrapper">
     <app-tab-view (selectedIndex)="selectedTab=$event" [count]="[requestCount$ , jobCardCount$ , technicianCount$, locationCount$]">
       <span class="search-container card-table-header">
+        <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+          <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+        </button>
         <div class="search-box">
           <input id="searchInput" type="text" placeholder="{{'search.search_in_columns' | translate}}">
           <button>
@@ -30,14 +33,14 @@
 
       </span>
       <div title="tabs.requests" id="requestTab" *hasPermission="['WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OWN' , 'WORKSHOP_BODY_SHOP_REQUEST_OF_ASSET_VIEW_LIST_OTHERS']">
-        <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="body-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>
+        <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['requestTab']" (customFilterEvent)="customFilterEvent($event, 'requestTab')" searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="body-shop_request" [setting]="table1Setting" [tableData]="requestData$"></app-table>
       </div>
       <div title="tabs.job_card" id="jobcardTab" *hasPermission="['WORKSHOP_BODY_SHOP_JOB_CARD_VIEW_LIST']">
         <!-- <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="body-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table> -->
-        <app-table searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="body-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
+        <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['jobcardTab']" (customFilterEvent)="customFilterEvent($event, 'jobcardTab')" searchInput="searchInput" (onPagination)="eventPagination_jobcard()" pagination="body-shop_jobcard" [setting]="table2Setting" [tableData]="jobCardData$"></app-table>
       </div>
       <div title="tabs.technician" id="technicianTab" *hasPermission="['WORKSHOP_BODY_SHOP_TECHNICIAN_VIEW_LIST']">
-        <app-table searchInput="searchInput" (onPagination)="eventPagination_technician()" pagination="body-shop_technician" [setting]="table3Setting" [tableData]="technicianData$"></app-table>
+        <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['technicianTab']" (customFilterEvent)="customFilterEvent($event, 'technicianTab')" searchInput="searchInput" (onPagination)="eventPagination_technician()" pagination="body-shop_technician" [setting]="table3Setting" [tableData]="technicianData$"></app-table>
       </div>
       <!-- <div title="tabs.location" id="locationTab" *hasPermission="['WORKSHOP_BODY_SHOP_LOCATION_VIEW_LIST']">
         <app-table searchInput="searchInput" (onPagination)="eventPagination_location()" pagination="body-shop_location" [setting]="table4Setting" [tableData]="locationData$"></app-table>
