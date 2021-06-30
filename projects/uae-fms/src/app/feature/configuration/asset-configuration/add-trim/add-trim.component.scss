@@ -1,6 +1,6 @@
 @import '../../../../../themes/green-theme';
 @import '../../../../../assets/scss/form-section.scss';
-.form-section{
+.form-section {
   margin: 0 auto !important;
 }
 
@@ -34,6 +34,7 @@
   border-width: 0.2px;
   border-style: solid;
   cursor: pointer;
+  flex-wrap: wrap;
 }
 
 .car-icon {
@@ -64,6 +65,14 @@
   margin-top: 2px;
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.trim-box {
+  margin: 1rem 0;
+  border-bottom: 1px solid #ccc;
+  &:last-child {
+    border-bottom: unset;
+  }
 }
 
 .main-content {

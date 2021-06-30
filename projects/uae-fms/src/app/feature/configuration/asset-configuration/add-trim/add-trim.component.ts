@@ -6,7 +6,13 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Make } from '@models/asset-type.model';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { AssetTypeFacade } from '../../+state/fleet-configuration/asset-type';
@@ -119,11 +125,20 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
                 if (this.isEditing) {
                   let trims = {
                     name: models.trims.find((y) => y.id == this.id).name,
-                    colors: models.trims.find((y) => y.id == this.id).colors
+                    colors: models.trims.find((y) => y.id == this.id).colors,
+                    origins: models.trims.find((y) => y.id == this.id).origins
                   };
                   this.trims.controls[0].patchValue({
                     trim: trims.name
                   });
+                  for (let index = 0; index < trims.origins.length; index++) {
+                    this.origins(0).controls[index].patchValue(
+                      trims.origins[index]
+                    );
+                    if (index + 1 !== trims.origins.length) {
+                      this.addOrigin(0);
+                    }
+                  }
                   for (let index = 0; index < trims.colors.length; index++) {
                     this.colors(0).controls[index].patchValue({
                       id: trims.colors[index].id,
@@ -146,19 +161,31 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       if (x) {
         this.successDialog = true;
         if (this.isEditing) {
-          const editDialog = this.dialogService.show('success', 'Edit Trim',
-            'Trim Edited Successfully', 'OK', '');
-          editDialog.dialogClosed$.subscribe(result => {
+          const editDialog = this.dialogService.show(
+            'success',
+            'Edit Trim',
+            'Trim Edited Successfully',
+            'OK',
+            ''
+          );
+          editDialog.dialogClosed$.subscribe((result) => {
             if (result === 'confirm') {
               this.facade.resetParams();
-              this.router.navigate(['/configuration/asset-configuration']).then();
+              this.router
+                .navigate(['/configuration/asset-configuration'])
+                .then();
             }
           });
           return;
         }
-        const addDialog = this.dialogService.show('success', 'Add new trim',
-          'Trim Added Successfully', 'OK', '');
-        addDialog.dialogClosed$.subscribe(result => {
+        const addDialog = this.dialogService.show(
+          'success',
+          'Add new trim',
+          'Trim Added Successfully',
+          'OK',
+          ''
+        );
+        addDialog.dialogClosed$.subscribe((result) => {
           if (result === 'confirm') {
             this.facade.resetParams();
             this.router.navigate(['/configuration/asset-configuration']).then();
@@ -169,9 +196,14 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
 
     this.facade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this.dialogService.show('danger', 'Add new trim',
-          'Error occurred in progress', 'OK', '');
-        dialog.dialogClosed$.subscribe(result => {
+        const dialog = this.dialogService.show(
+          'danger',
+          'Add new trim',
+          'Error occurred in progress',
+          'OK',
+          ''
+        );
+        dialog.dialogClosed$.subscribe((result) => {
           if (result === 'confirm') {
           } else {
           }
@@ -185,13 +217,19 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     return trims.controls[index].get('colors') as FormArray;
   }
 
+  origins(index: number): FormArray {
+    const trims = this.inputForm.get('trims') as FormArray;
+    return trims.controls[index].get('origins') as FormArray;
+  }
+
   createTrim(isOptional?: boolean): FormGroup {
     if (isOptional) {
       return this._fb.group({
         id: '',
         trim: '',
         description: 'Something about the trim.',
-        colors: new FormArray([this.createColor()])
+        colors: new FormArray([this.createColor()]),
+        origins: new FormArray([this.createOrigin()])
       });
     }
     return this._fb.group({
@@ -199,7 +237,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       trim: ['', Validators.required],
       description: 'Something about the trim.',
       colors: new FormArray([this.createColor()]),
-      origins: []
+      origins: new FormArray([this.createOrigin()])
     });
   }
 
@@ -208,6 +246,23 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
       name: 'FFFFFF',
       hexColor: 'FFFFFF'
     });
+  }
+
+  createOrigin(): FormControl {
+    return this._fb.control('', Validators.required);
+  }
+
+  addOrigin(index: number): void {
+    const trims = this.inputForm.get('trims') as FormArray;
+    if (trims.controls[index].get('origins').invalid) {
+      trims.controls[index].get('origins').markAllAsTouched();
+      return;
+    }
+    this.origins(index).push(this.createOrigin());
+  }
+
+  removeOrigin(index: number): void {
+    this.origins(index).removeAt(this.origins(index).length - 1);
   }
 
   addColor(index: number): void {
@@ -243,9 +298,14 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
     docControl.setValue(docId);
   }
   cancel() {
-    const dialog = this.dialogService.show('warning', 'Add new trim',
-      'Are you sure to cancel adding new type ?', 'Yes', 'No');
-    dialog.dialogClosed$.subscribe(result => {
+    const dialog = this.dialogService.show(
+      'warning',
+      'Add new trim',
+      'Are you sure to cancel adding new type ?',
+      'Yes',
+      'No'
+    );
+    dialog.dialogClosed$.subscribe((result) => {
       if (result === 'confirm') {
         this.router.navigate(['/configuration/asset-configuration']).then();
       }
@@ -272,7 +332,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
           id: this.id,
           name: trim.trim,
           description: trim.description,
-          origins: ['Germany'],
+          origins: trim.origins,
           colors: trim.colors
         });
       }
@@ -299,7 +359,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
             description: x.description,
             meterType: 'KILOMETER',
             meterValue: 10,
-            origins: ['Germany'],
+            origins: x.origins,
             colors: x.colors.map((y) => {
               return {
                 name: y.name,
@@ -313,7 +373,7 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
             description: x.description,
             meterType: 'KILOMETER',
             meterValue: 10,
-            origins: ['Germany'],
+            origins: x.origins,
             colors: x.colors.map((y) => {
               return {
                 name: y.name,
