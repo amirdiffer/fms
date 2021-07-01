@@ -118,7 +118,14 @@
           </div>
         </div>
         <div class="row form-section__row">
-          <div class="col-12 col-md-6 p-field form-section__field"
+          <div class="col-12 col-md-4 p-field form-section__field">
+            <span class="p-float-label">
+              <input formControlName="userName" pInputText
+                placeholder="{{ 'forms.username' | translate }} *" type="text">
+              <label>{{ 'forms.username' | translate }} *</label>
+            </span>
+          </div>
+          <div class="col-12 col-md-4 p-field form-section__field"
             formArrayName='emails'>
             <span class="p-float-label mb-4" *ngFor='let _ of emails.controls; let
               index= index' [formGroupName]='index'>
@@ -143,7 +150,7 @@
               </anms-error>
             </span>
           </div>
-          <div class="col-12 col-md-6 p-field form-section__field"
+          <div class="col-12 col-md-4 p-field form-section__field"
             formArrayName='phoneNumbers'>
             <span class="p-float-label mb-4" *ngFor='let _ of phoneNumbers.controls;
               let index= index'

@@ -190,6 +190,7 @@ export class AddUserComponent
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
+                userName: x.userName,
                 callCheckbox: x.notifyByCall,
                 smsCheckbox: x.notifyBySMS,
                 whatsappCheckbox: x.notifyByWhatsApp,
@@ -285,6 +286,7 @@ export class AddUserComponent
       personalInformation: this.formBuilder.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
+        userName: [''],
         emails: new FormArray([this.createEmailField()]),
         phoneNumbers: new FormArray([this.createPhoneField()]),
         callCheckbox: false,
@@ -489,6 +491,7 @@ export class AddUserComponent
     this.form.controls['personalInformation'].patchValue({
       firstName: $event.nameEn,
       lastName: $event.name,
+      userName: $event.userName,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
     });

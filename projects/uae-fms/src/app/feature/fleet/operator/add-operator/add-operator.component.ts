@@ -165,6 +165,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
+                userName: x.userName,
                 callCheckbox: x.notifyByCall,
                 smsCheckbox: x.notifyBySMS,
                 emailCheckbox: x.notifyByEmail,
@@ -286,6 +287,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         lastName: ['', [Validators.required]],
         emails: new FormArray([this.createEmailField()]),
         phoneNumbers: new FormArray([this.createPhoneField()]),
+        userName: [''],
         callCheckbox: false,
         smsCheckbox: false,
         emailCheckbox: false,
@@ -472,6 +474,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.form.controls['personalInformation'].patchValue({
       firstName: $event.nameEn,
       lastName: $event.name,
+      userName: $event.userName,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
     });

@@ -521,7 +521,8 @@
       "number_of_tickets": "عدد التذاكر",
       "total_fine": "إجمالي الغرامة",
       "plate_code": "رمز اللوحة",
-      "plate_source": "مصدر اللوحة"
+      "plate_source": "مصدر اللوحة",
+      "username":"اسم االمستخدم"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -1981,7 +1982,8 @@
     "apply": "تطبيق",
     "operator_list": "قائمة المشغل",
     "receive": "الواردة",
-    "request": "الطلب"
+    "request": "الطلب",
+    "username":"اسم االمستخدم"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",

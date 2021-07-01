@@ -190,6 +190,7 @@ export class ServiceShopComponent implements OnInit {
             id: y.user.id
             // picture: 'assets/user-image.png',
           },
+          userName: y.user.userName,
           skill: y.skills.map((s) => s.name).join(','),
           status: 'Available',
           tasks: y.numOfTasks,
@@ -414,6 +415,12 @@ export class ServiceShopComponent implements OnInit {
         field: 'skill',
         width: 180,
         type: ColumnType.lable
+      },
+      {
+        lable: 'tables.column.username',
+        field: 'userName',
+        type: ColumnType.lable,
+        textColor: '#6870B4'
       },
       {
         lable: 'tables.column.status',

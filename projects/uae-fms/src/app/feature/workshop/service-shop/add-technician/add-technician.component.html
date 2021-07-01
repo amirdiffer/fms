@@ -292,7 +292,18 @@
           </div>
         </div>
         <div class="row form-section__row">
-          <div class="col-lg-6 form-group">
+          <div class="col-12 col-md-4">
+            <div class="form-group form-group p-field form-section__field">
+              <div class="input-group">
+                <span class="p-float-label w-100">
+                  <input type="text" class="form-control" formControlName="userName"
+                    placeholder="{{ 'forms.username' | translate }}" disabled>
+                  <label>{{ 'forms.username' | translate }}</label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 form-group">
             <div class="input-group" formArrayName="email">
               <div class="p-field form-section__field w-100"
                   *ngFor="let email of emails.controls; let i=index; let last=last;">
@@ -319,7 +330,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 form-group">
+          <div class="col-12 col-md-4 form-group">
             <div class="input-group d-flex w-100 flex-wrap" formArrayName="phoneNumber">
               <div class="p-field form-section__field w-100"
                 *ngFor="let number of phoneNumbers.controls; let i=index; let last=last;">

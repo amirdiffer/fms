@@ -95,6 +95,12 @@ export class UsersComponent implements OnInit {
         field: 'isActive',
         renderer: 'booleanRenderer'
       },
+      {
+        lable: 'tables.column.username',
+        type: 1,
+        field: 'userName',
+        renderer: ''
+      },
       { lable: 'tables.column.role', type: 1, field: 'roleName' },
       {
         lable: '',

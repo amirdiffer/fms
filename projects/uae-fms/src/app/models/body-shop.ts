@@ -81,6 +81,7 @@ export interface User {
   employeeNumber: string;
   firstName: string;
   lastName: string;
+  userName?:string;
   profileDocId: number;
   department: Department;
   emails: string[];

@@ -580,7 +580,8 @@
       "number_of_tickets": "Number of tickets",
       "total_fine": "Total fine",
       "plate_code": "Plate Code",
-      "plate_source": "Plate Source"
+      "plate_source": "Plate Source",
+      "username":"User Name"
     },
     "button": {
       "view_report": "View Report",
@@ -2065,7 +2066,8 @@
     "apply": "Apply",
     "operator_list": "Operator List",
     "receive": "Receive",
-    "request": "Request"
+    "request": "Request",
+    "username":"User Name"
   },
   "login": {
     "incorrect_password": "Incorrect Password",

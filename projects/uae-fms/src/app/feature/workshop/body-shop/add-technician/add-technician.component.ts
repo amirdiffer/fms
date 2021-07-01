@@ -66,7 +66,8 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           technician: {
             firstName: y.user.firstName,
             lastName: y.user.lastName,
-            id: y.user.id
+            id: y.user.id,
+            userName: y.user.userName,
             // picture: 'assets/user-image.png',
           },
           skill: y.skills.map((s) => s.name).join(','),
@@ -323,6 +324,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
           this.inputForm.controls['personalInfo'].patchValue({
             firstName: x.user.firstName,
             lastName: x.user.lastName,
+            userName: x.user.userName,
             callCheckbox: false,
             smsCheckbox: false,
             whatsappCheckbox: false,
@@ -359,6 +361,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
             .get('firstName')
             .markAsDirty();
           this.inputForm.controls['personalInfo'].get('lastName').markAsDirty();
+          this.inputForm.controls['personalInfo'].get('userName').markAsDirty();
           this.emails.controls[0].markAsDirty();
         }
       });
@@ -383,6 +386,7 @@ export class AddTechnicianComponent extends Utility implements OnInit {
       personalInfo: this._fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
+        userName: [''],
         email: this._fb.array([this._fb.control('', [Validators.required])]),
         phoneNumber: this._fb.array([
           this._fb.control('', [Validators.required])
@@ -590,11 +594,13 @@ export class AddTechnicianComponent extends Utility implements OnInit {
     this.inputForm.get('personalInfo').patchValue({
       phoneNumber: [$event.mobileNumber],
       email: [$event.emailAddress],
+      userName: $event.userName,
       firstName: $event.nameEn,
       lastName: $event.name
     });
     this.inputForm.get('personalInfo.firstName').markAsDirty();
     this.inputForm.get('personalInfo.lastName').markAsDirty();
+    this.inputForm.get('personalInfo.userName').markAsDirty();
     this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
     this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
   }

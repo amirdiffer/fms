@@ -257,6 +257,7 @@ export class AddTechnicianServiceShopComponent
               this.inputForm.controls['personalInfo'].patchValue({
                 firstName: x.user.firstName,
                 lastName: x.user.lastName,
+                userName: x.user.userName,
                 callCheckbox: false,
                 smsCheckbox: false,
                 whatsappCheckbox: false,
@@ -296,6 +297,9 @@ export class AddTechnicianServiceShopComponent
                 .markAsDirty();
               this.inputForm.controls['personalInfo']
                 .get('lastName')
+                .markAsDirty();
+              this.inputForm.controls['personalInfo']
+                .get('userName')
                 .markAsDirty();
               this.emails.controls[0].markAsDirty();
             }
@@ -387,6 +391,7 @@ export class AddTechnicianServiceShopComponent
       personalInfo: this._fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
+        userName: [''],
         email: this._fb.array([this._fb.control('', [Validators.required])]),
         phoneNumber: this._fb.array([
           this._fb.control('', [Validators.required])
@@ -593,11 +598,13 @@ export class AddTechnicianServiceShopComponent
     this.inputForm.get('personalInfo').patchValue({
       phoneNumber: [$event.mobileNumber],
       email: [$event.emailAddress],
+      userName: $event.userName,
       firstName: $event.nameEn,
       lastName: $event.name
     });
     this.inputForm.get('personalInfo.firstName').markAsDirty();
     this.inputForm.get('personalInfo.lastName').markAsDirty();
+    this.inputForm.get('personalInfo.userName').markAsDirty();
     this.inputForm.get('personalInfo.email')['controls'][0].markAsDirty();
     this.inputForm.get('personalInfo.phoneNumber')['controls'][0].markAsDirty();
   }
