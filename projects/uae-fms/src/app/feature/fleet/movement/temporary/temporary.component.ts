@@ -13,7 +13,11 @@ import { MovementConfirmComponent } from '../movement-confirm/movement-confirm.c
 import { MovementOverviewFacadeTemporary } from '@feature/fleet/+state/movement/temporary/overview/movement-overview.facade';
 import { MovementRequestsFacadeTemporary } from '@feature/fleet/+state/movement/temporary/requests/movement-requests.facade';
 import { map, tap } from 'rxjs/operators';
-import { ButtonType, TableComponent } from '@core/table/table.component';
+import {
+  ButtonType,
+  FilterType,
+  TableComponent
+} from '@core/table/table.component';
 import { Utility } from '@shared/utility/utility';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,6 +33,11 @@ export class TemporaryComponent
   implements OnInit, AfterViewChecked {
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = {
+    MovementOverViewTab: [],
+    requestTab: []
+  };
   filterSetting = [
     {
       filterTitle: 'statistic.total',
@@ -145,6 +154,7 @@ export class TemporaryComponent
   );
 
   requestTableSetting = {
+    name: 'movement_temporary_request',
     columns: [
       {
         lable: 'tables.column.user',
@@ -152,7 +162,9 @@ export class TemporaryComponent
         width: 140,
         type: 1,
         thumbField: '',
-        renderer: 'assetsRenderer'
+        renderer: 'assetsRenderer',
+        filterApiKey: 'requester',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.movement_type',
@@ -160,7 +172,9 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'movementType',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.request_type',
@@ -168,7 +182,9 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'requestType',
+        filterType: FilterType.status
       },
       {
         lable: 'tables.column.asset_type',
@@ -176,7 +192,9 @@ export class TemporaryComponent
         width: 70,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'assetConfiguration',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.reason',
@@ -184,7 +202,9 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'reason',
+        filterType: FilterType.string
       },
       {
         lable: 'tables.column.date',
@@ -192,7 +212,9 @@ export class TemporaryComponent
         width: 120,
         type: 1,
         thumbField: '',
-        renderer: 'doubleLineRenderer'
+        renderer: '',
+        filterApiKey: 'createdAt',
+        filterType: FilterType.range_date
       },
       {
         lable: 'tables.column.request_status',
@@ -200,7 +222,9 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'status',
+        filterType: FilterType.status
       },
       {
         lable: '',
@@ -246,6 +270,7 @@ export class TemporaryComponent
   };
 
   movementOverViewTableSetting = {
+    name: 'movement_temporary_overview',
     columns: [
       {
         lable: 'tables.column.asset',
@@ -253,7 +278,9 @@ export class TemporaryComponent
         width: 140,
         type: 1,
         thumbField: '',
-        renderer: 'assetsRenderer'
+        renderer: 'assetsRenderer',
+        filterApiKey: 'asset',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.duration',
@@ -277,7 +304,9 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: '',
+        filterApiKey: 'organization',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.operator',
@@ -285,7 +314,9 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: 'subtextRenderer'
+        renderer: 'subtextRenderer',
+        filterApiKey: 'operator',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.fine',
@@ -315,7 +346,7 @@ export class TemporaryComponent
     private dialog: MatDialog,
     private _movementOverviewFacade: MovementOverviewFacadeTemporary,
     private _movementRequestsFacade: MovementRequestsFacadeTemporary,
-    private _dialogService : DialogService,
+    private _dialogService: DialogService,
     injector: Injector
   ) {
     super(injector);
@@ -323,6 +354,8 @@ export class TemporaryComponent
   }
 
   ngOnInit(): void {
+    this.setFiltersColumns_overviewTab();
+    this.setFiltersColumns_requestTab();
     this._movementRequestsFacade.loadRequestStatistic();
     this._movementRequestsFacade.MovementRequestStatistic.subscribe((x) => {
       if (x) {
@@ -383,33 +416,41 @@ export class TemporaryComponent
 
     this._movementRequestsFacade.rejected$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' ,
+        const dialog = this._dialogService.show(
+          'success',
           'Reject Request',
-          'The Request Rejected Successfully','Ok')
-          const dialogClose$:Subscription = dialog.dialogClosed$
+          'The Request Rejected Successfully',
+          'Ok'
+        );
+        const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
-            if (result === 'confirm') {
-              this._movementRequestsFacade.loadAll();
-            }
-            dialogClose$?.unsubscribe();
+              if (result === 'confirm') {
+                this._movementRequestsFacade.loadAll();
+              }
+              dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
       }
     });
     this._movementRequestsFacade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' ,
+        const dialog = this._dialogService.show(
+          'danger',
           'Request',
-          'We Have Some Error','Ok')
-          const dialogClose$:Subscription = dialog.dialogClosed$
+          'We Have Some Error',
+          'Ok'
+        );
+        const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
-            if (result === 'confirm') {
-            }
-            dialogClose$?.unsubscribe();
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
       }
     });
   }
@@ -485,16 +526,58 @@ export class TemporaryComponent
   reject(data) {
     if (data?.id) {
       this.rejectId = data.id;
-      const dialog = this._dialogService.show('warning' , 'Reject request' , 'Are you sure you want to reject this request?' , 'Yes','Cancel')
-      const dialogClose$:Subscription = dialog.dialogClosed$
-      .pipe(
-        tap((result) => {
-        if (result === 'confirm') {
-          this._movementRequestsFacade.rejecting(this.rejectId);
-        }
-        dialogClose$?.unsubscribe();
-        })
-      ).subscribe();
+      const dialog = this._dialogService.show(
+        'warning',
+        'Reject request',
+        'Are you sure you want to reject this request?',
+        'Yes',
+        'Cancel'
+      );
+      const dialogClose$: Subscription = dialog.dialogClosed$
+        .pipe(
+          tap((result) => {
+            if (result === 'confirm') {
+              this._movementRequestsFacade.rejecting(this.rejectId);
+            }
+            dialogClose$?.unsubscribe();
+          })
+        )
+        .subscribe();
+    }
+  }
+
+  setFiltersColumns_requestTab() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.requestTableSetting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.requestTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_overviewTab() {
+    let removeField = ['duration', 'startDate', 'fine', 'reason'];
+    let filtersColumns = Object.values({
+      ...this.movementOverViewTableSetting.columns
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.MovementOverViewTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'requestTab': {
+        this._movementRequestsFacade.loadAll();
+        break;
+      }
+      case 'MovementOverViewTab': {
+        this._movementOverviewFacade.loadAll();
+        break;
+      }
     }
   }
 }

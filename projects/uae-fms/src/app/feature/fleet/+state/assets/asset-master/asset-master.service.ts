@@ -6,10 +6,15 @@ import { environment } from '@environments/environment';
 import { IAssetMaster, IAssetOverview } from '@models/asset-master.model';
 import { ResponseBody } from '@models/responseBody';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Injectable()
 export class AssetMasterService {
-  constructor(private _http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(
+    private _http: HttpClient,
+    private _tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   params = new HttpParams();
   getParam(name) {
@@ -23,9 +28,33 @@ export class AssetMasterService {
     return this.params;
   }
 
+  getFilter() {
+    let removeFilterKey = [];
+    this._tableFacade.getFiltersByName('assetMaster').subscribe((x) => {
+      let filter = '';
+      if (x != null) {
+        let value: object[] = x.value ? Object.values(x.value) : [];
+        value.forEach((y) => {
+          if (y['value'] && y['value'] != '') {
+            let filterApiKey = y['filterApiKey']
+              ? y['filterApiKey']
+              : y['name'];
+            if (!removeFilterKey.includes(filterApiKey)) {
+              let b = this._tblFilterService.convertData(y);
+              filter = filter + b + ';';
+            }
+          }
+        });
+      }
+      this.params = this.params.set('filter', filter);
+    });
+  }
+
   loadAll(): Observable<ResponseBody<IAssetMaster[]>> {
+    this.getFilter();
     return this._http.get<ResponseBody<IAssetMaster[]>>(
-      environment.baseApiUrl + 'asset'
+      environment.baseApiUrl + 'asset',
+      { params: this.getParam('asset_asset-master') }
     );
   }
 

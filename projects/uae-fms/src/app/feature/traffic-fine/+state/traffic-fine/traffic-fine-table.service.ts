@@ -11,12 +11,17 @@ import {
   IGetVehicleInfoByPlateNumber
 } from './traffic-fine-table.entity';
 import { ITrafficFineVehicleInfo } from '@models/pending-registration.model';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Injectable()
 export class TrafficFineTableService {
   params = new HttpParams();
 
-  constructor(private http: HttpClient, private tableFacade: TableFacade) {}
+  constructor(
+    private http: HttpClient,
+    private tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   getParam(name) {
     this.tableFacade.getPaginationByName(name).subscribe((x) => {
@@ -29,7 +34,30 @@ export class TrafficFineTableService {
     return this.params;
   }
 
+  getFilter() {
+    let removeFilterKey = [];
+    this.tableFacade.getFiltersByName('trafficFine').subscribe((x) => {
+      let filter = '';
+      if (x != null) {
+        let value: object[] = x.value ? Object.values(x.value) : [];
+        value.forEach((y) => {
+          if (y['value'] && y['value'] != '') {
+            let filterApiKey = y['filterApiKey']
+              ? y['filterApiKey']
+              : y['name'];
+            if (!removeFilterKey.includes(filterApiKey)) {
+              let b = this._tblFilterService.convertData(y);
+              filter = filter + b + ';';
+            }
+          }
+        });
+      }
+      this.params = this.params.set('filter', filter);
+    });
+  }
+
   loadAll(): Observable<ResponseBody<ITrafficFine[]>> {
+    this.getFilter();
     return this.http.get<ResponseBody<ITrafficFine[]>>(
       environment.baseApiUrl + 'traffic-fine/traffic-number',
       { params: this.getParam('traffic-fine') }
@@ -70,9 +98,19 @@ export class TrafficFineTableService {
     );
   }
 
-  getFinesOfSpecificFileNumber(id: number, page= 0, size = 5): Observable<ResponseBody<any>> {
+  getFinesOfSpecificFileNumber(
+    id: number,
+    page = 0,
+    size = 5
+  ): Observable<ResponseBody<any>> {
     return this.http.get<ResponseBody<any>>(
-      environment.baseApiUrl + 'traffic-fine/traffic-number/' + id + '?page=' + page + '&sort=createdAt,desc&size=' + size
+      environment.baseApiUrl +
+        'traffic-fine/traffic-number/' +
+        id +
+        '?page=' +
+        page +
+        '&sort=createdAt,desc&size=' +
+        size
     );
   }
 }

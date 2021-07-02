@@ -521,7 +521,9 @@
       "number_of_tickets": "عدد التذاكر",
       "total_fine": "إجمالي الغرامة",
       "plate_code": "رمز اللوحة",
-      "plate_source": "مصدر اللوحة"
+      "plate_source": "مصدر اللوحة",
+      "firstname": "الاسم الأول",
+      "lastname": "الكنية"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -2083,5 +2085,24 @@
         "need_part_request_description": "وصف الطلب"
       }
     }
+  },
+  "status": {
+    "PERMANENT": "دائم",
+    "I_SERV": "IServ",
+    "TEMPORARY": "مؤقت",
+    "NEW": "جديد",
+    "REPLACEMENT": "إستبدال",
+    "REQUESTED": "طلبات",
+    "body-shop": "ورشة الصيانة",
+    "service-shop": "متجر الخدمة",
+    "Active": "مفعل",
+    "Inactive": "غير مفعل",
+    "JUST_REGISTERED": "مسجل",
+    "RECEIVED": "تم الاستلام",
+    "ARCHIVED": "مؤرشف",
+    "EXTERNAL": "خارجي",
+    "RENT": "إيجار",
+    "DEMO": "تجريبي",
+    "OWNED": "مملوكة"
   }
 }

@@ -66,6 +66,21 @@ const TableReducer = createReducer(
     st[i] = copyData;
     return ({...state, pagination: st})
   }),
+  on(TableActions.filters_initial, (state, { name, value }) => {
+    let st = state;
+    if(filters_existByName(state, name) == null) {
+      st = ({ ...state, filters: [...state.filters, { name: name, value: value }] })
+    }
+    return st
+  }),
+  on(TableActions.filters, (state, {name, value}) => {
+    let i = filters_getIndex(state, name);
+    let st = [...state.filters];
+    let copyData = Object.assign({}, st[i]);
+    copyData.value = value;
+    st[i] = copyData;
+    return ({...state, filters: st})
+  }),
 );
 
 const existByName = (state, name) => {
@@ -75,6 +90,16 @@ const existByName = (state, name) => {
 
 const getIndex = (state, name) => {
   let st = [...state.pagination];
+  return  st.findIndex(x => x.name === name);
+}
+
+const filters_existByName = (state, name) => {
+  let st = [...state.filters];
+  return  st.find(x => x.name === name);
+}
+
+const filters_getIndex = (state, name) => {
+  let st = [...state.filters];
   return  st.findIndex(x => x.name === name);
 }
 

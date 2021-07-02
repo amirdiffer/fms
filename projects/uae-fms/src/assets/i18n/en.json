@@ -580,7 +580,9 @@
       "number_of_tickets": "Number of tickets",
       "total_fine": "Total fine",
       "plate_code": "Plate Code",
-      "plate_source": "Plate Source"
+      "plate_source": "Plate Source",
+      "firstname": "First Name",
+      "lastname": "Last Name"
     },
     "button": {
       "view_report": "View Report",
@@ -2178,5 +2180,24 @@
         "need_part_request_description": "Request description"
       }
     }
+  },
+  "status": {
+    "PERMANENT": "Permanent",
+    "I_SERV": "IServ",
+    "TEMPORARY": "Temporary",
+    "NEW": "New",
+    "REPLACEMENT": "Replacement",
+    "REQUESTED": "Requested",
+    "body-shop": "Body Shop",
+    "service-shop": "Service Shop",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "JUST_REGISTERED": "Just Registered",
+    "RECEIVED": "Received",
+    "ARCHIVED": "Archived",
+    "EXTERNAL": "External",
+    "RENT": "Rent",
+    "DEMO": "Demo",
+    "OWNED": "Owned"
   }
 }

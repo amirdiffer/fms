@@ -5,6 +5,7 @@ import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessoryFacade } from '../+state/accessory';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-accessory',
@@ -14,9 +15,11 @@ import { AccessoryFacade } from '../+state/accessory';
 export class AccessoryComponent implements OnInit, OnDestroy {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
+  showCustomFilter = false;
   downloadBtn = 'assets/icons/download-solid.svg';
   searchIcon = 'assets/icons/search-solid.svg';
   accessorySubscription$: Subscription;
+  filtersColumns = [];
   //#region Filters
   filterCard: FilterCardSetting[] = [
     {
@@ -52,18 +55,23 @@ export class AccessoryComponent implements OnInit, OnDestroy {
 
   //#region Table
   accessory_Table: TableSetting = {
+    name: 'accessory',
     columns: [
       {
         lable: 'tables.column.item',
         type: 2,
         field: 'Item',
-        thumbField:'avatarId'
-     },
+        thumbField: 'avatarId',
+        filterApiKey: 'itemName',
+        filterType: FilterType.string
+      },
       {
         lable: 'tables.column.assigned_to',
         type: 1,
-        field: 'Assigned_To'
-     },
+        field: 'Assigned_To',
+        filterApiKey: 'assignedToEmployee',
+        filterType: FilterType.string
+      },
       {
         lable: '',
         field: 'floatButton',
@@ -105,15 +113,16 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   accessory$ = this._accessoryFacade.accessory$.pipe(
     map((x) =>
       x.map((item) => ({
-          id: item.id,
-          avatarId: item.avatarId,
-          statusColor: '#00AFB9',
-          Item: item.itemName,
-          Type: item.assignedToType === 'ASSET' ? 'Asset' : 'Sub Asset',
-          Asset_SubAsset: item.assignedToEntity,
-          Assigned_To: item.assignedToEmployeeId,
-          Quantity: item.quantity
-        })))
+        id: item.id,
+        avatarId: item.avatarId,
+        statusColor: '#00AFB9',
+        Item: item.itemName,
+        Type: item.assignedToType === 'ASSET' ? 'Asset' : 'Sub Asset',
+        Asset_SubAsset: item.assignedToEntity,
+        Assigned_To: item.assignedToEmployeeId,
+        Quantity: item.quantity
+      }))
+    )
   );
   //#endregion
 
@@ -123,6 +132,7 @@ export class AccessoryComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this._accessoryFacade.loadStatistics();
     this.accessorySubscription$ = this._accessoryFacade.statistics$.subscribe(
       (data) => {
@@ -154,5 +164,19 @@ export class AccessoryComponent implements OnInit, OnDestroy {
       Quantity: 'Quantity'
     };
     this.table.exportTable(this.accessory_Table, 'Accessories', filter);
+  }
+
+  setFiltersColumns() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.accessory_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
+    this._accessoryFacade.loadAll();
   }
 }

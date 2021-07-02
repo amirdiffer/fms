@@ -34,6 +34,7 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
   // selectedTab: number = 0;
   selectedParams;
   routeObsvr$: Subscription;
+  intervalCheckInitialize;
 
   constructor(
     private _router: Router,
@@ -43,28 +44,25 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.elements = this.element.nativeElement.children;
-      let tabs = [];
-      if (this.elements.length > 0) {
-        for (let i = 0; i < this.elements.length; i++) {
-          let tabID = this.elements[i].attributes.getNamedItem('id');
-          tabs.push({
-            index: i,
-            title: this.elements[i].attributes.getNamedItem('title').nodeValue,
-            id: tabID ? tabID.nodeValue : null,
-            // count: this.index
-            //   ? this.elements[i].attributes.getNamedItem('count') != null
-            //     ? this.elements[i].attributes.getNamedItem('count').nodeValue
-            //     : null
-            //   : null
-            count: this.count ? this.count[i] : null
-          });
-          this.elements[i].attributes.removeNamedItem('title')
-        }
+  initialize() {
+    this.elements = this.element.nativeElement.children;
+    let tabs = [];
+    if (this.elements.length > 0) {
+      for (let i = 0; i < this.elements.length; i++) {
+        let tabID = this.elements[i].attributes.getNamedItem('id');
+        tabs.push({
+          index: i,
+          title: this.elements[i].attributes.getNamedItem('title').nodeValue,
+          id: tabID ? tabID.nodeValue : null,
+          // count: this.index
+          //   ? this.elements[i].attributes.getNamedItem('count') != null
+          //     ? this.elements[i].attributes.getNamedItem('count').nodeValue
+          //     : null
+          //   : null
+          count: this.count ? this.count[i] : null
+        });
+        this.elements[i].attributes.removeNamedItem('title');
       }
-
       this.tabs = tabs;
       this.initialized = true;
       this.routeObsvr$ = this._activateRoute.queryParams.subscribe((id) => {
@@ -77,7 +75,17 @@ export class TabViewComponent implements OnInit, OnDestroy, AfterViewInit {
           this.returnId == 'title' ? this.selectedParams : this.selectedTab
         );
       });
-    }, 0);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.intervalCheckInitialize = setInterval(() => {
+      if (this.initialized) {
+        clearInterval(this.intervalCheckInitialize);
+      } else {
+        this.initialize();
+      }
+    }, 100);
   }
   selectedTabChanged() {
     for (let i = 0; i < this.elements.length; i++) {
