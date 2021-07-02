@@ -147,7 +147,7 @@
         </div>
 
         <div class='col-12 col-md-3 p-field form-section__field'>
-          <anms-uploader [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="false"
+          <anms-uploader [iconIsHidden]="true" [multiple]="false" [title]="" [preview]="true"
             (uploadedEvent)="uploadWarrantyFiles($event,i)" [files]="[warrantyDocs[i]]">
           </anms-uploader>
 
@@ -205,7 +205,7 @@
       </div>
     </div>
     <div *ngIf="!isSingleAsset" class="second-step-upload-box">
-      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'"
+      <anms-uploader [files]="csvDoc" [readCSVFile]="true" [multiple]="false" [preview]="true" [accept]="'.csv'"
         [hasError]="subAssetDocRequired" (uploadedEvent)="uploadDocFiles($event)" (csvTextEvent)="csvReader($event)">
       </anms-uploader>
     </div>

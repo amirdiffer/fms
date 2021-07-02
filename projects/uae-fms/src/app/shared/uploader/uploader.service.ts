@@ -23,7 +23,7 @@ export class UploaderService {
   }
 
   getDoc(id) {
-    return this._http.get(environment.baseApiUrl + `document/${id}`);
+    return this._http.get(environment.baseApiUrl + `document/${id}` , {observe: 'response' , responseType: 'blob'})
   }
 
   getCSVfile(id) {

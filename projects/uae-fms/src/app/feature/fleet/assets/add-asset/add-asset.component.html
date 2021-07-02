@@ -215,7 +215,7 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="false" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)" ></anms-uploader>
+                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="true" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)" ></anms-uploader>
                     </div>
                     <!-- end form-section -->
                   </form>
@@ -329,7 +329,7 @@
                         </div>
                         <div class="form-section component_wrapper">
                           <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
-                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="false" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
+                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="true" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
                         </div>
                       </div>
                       <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
@@ -453,7 +453,7 @@
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="false" [hasError]="(formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.errors !== null) && formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.touched" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
+                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="true" [hasError]="(formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.errors !== null) && formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.touched" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -524,7 +524,7 @@
                             </anms-error>
                           </div>
                         </div>
-                        <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+                        <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="true" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
                       </div>
                       <div class="form-section">
                         <div class="row form-section__row">

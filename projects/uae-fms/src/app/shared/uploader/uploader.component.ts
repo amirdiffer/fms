@@ -20,13 +20,16 @@ import {
 } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
+import { resolve } from 'path';
+import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'anms-uploader',
   templateUrl: './uploader.component.html',
   styleUrls: ['./uploader.component.scss']
 })
-export class UploaderComponent implements OnInit {
+export class UploaderComponent implements OnInit , OnChanges{
   @Input() hasError = false;
   @Input() maxSize = 5120;
   @Input() uploaderName = '';
@@ -83,6 +86,15 @@ export class UploaderComponent implements OnInit {
       this.files = []
     }
   }
+  ngOnChanges(){
+    if(this.files.length>0){
+      this.files = this.files.map(x => {
+        if(x){
+          return {id: x , type: this.getFileType(x)}
+        }
+      })
+    }
+  }
 
   public dropped(files: NgxFileDropEntry[], option: string, index?: number) {
     this.filesUpdloaded = files;
@@ -113,7 +125,9 @@ export class UploaderComponent implements OnInit {
     if (this.files) {
       this.uploadedEvent.emit({
         name: this.uploaderName,
-        files: this.files,
+        files: this.files.map(x => {
+          return x.id ? x.id : x
+        }),
         index: index
       });
     }
@@ -145,6 +159,7 @@ export class UploaderComponent implements OnInit {
     this.filesUploadSuccess = 0;
     this.filesUploadError = 0;
     this.isUploading = true;
+    let id;
     this._uploaderService.uploadDoc(this.formData).subscribe(
       (event: HttpEvent<any>) => {
         switch (event.type) {
@@ -167,11 +182,12 @@ export class UploaderComponent implements OnInit {
         if (event instanceof HttpResponse) {
           if (!event.body.error) {
             if (!this.multiple) this.files = [];
-            this.files.push(event.body.message.id);
+            id = event.body.message.id;
+            this.files.push({id :id , type: this.getFileType(id) });
             if (this.readCSVFile) {
               this.getValueCSV(event.body.message.id);
             }
-            this.fileImage = `${event.url}/${event.body.message.id}`;
+            this.fileImage = `${event.url}/${id}`;
             this.filesUploadSuccess++;
             this.progressBarValue = 0;
             this.setFiles(indexUploadBox);
@@ -182,7 +198,8 @@ export class UploaderComponent implements OnInit {
         this.isUploading = false;
         this.progressBarValue = 0;
         this.filesUploadError++;
-      }
+      },
+
     );
   }
 
@@ -201,5 +218,43 @@ export class UploaderComponent implements OnInit {
   }
   showImage() {
     this.imageModal = true;
+  }
+  getFileType(id:number):Observable<string>{
+    return this.getFile(id).pipe(map(x => {
+      return x.body.type
+    }))
+  }
+
+  findContentType(contentType:string, id:number){
+    if(contentType && contentType !== null){
+      switch (true) {
+        case contentType.includes('excel'):
+          return 'assets/icons/file-excel.svg'
+        case contentType.includes('sheet'):
+          return 'assets/icons/file-excel.svg'
+        case contentType.includes('pdf'):
+          return 'assets/icons/file-pdf.svg'
+        case contentType.includes('csv'):
+          return 'assets/icons/file-csv.svg'
+        default: 
+          return 'assets/icons/file-alt.svg'
+      }
+    }
+  }
+  findContentTypeColor(contentType:string){
+    if(contentType && contentType !== null){
+      switch (true) {
+        case contentType.includes('excel'):
+          return '#1d6f42'
+        case contentType.includes('sheet'):
+          return '#1d6f42'
+        case contentType.includes('pdf'):
+          return '#F40F02'
+        case contentType.includes('csv'):
+          return '#1d6f42'
+        default: 
+          return '#808080'
+      }
+    }
   }
 }
