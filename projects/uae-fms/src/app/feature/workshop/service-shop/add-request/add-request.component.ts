@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,12 +17,13 @@ import { Location } from '@angular/common';
 import { AssetSearchThroughFacade } from '@feature/fleet/+state/assets/search-through';
 import { ServiceShopRequestFacade, ServiceShopRequestService } from '@feature/workshop/+state/service-shop/request';
 import { DialogService } from '@core/dialog/dialog-template.component';
+import { Utility } from '@shared/utility/utility';
 @Component({
   selector: 'workshop-add-request',
   templateUrl: './add-request.component.html',
   styleUrls: ['./add-request.component.scss']
 })
-export class AddRequestServiceShopComponent implements OnInit {
+export class AddRequestServiceShopComponent extends Utility implements OnInit {
 
   activePriority: string = 'high';
   progressBarValue = 50;
@@ -43,7 +44,11 @@ export class AddRequestServiceShopComponent implements OnInit {
   getAssetsList = new Subject();
   assetId: any;
   profileDocIds: number[] = [];
+  get assetIdFormControl() {
+    return this.inputForm.get('assetId') as FormControl;
+  }
   constructor(
+    injector: Injector,
     private _fb: FormBuilder,
     private _serviceShopRequestService: ServiceShopRequestService,
     private _router: Router,
@@ -53,7 +58,7 @@ export class AddRequestServiceShopComponent implements OnInit {
     private _assetSearchThrough: AssetSearchThroughFacade,
     private _location: Location,
     private _dialogService : DialogService
-  ) {}
+  ) {super(injector);}
 
   ngOnInit(): void {
     this._assetSearchThrough.loadAvailableAssetForAddingRequest();
@@ -186,7 +191,7 @@ export class AddRequestServiceShopComponent implements OnInit {
       //   asset: [''],
       //   gpsMeterSource: ['', Validators.required]
       // }),
-      assetId: ['', Validators.required],
+      assetId: ['',Validators.compose([Validators.required , this.autocompleteAssetIDValidation])],
       hasAccident: [false],
       accidentType: ['MINOR'],
       jobType: ['NORMAL'],
@@ -293,5 +298,26 @@ export class AddRequestServiceShopComponent implements OnInit {
       return;
     }
     this.profileDocIds = $event.files;
+  }
+
+   /* Custom validation */
+   autocompleteAssetIDValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
+    }
   }
 }

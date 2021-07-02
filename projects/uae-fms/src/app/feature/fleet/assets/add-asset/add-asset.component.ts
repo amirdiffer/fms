@@ -56,8 +56,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   id: number;
   departmentList: any[];
   departmentFiltered: any[];
-  sectionFiltered: any[];
-  sectionList: any[];
+  sectionFiltered: any[]=[];
+  sectionList: any[] =[];
   departmentId;
   sectionId;
   policyTypeTableData$ = new BehaviorSubject<any>([]);
@@ -106,6 +106,14 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   
   get color(){
     return this.formGroupAssetDetail.get('assetDetails.color') as FormControl;
+  }
+
+  /* Autocomplete formControl */
+  get department() {
+    return this.formGroupAssetDetail.get('purchasedFor.department') as FormControl;
+  }
+  get section() {
+    return this.formGroupAssetDetail.get('purchasedFor.section') as FormControl;
   }
 
   // Upload Files
@@ -549,8 +557,8 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
         meterType: ['KILOMETER']
       }),
       purchasedFor: this._fb.group({
-        department: ['', Validators.compose([Validators.required])],
-        section: ['', Validators.compose([Validators.required])],
+        department: ['', Validators.compose([Validators.required , this.autocompleteDepartmentValidation])],
+        section: ['', Validators.compose([Validators.required , this.autocompleteSectionValidation])],
         operator: ['', Validators.compose([Validators.required])]
       }),
       uploadFile: ['', Validators.compose([Validators.required])]
@@ -1274,6 +1282,36 @@ export class AddAssetComponent extends Utility implements OnInit, OnDestroy {
   sectionChanged($event) {
     if (typeof $event != 'object') return;
     this.sectionId = $event.id;
+  }
+
+  /* Custom validation */
+  autocompleteDepartmentValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.organizationName;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteSectionValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
+    }
   }
 
   ngOnDestroy(): void {

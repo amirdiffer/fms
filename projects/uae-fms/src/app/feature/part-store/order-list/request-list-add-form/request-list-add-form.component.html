@@ -21,6 +21,8 @@
           </span>
           <anms-error [showError]="hasError('fleet',form,submited)"
             error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="autocompleteErrorMessage(fleet) && submited"
+            error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
       <div class="col-4 p-field form-section__field options-select">
@@ -46,6 +48,8 @@
           </span>
           <anms-error [showError]="hasError('item',form,submited)"
             error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="autocompleteErrorMessage(item) && submited"
+            error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
     </div>
@@ -70,6 +74,8 @@
           </span>
           <anms-error [showError]="hasError('technician',form,submited)"
             error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="autocompleteErrorMessage(technician) && submited"
+            error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
     </div>
