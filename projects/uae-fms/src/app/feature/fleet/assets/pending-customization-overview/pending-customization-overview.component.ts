@@ -6,10 +6,10 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AssetMasterService } from '../../+state/assets/asset-master';
 import { CustomizationService } from '../../+state/assets/customization';
-import { SubAssetService } from '../../+state/sub-asset';
-import { AccessoryService } from '../../+state/accessory';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogService } from '@core/dialog/dialog-template.component';
+import { SubAssetSearchThroughFacade } from '@feature/fleet/+state/sub-asset/search-through';
+import { AccessorySearchThroughFacade } from '@feature/fleet/+state/accessory/search-through';
 
 @Component({
   selector: 'anms-pending-customization-overview',
@@ -35,21 +35,13 @@ export class PendingCustomizationOverviewComponent implements OnInit {
   customizationData$: Observable<any>;
   customizationData;
   customizationForm: FormGroup;
+  modelId;
   outp = {
     subAssets: [],
     accessories: []
   };
   assetId: number;
-  subAsset$ = this.subAssetService.loadFullList().pipe(
-    map((x) => {
-      return x.message.map((y) => ({ ...y, id: y.id, itemName: y.modelName }));
-    })
-  );
-  accessory$ = this.accessoryService.loadFullList().pipe(
-    map((x) => {
-      return x.message.map((y) => ({ ...y, id: y.id, itemName: y.itemName }));
-    })
-  );
+
 
   subAsset: any[];
   _subAsset: any[];
@@ -68,11 +60,11 @@ export class PendingCustomizationOverviewComponent implements OnInit {
     private service: AssetMasterService,
     private fb: FormBuilder,
     private cusService: CustomizationService,
-    private subAssetService: SubAssetService,
-    private accessoryService: AccessoryService,
     private router: Router,
-    private _dialogService : DialogService
-  ) {}
+    private _dialogService : DialogService,
+    private _searchTroughtSubasset: SubAssetSearchThroughFacade,
+    private _searchTroughtAccessory: AccessorySearchThroughFacade,
+  ) {this._searchTroughtAccessory.loadAvailableAccessory()}
 
   ngOnInit(): void {
     this.pickData$.subscribe((x) => {
@@ -123,12 +115,12 @@ export class PendingCustomizationOverviewComponent implements OnInit {
       data: []
     };
 
-    this.subAsset$.subscribe((x) => {
+    this._searchTroughtSubasset.searchSubAsset$.subscribe((x) => {
       this.subAsset = x;
       this._subAsset = x;
       this.pickData.next('subAsset');
     });
-    this.accessory$.subscribe((x) => {
+    this._searchTroughtAccessory.searchAccessory$.subscribe((x) => {
       this.accessory = x;
       this._accessory = x;
       this.pickData.next('accessory');
@@ -141,7 +133,6 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           .getAssetByID(x.id + '/customization')
           .pipe(
             map((a) => {
-              console.log(a)
               if (a && a.message) {
                 this.customizationData = a.message;
                 this.customizationData.subAssets.forEach((e) => {
@@ -186,6 +177,7 @@ export class PendingCustomizationOverviewComponent implements OnInit {
           .getAssetByID(x.id + '/summary/customization')
           .pipe(
             map((z) => {
+              this._searchTroughtSubasset.loadAvailableSubAssetWithModelId(z.message.modelId)
               return z;
             })
           );
