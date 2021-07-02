@@ -43,6 +43,8 @@
             </span>
             <anms-error [showError]="hasError('item',form,formSubmitted)"
               error="forms.feedback.required"></anms-error>
+            <anms-error [showError]="autocompleteErrorMessage(item) && formSubmitted"
+              error="forms.feedback.autocomplete_select"></anms-error>
           </div>
         </div>
         <div class='col-4 p-field form-section__field options-select'>

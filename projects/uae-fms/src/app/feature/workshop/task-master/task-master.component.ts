@@ -13,7 +13,10 @@ export class TaskMasterComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   searchIcon = 'assets/icons/search-solid.svg';
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = [];
   tableSetting = {
+    name: 'workshop_taskMaster',
     columns: [
       {
         lable: 'tables.column.task_name',
@@ -119,7 +122,9 @@ export class TaskMasterComponent implements OnInit {
 
   constructor(private _facade: TaskMasterFacade, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setFiltersColumns();
+  }
 
   eventPagination() {
     this._facade.loadAll();
@@ -135,5 +140,19 @@ export class TaskMasterComponent implements OnInit {
       part: 'part'
     };
     this.table.exportTable(this.tableSetting, 'TaskMaster', filter);
+  }
+
+  setFiltersColumns() {
+    let removeField = [];
+    let filtersColumns = Object.values({ ...this.tableSetting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
+    this._facade.loadAll();
   }
 }

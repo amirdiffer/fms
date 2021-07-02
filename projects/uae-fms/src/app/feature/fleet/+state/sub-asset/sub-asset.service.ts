@@ -6,10 +6,17 @@ import { ResponseBody } from '@models/response-body';
 import { environment } from '@environments/environment';
 import { ISubAssetStatistics } from '@models/statistics';
 import { TableFacade } from '@core/table/+state/table.facade';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
+import { ColumnDifinition } from '@core/table';
+import { FilterType } from '@core/table/table.component';
 
 @Injectable()
 export class SubAssetService {
-  constructor(private http: HttpClient, private _tableFacade: TableFacade) { }
+  constructor(
+    private http: HttpClient,
+    private _tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   params = new HttpParams();
   getParam(name) {
@@ -23,7 +30,30 @@ export class SubAssetService {
     return this.params;
   }
 
+  getFilter() {
+    let removeFilterKey = ['sub-asset-type', 'MakeName'];
+    this._tableFacade.getFiltersByName('sub-asset').subscribe((x) => {
+      let filter = '';
+      if (x != null) {
+        let value: object[] = x.value ? Object.values(x.value) : [];
+        value.forEach((y) => {
+          if (y['value'] && y['value'] != '') {
+            let filterApiKey = y['filterApiKey']
+              ? y['filterApiKey']
+              : y['name'];
+            if (!removeFilterKey.includes(filterApiKey)) {
+              let b = this._tblFilterService.convertData(y);
+              filter = filter + b + ';';
+            }
+          }
+        });
+      }
+      this.params = this.params.set('filter', filter);
+    });
+  }
+
   loadAll(): Observable<ResponseBody<ISubasset[]>> {
+    this.getFilter();
     return this.http.get<ResponseBody<ISubasset[]>>(
       environment.baseApiUrl + 'sub-asset',
       { params: this.getParam('sub-asset') }

@@ -1,5 +1,8 @@
 <div class="table-container">
   <div class="card-table-header">
+    <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+      <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+    </button>
     <div class="search-box">
       <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
       <button>
@@ -12,6 +15,6 @@
     <button  *hasPermission="['OWNERSHIP_ADD']" class="btn-primary-small" [routerLink]="['add-ownership']"><i>+</i><a>{{ 'forms.add' | translate }}</a></button>
   </div>
   <div class="table-wreapper" *hasPermission="['OWNERSHIP_VIEW_LIST']">
-    <app-table searchInput="searchInput" (onPagination)="eventPagination()" pagination="ownership" [setting]='ownerShip_Table' [tableData]="ownerShip$"></app-table>
+    <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns" (customFilterEvent)="customFilterEvent($event)" searchInput="searchInput" (onPagination)="eventPagination()" pagination="ownership" [setting]='ownerShip_Table' [tableData]="ownerShip$"></app-table>
   </div>
 </div>

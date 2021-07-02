@@ -32,8 +32,11 @@
                                                 | translate}}</label>
                                         </span>
                                     </div>
-                                    <small class="red-font" [class.d-none]="!inputForm.controls['assetId'].invalid || !submited">{{'workshop.body_shop.requests.asset_validation_error'
-                                        | translate}}</small>
+                                    <anms-error [showError]="hasError('assetId',inputForm,submited)"
+                                        error="forms.feedback.required"></anms-error>
+
+                                    <anms-error [showError]="autocompleteErrorMessage(assetIdFormControl) && submited"
+                                        error="forms.feedback.autocomplete_select"></anms-error>
                                 </div>
                             </div>
                         </div>
@@ -267,7 +270,7 @@
                                     for="urgent"
                                     (click)="changePriority('URGENT')">
                                     <svg-icon
-                                        src="../../../../../assets/icons/flag-solid.svg"
+                                        src="assets/icons/flag-solid.svg"
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#F75A4A' , 'height': '100%', 'opacity':
                                         activePriority == 'URGENT' ? 1 : 0.2}"></svg-icon>
@@ -282,7 +285,7 @@
                                 <label class="form-check-label flag" for="high"
                                     (click)="changePriority('HIGH')">
                                     <svg-icon
-                                        src="../../../../../assets/icons/flag-solid.svg"
+                                        src="assets/icons/flag-solid.svg"
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#FCB614' , 'height': '100%', 'opacity':
                                         activePriority == 'HIGH' ? 1 : 0.2}"></svg-icon>
@@ -298,7 +301,7 @@
                                     for="normal"
                                     (click)="changePriority('NORMAL')">
                                     <svg-icon
-                                        src="../../../../../assets/icons/flag-solid.svg"
+                                        src="assets/icons/flag-solid.svg"
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#00CBB2' , 'height': '100%', 'opacity':
                                         activePriority == 'NORMAL' ? 1 : 0.2}"></svg-icon>
@@ -313,7 +316,7 @@
                                 <label class="form-check-label flag" for="low"
                                     (click)="changePriority('LOW')">
                                     <svg-icon
-                                        src="../../../../../assets/icons/flag-solid.svg"
+                                        src="assets/icons/flag-solid.svg"
                                         [svgStyle]="{ 'width.px':24 , 'fill':
                                         '#707070' , 'height': '100%', 'opacity':
                                         activePriority == 'LOW' ? 1 : 0.2}"></svg-icon>

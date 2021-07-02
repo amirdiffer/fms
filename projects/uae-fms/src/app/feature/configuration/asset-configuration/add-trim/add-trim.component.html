@@ -11,7 +11,7 @@
           <h3
             class='form-section__title'>{{ (isEditing ? ('configuration.asset_configuration.edit_trim_for' | translate) : ('configuration.asset_configuration.add_trim_for' | translate)) + ' ' + selectedMake + ' ' + selectedModel }}</h3>
           <div formArrayName='trims'>
-            <div class='d-flex col-12 h-100' *ngFor='let trim of trims.controls; let index = index'
+            <div class='d-flex row h-100 trim-box' *ngFor='let trim of trims.controls; let index = index'
                  [formGroupName]='index'>
               <div class='col-6'>
                 <div class='row form-section__row mx-0'>
@@ -24,7 +24,7 @@
                     <svg-icon src='assets/icons/add.svg'
                               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
                   </span>
-                  <div class='col-12 col-md-6 p-field form-section__field'>
+                  <div class='col p-field form-section__field'>
                     <div class='autocomplete-select'>
                   <span class='p-float-label'>
                     <input formControlName='trim' pInputText
@@ -36,7 +36,34 @@
                     </div>
                   </div>
                 </div>
-                <div class='d-flex' formArrayName='colors'>
+                <div formArrayName='origins'>
+                  <p class='mt-1 font-weight-bold'>{{'filter.origin' | translate}}</p>
+                  <div class='' *ngFor='let origin of origins(index).controls;let q = index'>
+                    <div class='row form-section__row mx-0'>
+                      <span class='remove-icon mt-1' (click)='removeOrigin(index)'  *ngIf='origins(index).controls.length != q + 1'>
+                        <svg-icon src='assets/icons/add.svg'
+                                  [svgStyle]="{ 'width.px':18 , 'fill': '#F75A4A' , 'height': '100%', 'transform': 'rotate(45deg)'}">
+                        </svg-icon>
+                      </span>
+                      <span class='plus-icon mt-1' (click)='addOrigin(index);submited = true;' *ngIf='origins(index).controls.length == q + 1'>
+                        <svg-icon src='assets/icons/add.svg'
+                                  [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}"></svg-icon>
+                      </span>
+                      <div class='col p-field form-section__field'>
+                        <div class='autocomplete-select'>
+                          <span class='p-float-label'>
+                            <input [formControlName]='q' pInputText
+                                   placeholder="{{ 'filter.origin' | translate }} *" type='text'>
+                            <label>{{ 'filter.origin' | translate }} *</label>
+                          </span>
+                          <anms-error [showError]="formArrayHasError(submited, origins(index), index)"
+                                      error='forms.feedback.required'></anms-error>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='d-flex my-3' formArrayName='colors'>
                   <p class='mt-1 font-weight-bold'>{{'filter.colors' | translate}}</p>
                   <span class='color-circle mb-2 ml-2 mr-2' *ngFor='let color of colors(index).controls; let j = index'
                         [formGroupName]='j'

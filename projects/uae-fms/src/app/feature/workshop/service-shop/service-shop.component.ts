@@ -9,7 +9,7 @@ import { TableSetting, ColumnType } from '@core/table';
 import { map } from 'rxjs/operators';
 import moment from 'moment';
 import { Event, Router } from '@angular/router';
-import { TableComponent } from '@core/table/table.component';
+import { FilterType, TableComponent } from '@core/table/table.component';
 
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ServiceShopLocationFacade } from '../+state/service-shop/location';
@@ -23,6 +23,12 @@ import { ServiceShopRequestFacade } from '../+state/service-shop/request';
 export class ServiceShopComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = {
+    requestTab: [],
+    jobcardTab: [],
+    technicianTab: []
+  };
   filterSetting: FilterCardSetting[] = [
     {
       filterCount: '',
@@ -230,6 +236,7 @@ export class ServiceShopComponent implements OnInit {
 
   //#region Tables
   table1Setting: TableSetting = {
+    name: 'serviceShop_request',
     columns: [
       {
         lable: 'tables.column.asset',
@@ -237,27 +244,36 @@ export class ServiceShopComponent implements OnInit {
         width: '18em',
         thumbField: '',
         type: ColumnType.lable,
-        renderer: 'assetsRenderer'
+        renderer: 'assetsRenderer',
+        filterApiKey: 'asset',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.plate_number',
         field: 'plateNumber',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        filterApiKey: 'plateNumber'
       },
       {
         lable: 'tables.column.department',
         field: 'department',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        filterApiKey: 'department',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.operator_name',
         field: 'operatorName',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        filterApiKey: 'operator',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.asset_type',
         field: 'assetTypeName',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        filterApiKey: 'assetConfiguration',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.number_of_request',
@@ -321,6 +337,7 @@ export class ServiceShopComponent implements OnInit {
   };
 
   table2Setting: TableSetting = {
+    name: 'serviceShop_jobCard',
     columns: [
       {
         lable: 'tables.column.asset',
@@ -328,7 +345,9 @@ export class ServiceShopComponent implements OnInit {
         width: '18em',
         thumbField: '',
         type: ColumnType.lable,
-        renderer: 'assetsRenderer'
+        renderer: 'assetsRenderer',
+        filterApiKey: 'asset',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.start_date',
@@ -343,7 +362,9 @@ export class ServiceShopComponent implements OnInit {
       {
         lable: 'tables.column.location',
         field: 'location',
-        type: ColumnType.lable
+        type: ColumnType.lable,
+        filterApiKey: 'location',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.cost',
@@ -374,8 +395,7 @@ export class ServiceShopComponent implements OnInit {
     ],
     data: [],
     rowSettings: {
-      onClick: (col, data) => {
-      },
+      onClick: (col, data) => {},
       floatButton: [
         {
           button: 'external',
@@ -402,6 +422,7 @@ export class ServiceShopComponent implements OnInit {
   };
 
   table3Setting: TableSetting = {
+    name: 'serviceShop_technician',
     columns: [
       {
         lable: 'tables.column.technician',
@@ -440,7 +461,9 @@ export class ServiceShopComponent implements OnInit {
         field: 'ratePerHour',
         type: ColumnType.lable,
         width: 100,
-        sortable: true
+        sortable: true,
+        filterType: FilterType.string,
+        filterApiKey: 'payPerHour'
       },
       {
         lable: '',
@@ -483,6 +506,7 @@ export class ServiceShopComponent implements OnInit {
   };
 
   table4Setting: TableSetting = {
+    name: 'serviceShop_location',
     columns: [
       { lable: 'tables.column.location_id', field: 'locationId', width: 200 },
       {
@@ -594,6 +618,9 @@ export class ServiceShopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns_jobcardTab();
+    this.setFiltersColumns_technicianTab();
+    this.setFiltersColumns_requestTab();
     // this._facadeRequest.loadStatistics();
     this._facadeRequest.statistics$.subscribe((x) => {
       if (x) {
@@ -720,5 +747,58 @@ export class ServiceShopComponent implements OnInit {
 
   eventPagination_location() {
     this._facadeLocation.loadAll();
+  }
+
+  setFiltersColumns_requestTab() {
+    let removeField = ['numberOfActiveRequests'];
+    let filtersColumns = Object.values({ ...this.table1Setting.columns });
+    filtersColumns.splice(2, 0, {
+      lable: 'tables.column.organization',
+      field: 'organization',
+      filterApiKey: 'organization',
+      filterType: FilterType.list
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.requestTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_jobcardTab() {
+    let removeField = ['startDate', 'endDate', 'cost', 'technician'];
+    let filtersColumns = Object.values({ ...this.table2Setting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.jobcardTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  setFiltersColumns_technicianTab() {
+    let removeField = ['technician', 'skill', 'status', 'tasks', 'information'];
+    let filtersColumns = Object.values({ ...this.table3Setting.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns.technicianTab = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[], tab) {
+    switch (tab) {
+      case 'requestTab': {
+        this._facadeRequest.loadAll();
+        break;
+      }
+      case 'jobcardTab': {
+        this._facadeJobCard.loadAll();
+        break;
+      }
+      case 'technicianTab': {
+        this._facadeTechnician.loadAll();
+        break;
+      }
+    }
   }
 }

@@ -16,8 +16,10 @@
             <input *ngIf="isEdit" formControlName="departmentId" pInputText type="text" disabled>
             <label>{{ 'organization.department_id' | translate}} *</label>
           </span>
-          <anms-error [showError]="hasError('departmentId',organizationForm,submited)" error="forms.feedback.required">
-          </anms-error>
+          <anms-error [showError]="hasError('departmentId',organizationForm,submited)" 
+                      error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="autocompleteErrorMessage(departmentId) && submited"
+                      error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
       <div class="col-12 col-md-6 p-field form-section__field">

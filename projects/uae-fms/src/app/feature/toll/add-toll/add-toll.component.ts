@@ -31,7 +31,11 @@ export class AddTollComponent extends Utility implements OnInit {
   allFileUpload = new Array();
   submited = false;
 
-  constructor(private _fb: FormBuilder, injector: Injector, private dialogService: DialogService) {
+  constructor(
+    private _fb: FormBuilder,
+    injector: Injector,
+    private dialogService: DialogService
+  ) {
     super(injector);
   }
 
@@ -61,21 +65,23 @@ export class AddTollComponent extends Utility implements OnInit {
       } else {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
 
-        const dialog = this.dialogService.show('danger',  'Add Toll',
-          'file format incorrect (CSV only)', 'OK', '');
-        dialog.dialogClosed$.subscribe(result => {
+        const dialog = this.dialogService.show(
+          'danger',
+          'Add Toll',
+          'file format incorrect (CSV only)',
+          'OK',
+          ''
+        );
+        dialog.dialogClosed$.subscribe((result) => {
           if (result === 'confirm') {
-
           }
-        })
+        });
       }
     }
   }
-  public fileOver(event) {
-  }
+  public fileOver(event) {}
 
-  public fileLeave(event) {
-  }
+  public fileLeave(event) {}
 
   dropAndDragValidation(file: string) {
     let isFileAllowed = false;
@@ -103,24 +109,34 @@ export class AddTollComponent extends Utility implements OnInit {
   cancel() {
     if (!this.openReview) {
       if (this.allFileUpload.length > 0) {
-        const dialog = this.dialogService.show('warning', 'Add Toll',
-          'Are you sure that you want to cancel the toll creation?', 'Yes', 'No');
-        dialog.dialogClosed$.subscribe(result => {
+        const dialog = this.dialogService.show(
+          'warning',
+          'Add Toll',
+          'Are you sure that you want to cancel the toll creation?',
+          'Yes',
+          'No'
+        );
+        dialog.dialogClosed$.subscribe((result) => {
           if (result === 'confirm') {
             this.goToList();
           }
         });
       } else {
-        this.goToList();
+        this.goToList('/toll');
       }
     } else {
       this.openReview = false;
     }
   }
   save() {
-    const dialog = this.dialogService.show('success', 'Add Toll',
-      'New Toll Successfully Added', 'OK', '');
-    dialog.dialogClosed$.subscribe(result => {
+    const dialog = this.dialogService.show(
+      'success',
+      'Add Toll',
+      'New Toll Successfully Added',
+      'OK',
+      ''
+    );
+    dialog.dialogClosed$.subscribe((result) => {
       if (result === 'confirm') {
         this.goToList();
       }

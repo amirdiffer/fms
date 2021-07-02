@@ -42,4 +42,16 @@ export class TableFacade {
     this.store.dispatch(TableActions.reset({ name }))
   }
 
+  getFiltersByName(data: string) {
+    return this.store.pipe(select(TableSelectors.filters_selectByName, { name: data }));
+  }
+
+  initialFilters(name) {
+    this.store.dispatch(TableActions.filters_initial({ name, value: [] }))
+  }
+
+  setFilters(name, value) {
+    this.store.dispatch(TableActions.filters({ name, value }))
+  }
+
 }

@@ -10,6 +10,9 @@
       <div>
         <app-tab-view (selectedIndex)="selectedTab=$event" [count]="[movementOverviewCount$ , movementRequestCount$]">
                     <span class="search-container card-table-header">
+                      <button class="btn-download" (click)="showCustomFilter = !showCustomFilter">
+                        <svg-icon [src]="'assets/icons/setting.svg'"></svg-icon>
+                      </button>
                         <div class="search-box">
                             <input id="searchInput" type="text" placeholder="{{ 'search.search_in_columns' | translate }}">
                             <button>
@@ -24,10 +27,10 @@
                         </ng-container>
                     </span>
           <div title="tabs.movement_over_view" id="MovementOverViewTab"  *hasPermission="['MOVEMENT_VIEW_LIST_OWN' , 'MOVEMENT_VIEW_LIST_OTHERS']">
-            <app-table searchInput="searchInput" (onPagination)="eventPagination_overview()" pagination="temporary_movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
+            <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['MovementOverViewTab']" (customFilterEvent)="customFilterEvent($event, 'MovementOverViewTab')" searchInput="searchInput" (onPagination)="eventPagination_overview()" pagination="temporary_movement_overview" [setting]="movementOverViewTableSetting" [tableData]="movementOverview$"></app-table>
           </div>
           <div title="tabs.request" #requestTab id="requestTab"  *hasPermission="['MOVEMENT_REQUEST_VIEW_LIST_OWN' , 'MOVEMENT_REQUEST_VIEW_LIST_OTHERS']">
-            <app-table searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="temporary_movement_request" [setting]="requestTableSetting" [tableData]="movementRequest$"
+            <app-table [showCustomFilter]="showCustomFilter" [filtersColumns]="filtersColumns['requestTab']" (customFilterEvent)="customFilterEvent($event, 'requestTab')" searchInput="searchInput" (onPagination)="eventPagination_request()" pagination="temporary_movement_request" [setting]="requestTableSetting" [tableData]="movementRequest$"
             ></app-table>
           </div>
         </app-tab-view>

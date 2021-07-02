@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Utility } from '@shared/utility/utility';
 
 import { MovementService } from '@feature/fleet/movement/movement.service';
@@ -22,6 +22,9 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
   assetTypes = [];
   oldAssetSuggests = [];
   oldAssetSuggestsB;
+  get oldAssetId() {
+    return this.requestForm.get('oldAssetId') as FormControl;
+  }
   yearRange =`2000:${new Date().getFullYear()}`
   constructor(
     private _fb: FormBuilder,
@@ -43,7 +46,7 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       assetType: [null, Validators.compose([Validators.required])],
       reason: ['', Validators.compose([Validators.required])],
       // quality: [''],
-      oldAssetId: [''],
+      oldAssetId: ['',Validators.compose([this.autocompleteValidation])],
       startDate: ['', Validators.compose([Validators.required])],
       endDate: ['', Validators.compose([Validators.required])]
     });
@@ -152,6 +155,23 @@ export class AddTemporaryRequestComponent extends Utility implements OnInit {
       dialogClose$?.unsubscribe();
       })
     ).subscribe();
+  }
+
+   /* Custom validation */
+   autocompleteValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      return formControl.errors.needsExclamation
+    }
   }
 
 }

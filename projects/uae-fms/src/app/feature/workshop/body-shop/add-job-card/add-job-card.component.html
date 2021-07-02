@@ -45,6 +45,8 @@
                   [showError]="hasError('assetId',inputForm,submited)"
                   error="forms.feedback.required">
                 </anms-error>
+                <anms-error [showError]="autocompleteErrorMessage(assetIdFormControl) && submited"
+                            error="forms.feedback.autocomplete_select"></anms-error>
             </div>
           </div>
         </div>
