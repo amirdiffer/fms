@@ -100,9 +100,9 @@
         <!-- end movementType -->
         <div class="row form-section__row">
             <!-- start startDate -->
-            <div class="col-12 col-md-4 p-field form-section__field">
+            <div [hidden]='confirmForm.controls["movementType"].value === "permanent"' class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <p-calendar inputId="basic" 
+                    <p-calendar inputId="basic"
                                 formControlName="startDate"
                                 [readonlyInput]="true"
                                 [yearNavigator]="true"
@@ -113,7 +113,7 @@
             </div>
             <!-- end startDate -->
             <!-- start startTime -->
-            <div class="col-12 col-md-3 p-field form-section__field">
+            <div [hidden]='confirmForm.controls["movementType"].value === "permanent"' class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <p-calendar formControlName="startTime" [timeOnly]="true"
                                 inputId="timeonly"
@@ -134,36 +134,36 @@
                 error="{{'forms.feedback.required' | translate}}"></anms-error>
             </div>
             <!-- end gps -->
+          <!-- start sendNotification -->
+          <div *ngIf='confirmForm.controls["movementType"].value === "permanent"' class="col-12 col-md-4 form-section__field toggle-select">
+            <p-inputSwitch formControlName="sendNotification"></p-inputSwitch>
+            <span class='mb-2'>{{ 'movement.request.send_notification' | translate }}</span>
+          </div>
+          <!-- end sendNotification -->
         </div>
 
         <div class="row form-section__row">
-            <!-- start endDate -->
-            <div class="col-12 col-md-4 p-field form-section__field">
+          <!-- start endDate -->
+          <div [hidden]='confirmForm.controls["movementType"].value === "permanent"' class="col-12 col-md-4 p-field form-section__field">
                 <span class="p-float-label">
-                    <p-calendar inputId="basic" 
-                                formControlName="endDate"
-                                [readonlyInput]="true"
-                                [yearNavigator]="true"
-                                [yearRange]="yearRange"
-                                [monthNavigator]="true"></p-calendar>
+                    <p-calendar inputId="basic" formControlName="endDate"></p-calendar>
                     <label>{{ 'movement.request.end_date' | translate }} * </label>
                 </span>
-            </div>
-            <!-- end endDate -->
-            <!-- start endTime -->
-            <div class="col-12 col-md-3 p-field form-section__field">
+          </div>
+          <!-- end endDate -->
+          <!-- start endTime -->
+          <div [hidden]='confirmForm.controls["movementType"].value === "permanent"' class="col-12 col-md-3 p-field form-section__field">
                 <span class="p-float-label">
                     <p-calendar formControlName="endTime" [timeOnly]="true"
-                                inputId="timeonly"
-                                [readonlyInput]="true"></p-calendar>
+                                inputId="timeonly"></p-calendar>
                     <label> {{ 'movement.request.time' | translate }} * </label>
                 </span>
-            </div>
-            <!-- end endTime -->
-            <!-- start sendNotification -->
-            <div class="col-12 col-md-4 form-section__field toggle-select">
+          </div>
+          <!-- end endTime -->
+          <!-- start sendNotification -->
+          <div *ngIf='confirmForm.controls["movementType"].value !== "permanent"' class="col-12 col-md-4 form-section__field toggle-select">
                 <p-inputSwitch formControlName="sendNotification"></p-inputSwitch>
-                <span>{{ 'movement.request.send_notification' | translate }}</span>
+                <span class='mb-2'>{{ 'movement.request.send_notification' | translate }}</span>
             </div>
             <!-- end sendNotification -->
         </div>

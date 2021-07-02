@@ -813,7 +813,8 @@
           "urgent": "العاجلة",
           "normal": "طبيعي"
         },
-        "asset_type": "نوع الأصول"
+        "asset_type": "نوع الأصول",
+        "chassis_no": "رقم الشاسيه"
       },
       "reminder": {
         "add_reminder": "إضافة تذكير",
