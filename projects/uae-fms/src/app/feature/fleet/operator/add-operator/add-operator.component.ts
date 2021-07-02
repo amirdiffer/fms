@@ -5,9 +5,7 @@ import {
   OperatorFacade,
   OperatorService
 } from '@feature/fleet/+state/operator';
-import {
-  OrganizationService
-} from '@feature/fleet/+state/organization';
+import { OrganizationService } from '@feature/fleet/+state/organization';
 import { IOperator } from '@models/operator';
 import { Utility } from '@shared/utility/utility';
 
@@ -21,7 +19,6 @@ import { DialogService } from '@core/dialog/dialog-template.component';
   styleUrls: ['./add-operator.component.scss']
 })
 export class AddOperatorComponent extends Utility implements OnInit {
-
   //#region Filter
 
   filter: FilterCardSetting[] = [
@@ -30,28 +27,28 @@ export class AddOperatorComponent extends Utility implements OnInit {
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.operator',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -141,7 +138,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
       .subscribe((x) => {
         x.message
           ? // ? this.department.next(x.message)
-          (this.departmentList = x.message)
+            (this.departmentList = x.message)
           : (this.departmentList = []);
       });
     this.route.url.subscribe((params) => {
@@ -223,9 +220,14 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
     this.operatorFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success',
-          (this.isEdit ? 'Edit Operator' : 'Add new Operator'),
-          (this.isEdit ? 'Changes Saved Successfully' : 'Operator Added Successfully'), 'Ok')
+        const dialog = this._dialogService.show(
+          'success',
+          this.isEdit ? 'Edit Operator' : 'Add new Operator',
+          this.isEdit
+            ? 'Changes Saved Successfully'
+            : 'Operator Added Successfully',
+          'Ok'
+        );
         const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
@@ -234,16 +236,20 @@ export class AddOperatorComponent extends Utility implements OnInit {
               }
               dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
         this.operatorFacade.loadAll();
       }
     });
 
     this.operatorFacade.error$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('danger',
-          (this.isEdit ? 'Edit Operator' : 'Add new Operator'),
-          'We Have Some Error', 'Ok')
+        const dialog = this._dialogService.show(
+          'danger',
+          this.isEdit ? 'Edit Operator' : 'Add new Operator',
+          'We Have Some Error',
+          'Ok'
+        );
         const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
@@ -251,7 +257,8 @@ export class AddOperatorComponent extends Utility implements OnInit {
               }
               dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
       }
     });
 
@@ -336,12 +343,16 @@ export class AddOperatorComponent extends Utility implements OnInit {
   removePhoneField(index) {
     this.phoneNumbers.removeAt(index);
   }
-  dialogConfirm($event): void {
-
-  }
+  dialogConfirm($event): void {}
 
   cancel(): void {
-    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Ok', 'Cancel')
+    const dialog = this._dialogService.show(
+      'warning',
+      'Are you sure you want to leave?',
+      'You have unsaved changes! If you leave, your changes will be lost.',
+      'Ok',
+      'Cancel'
+    );
     const dialogClose$: Subscription = dialog.dialogClosed$
       .pipe(
         tap((result) => {
@@ -350,7 +361,8 @@ export class AddOperatorComponent extends Utility implements OnInit {
           }
           dialogClose$?.unsubscribe();
         })
-      ).subscribe();
+      )
+      .subscribe();
   }
 
   submit(): void {
@@ -419,7 +431,13 @@ export class AddOperatorComponent extends Utility implements OnInit {
       };
 
       operatorInfo;
-      const dialog = this._dialogService.show('warning', 'Edit Operator', 'Are you sure you want to edit operator?', 'Yes', 'Cancel')
+      const dialog = this._dialogService.show(
+        'warning',
+        'Edit Operator',
+        'Are you sure you want to edit operator?',
+        'Yes',
+        'Cancel'
+      );
       const dialogClose$: Subscription = dialog.dialogClosed$
         .pipe(
           tap((result) => {
@@ -428,8 +446,8 @@ export class AddOperatorComponent extends Utility implements OnInit {
             }
             dialogClose$?.unsubscribe();
           })
-        ).subscribe();
-
+        )
+        .subscribe();
     } else {
       operatorInfo = {
         ...operatorInfo,
@@ -470,7 +488,6 @@ export class AddOperatorComponent extends Utility implements OnInit {
     ];
   }
 
-
   employeeNumberChanged($event) {
     this.employee_static = $event;
     if (typeof $event != 'object') return;
@@ -507,11 +524,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.sectionId = $event.id;
   }
 
-  public fileOver(event) {
-  }
+  public fileOver(event) {}
 
-  public fileLeave(event) {
-  }
+  public fileLeave(event) {}
 
   ngOnDestroy(): void {
     this.formChangesSubscription?.unsubscribe();
@@ -526,7 +541,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-          'string' &&
+            'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];
