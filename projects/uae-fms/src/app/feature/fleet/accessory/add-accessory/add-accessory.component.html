@@ -27,13 +27,13 @@
         <anms-error [showError]="hasError('accessoryTypeId', accessoryForm, formSubmitted)" error="forms.feedback.required"></anms-error>
       </div>
 
-      <div class="col-12 col-md-4 p-field form-section__field options-select">
+      <!-- <div class="col-12 col-md-4 p-field form-section__field options-select">
         <span class="p-float-label">
           <p-dropdown inputId="assignedTo" [autoDisplayFirst]="false" [options]="employee$ | async"
                       formControlName="assignedToEmployeeId" optionLabel="name" optionValue="id"></p-dropdown>
           <label for="assignedTo">{{'accessory.assigned_to_a' | translate}}</label>
         </span>
-      </div>
+      </div> -->
       <div class="col-12 col-md-4 p-field form-section__field" *ngIf="!isEdit">
         <span class="p-float-label">
           <input formControlName="quantity" numbersOnly pInputText type="text">
