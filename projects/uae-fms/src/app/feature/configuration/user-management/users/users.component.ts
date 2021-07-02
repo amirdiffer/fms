@@ -132,6 +132,13 @@ export class UsersComponent implements OnInit {
               '/configuration/user-management/users/edit-user/' + data.id
             ]);
           },
+          condition:(data)=>{
+            if(+data.id === 1){
+              return false
+            }else{
+              return true
+            }
+          },
           permission: ['USER_NORMAL_UPDATE']
         }
       ]

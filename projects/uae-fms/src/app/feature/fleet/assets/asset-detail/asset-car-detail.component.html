@@ -58,6 +58,10 @@
       <h5 class="title">{{ 'assets.overview.overview.color' | translate }}</h5>
       <h5 class="info">{{asset?.colorName}}</h5>
     </span>
+    <span *ngIf="asset?.vehicleInfo">
+      <h5 class="title">{{ 'assets.overview.overview.chassis_no' | translate }}</h5>
+      <h5 class="info">{{asset?.vehicleInfo.chassisNo}}</h5>
+    </span>
     <!-- <span>
       <h5 class="title">{{ 'assets.overview.overview.body_type' | translate }}</h5>
       <h5 class="info">{{asset.bodyType}}</h5>
@@ -75,7 +79,7 @@
       <h5 class="info">Open</h5>
     </span> -->
   </div>
-  
+
 </div>
 
 <div *ngIf="type=='job-card'">

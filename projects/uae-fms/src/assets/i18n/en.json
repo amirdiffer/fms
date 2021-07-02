@@ -874,7 +874,8 @@
           "urgent": "URGENT",
           "normal": "Normal"
         },
-        "asset_type": "Asset Type"
+        "asset_type": "Asset Type",
+        "chassis_no": "Chassis No"
       },
       "reminder": {
         "add_reminder": "Add Reminder",
@@ -2117,7 +2118,8 @@
     "description": "Description",
     "category": "Category",
     "edit_make_for": "Edit Make For",
-    "edit_model_for": "Edit Model For"
+    "edit_model_for": "Edit Model For",
+    "origin": "Origin"
   },
   "chart": {
     "lifecycle": "Lifecycle",

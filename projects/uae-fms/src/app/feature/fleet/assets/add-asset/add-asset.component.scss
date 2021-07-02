@@ -111,3 +111,34 @@ ngx-file-drop {
     }
   }
 }
+
+.color-item{
+  margin: .1em;
+  z-index: 2;
+  &.color-item-value{
+    margin: 0.1em;
+    position: absolute;
+    top: 50%;
+    left: .4em;
+    transform: translate(0, -53%);
+    & > .color-dropdown-option{
+      padding: 1em;
+    }
+  }
+  .color-dropdown-option{
+    padding: 15px;
+    box-shadow: 0 0 6px #0000003d;
+    display: block;
+    border-radius: 4px;
+    position: relative;
+    &::before{
+      content:'';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .4)), to(rgba(0, 0, 0, 0)));
+    }
+  }
+}

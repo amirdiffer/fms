@@ -22,6 +22,7 @@ import { Utility } from '@shared/utility/utility';
 import { MovementTemporaryConfirmComponent } from '@feature/fleet/movement/movement-temporary-confirm/movement-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from '@core/dialog/dialog-template.component';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'anms-temporary',
   templateUrl: './temporary.component.html',
@@ -82,6 +83,10 @@ export class TemporaryComponent
   movementRequest$ = this._movementRequestsFacade.MovementRequests$.pipe(
     map((x) => {
       return x.map((y) => {
+        const startDate = new Date(Number(y.startDate) * 1000);
+        const weekDay = formatDate(startDate, 'EEEE', 'en-US');
+        const monthAndDay = `${startDate.getMonth()}/${startDate.getDate()}`;
+        const time = formatDate(startDate, 'HH:mm', 'en-US');
         return {
           ...y,
           id: y['id'],
@@ -100,7 +105,10 @@ export class TemporaryComponent
           requestType: y['requestType'],
           assetType: y['assetTypeName'],
           reason: y['reason'],
-          date: 'Saturday 02/02 12:30',
+          date: {
+            line1: `${weekDay} ${monthAndDay}`,
+            line2: time
+          },
           requestStatus: y['status'],
           operation: {
             accept: 'Confirm',
@@ -114,6 +122,10 @@ export class TemporaryComponent
   movementOverview$ = this._movementOverviewFacade.MovementOverview$.pipe(
     map((x) => {
       return x.map((y) => {
+        const startDate = new Date(Number(y.request.startDate) * 1000);
+        const weekDay = formatDate(startDate, 'EEEE', 'en-US');
+        const monthAndDay = `${startDate.getMonth()}/${startDate.getDate()}`;
+        const time = formatDate(startDate, 'HH:mm', 'en-US');
         return {
           ...y,
           id: y.id,
@@ -124,7 +136,10 @@ export class TemporaryComponent
             ownership: 'Owned'
           },
           duration: '2 Days',
-          startDate: y.request.startDate,
+          startDate: {
+            line1: `${weekDay} ${monthAndDay}`,
+            line2: time
+          },
           endDate: y.request.endDate,
           department: y.department.name,
           operator: {
@@ -194,7 +209,7 @@ export class TemporaryComponent
       {
         lable: 'tables.column.date',
         field: 'date',
-        width: 100,
+        width: 120,
         type: 1,
         thumbField: '',
         renderer: '',
@@ -281,7 +296,7 @@ export class TemporaryComponent
         width: 100,
         type: 1,
         thumbField: '',
-        renderer: ''
+        renderer: 'doubleLineRenderer'
       },
       {
         lable: 'tables.column.department',

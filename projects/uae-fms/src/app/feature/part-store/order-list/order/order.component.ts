@@ -1,5 +1,5 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDialogAlert } from '@core/alert-dialog/alert-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { PartMasterFacade } from '@feature/part-store/+state/part-master';
@@ -56,6 +56,11 @@ export class OrderComponent extends Utility implements OnInit, OnDestroy {
     cancelButton: 'No'
   };
 
+  /* Autocomplete formControl */
+  get item() {
+    return this.form.get('item') as FormControl;
+  }
+
   constructor(
     private _fb: FormBuilder,
     private _fleetConfigurationAsset: AssetTypeFacade,
@@ -97,7 +102,7 @@ export class OrderComponent extends Utility implements OnInit, OnDestroy {
       price: ['', Validators.required],
       description: ['', Validators.required],
       category: ['', Validators.required],
-      item: ['', Validators.required],
+      item: ['', Validators.compose([Validators.required , this.autocompleteValidation])],
       supplier: ['', Validators.required],
       hasReminder: false
     });
@@ -358,6 +363,26 @@ export class OrderComponent extends Utility implements OnInit, OnDestroy {
           }
         }
       );
+    }
+  }
+
+  /* Custom validation */
+  autocompleteValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
     }
   }
 
