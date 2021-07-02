@@ -1,56 +1,68 @@
-<div class="sub-asset-overview">
+<div class="accessory-overview">
   <div class="" style="position: relative;">
-    <div class="button-container">
+    <!-- <div class="button-container">
       <button class="btn-primary-medium btn-scondary-green" [routerLink]="['/fleet/accessory/']">{{ 'forms.back' | translate }}</button>
       <button class="btn-primary-medium add" [routerLink]="['/fleet/accessory/edit-accessory/', itemId]">{{ 'forms.edit' | translate }}</button>
-    </div>
+    </div> -->
+    
     <div class="overview-container">
       <div class="row">
-        <div class="col-md-3">
-          <div class="component_wrapper">
+        <div class="col-md-3 p-0 d-flex">
+          <div class="component_wrapper form-section w-100">
             <div class="imageAccessory">
               <img [src]="fileServerBase + accessoryDetails?.avatarId" onerror="this.src='assets/thumb.png'">
             </div>
-            <h4 class="sub-asset-overview__subtitle">{{ 'accessory.overview.accessory_item_name' | translate }}</h4>
-            <table class="sub-asset-overview__info">
+            <div class="accessory-overview__subtitle">
+              <h4 >{{ 'accessory.overview.accessory_item_name' | translate }}</h4>
+            </div>
+            <table class="accessory-overview__info">
               <tr>
-                <th>{{ 'accessory.overview.accessory_type' | translate }}</th>
-                <td>{{ accessoryDetails?.accessorySpecification?.name }}</td>
+                <th class="left">{{ 'accessory.overview.accessory_type' | translate }}</th>
+                <td class="left">{{ accessoryDetails?.accessorySpecification?.name }}</td>
               </tr>
             </table>
 
-            <h4 class="sub-asset-overview__subtitle">{{ 'accessory.overview.assignment_asset_info' | translate }}</h4>
-            <table class="sub-asset-overview__info">
+            <div class="accessory-overview__subtitle m-0">
+              <h4>{{ 'accessory.overview.assignment_asset_info' | translate }}</h4>
+            </div>
+            <table class="accessory-overview__info">
               <tr>
-                <th>{{ 'accessory.overview.year_of_make' | translate }}</th>
-                <td>{{ accessoryDetails?.assignmentAssetInfoResponse?.yearOfMake }}</td>
+                <th class="left">{{ 'accessory.overview.year_of_make' | translate }}</th>
+                <td class="left">{{ accessoryDetails?.assignmentAssetInfoResponse?.yearOfMake }}</td>
               </tr>
               <tr>
-                <th>{{ 'accessory.overview.meter_reading' | translate }}</th>
-                <td>{{ accessoryDetails?.assignmentAssetInfoResponse?.meterReading }}</td>
+                <th class="left">{{ 'accessory.overview.meter_reading' | translate }}</th>
+                <td class="left">{{ accessoryDetails?.assignmentAssetInfoResponse?.meterReading }}</td>
               </tr>
               <tr>
-                <th>{{'accessory.overview.status' | translate}}</th>
-                <td>{{ accessoryDetails?.assignmentAssetInfoResponse?.progressStatus }}</td>
+                <th class="left">{{'accessory.overview.status' | translate}}</th>
+                <td class="left">{{ accessoryDetails?.assignmentAssetInfoResponse?.progressStatus }}</td>
               </tr>
             </table>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="component_wrapper">
-            <h3 class="sub-asset-overview__title">{{ 'accessory.overview.item_name' | translate }}</h3>
-          <table class="sub-asset-overview__info bordered">
+        <div class="col-md-9 d-flex">
+          <div class="component_wrapper form-section w-100">
+            <div class="edit-button-section">
+              <button [routerLink]="['/fleet/accessory/edit-accessory/', itemId]">
+                <svg-icon class="date-icon"  src="assets/icons/pen.svg" [svgStyle]="{ 'width.em':1.4 , 'fill': '#0da06e' ,'height': '100%'}"></svg-icon>
+              </button>
+            </div>
+            <div class="accessory-overview__title">
+              <h3>{{ 'accessory.overview.item_name' | translate }}</h3>
+            </div>
+          <table class="accessory-overview__info bordered">
             <tr>
-              <th>{{ 'accessory.overview.item_name' | translate }}</th>
-              <td>{{ accessoryDetails?.itemName }}</td>
+              <th class="right">{{ 'accessory.overview.item_name' | translate }}</th>
+              <td class="right">{{ accessoryDetails?.itemName }}</td>
             </tr>
             <tr>
-              <th>{{ 'accessory.overview.accessory_type' | translate }}</th>
-              <td>{{ accessoryDetails?.accessorySpecification.name }}</td>
+              <th class="right">{{ 'accessory.overview.accessory_type' | translate }}</th>
+              <td class="right">{{ accessoryDetails?.accessorySpecification.name }}</td>
             </tr>
             <tr>
-              <th>{{'accessory.assigned_to_a' | translate}}</th>
-              <td>{{ accessoryDetails?.assignedToEmployeeId?.firstName }} {{ accessoryDetails?.assignedToEmployeeId?.lastName }}</td>
+              <th class="right">{{'accessory.assigned_to_a' | translate}}</th>
+              <td class="right">{{ accessoryDetails?.assignedToEmployeeId?.firstName }} {{ accessoryDetails?.assignedToEmployeeId?.lastName }}</td>
             </tr>
           </table>
           </div>

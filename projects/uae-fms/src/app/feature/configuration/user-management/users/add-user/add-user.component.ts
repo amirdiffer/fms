@@ -20,6 +20,7 @@ import {
   OrganizationService
 } from '@feature/fleet/+state/organization';
 import { DialogService } from '@core/dialog/dialog-template.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -118,7 +119,8 @@ export class AddUserComponent
     private roleFacade: RolePermissionFacade,
     private userService: UsersService,
     private _departmentService: OrganizationService,
-    private _dialogService: DialogService
+    private _dialogService: DialogService,
+    private _router:Router
   ) {
     super(injector);
     this.userFacade.resetParams();
@@ -143,6 +145,9 @@ export class AddUserComponent
 
       if (this.isEdit) {
         this.id = +params[params.length - 1].path;
+        if(this.id === 1){
+          this._router.navigate(['/configuration/user-management/users'])
+        }
         this.userService
           .getUserById(params[params.length - 1].path)
           .pipe(map((x) => x.message))

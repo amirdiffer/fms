@@ -66,9 +66,9 @@
                                formControlName="service">
                         <label>{{'workshop.body_shop.location.service' | translate}}</label>
                       </span>
-                                      <anms-error
-                                        [showError]="formArrayHasError(submited, services, index, 'service')"
-                                        error="{{'forms.feedback.required' | translate}}"></anms-error>
+                      <anms-error
+                        [showError]="formArrayHasError(submited, services, index, 'service')"
+                        error="{{'forms.feedback.required' | translate}}"></anms-error>
                 </div>
                 <span  *ngIf="last" class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}" (click)="addService()"><i class="pi pi-plus"></i></span>
                 <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeService(index)" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}">
@@ -87,9 +87,9 @@
                                formControlName="thirdPartyLocationId">
                         <label>{{'workshop.body_shop.location.slot' | translate}}</label>
                       </span>
-                                      <anms-error
-                                        [showError]="formArrayHasError(submited, slots, index, 'thirdPartyLocationId')"
-                                        error="{{'forms.feedback.required' | translate}}"></anms-error>
+                      <anms-error
+                        [showError]="formArrayHasError(submited, slots, index, 'thirdPartyLocationId')"
+                        error="{{'forms.feedback.required' | translate}}"></anms-error>
                 </div>
                 <!-- <span *ngIf="last" class="p-inputgroup-addon" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}" (click)="addSlot()"><i class="pi pi-plus"></i></span>
                 <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeSlot(index)" [ngStyle]="{'cursor': 'pointer' , 'height':' 40px'}">

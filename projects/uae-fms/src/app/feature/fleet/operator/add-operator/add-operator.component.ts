@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FilterCardSetting } from '@core/filter';
 import {
   OperatorFacade,
@@ -107,6 +107,18 @@ export class AddOperatorComponent extends Utility implements OnInit {
   operators$ = this.operatorFacade.operator$;
   //#endregion
 
+
+  /* Autocomplete formControl */
+  get department() {
+    return this.form.get('portalInformation.department') as FormControl;
+  }
+  get section() {
+    return this.form.get('portalInformation.section') as FormControl;
+  }
+
+  get employeeNumber() {
+    return this.form.get('portalInformation.employeeNumber') as FormControl;
+  }
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
@@ -277,9 +289,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
   buildForm(): void {
     this.form = this.formBuilder.group({
       portalInformation: this.formBuilder.group({
-        employeeNumber: ['', [Validators.required]],
-        department: ['', [Validators.required]],
-        section: ['', [Validators.required]],
+        employeeNumber: ['', [Validators.required , this.autocompleteEmployeeIDValidation]],
+        department: ['', [Validators.required , this.autocompleteDepartmentValidation]],
+        section: ['', [Validators.required , this.autocompleteSectionValidation]],
         roleId: ['1'],
         activeEmployee: false
       }),
@@ -600,5 +612,46 @@ export class AddOperatorComponent extends Utility implements OnInit {
     }
     const docId = $event.files[0];
     this.profileDocId = docId;
+  }
+
+  
+  /* Custom validation */
+  autocompleteEmployeeIDValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.employeeId;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteDepartmentValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.organizationName;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteSectionValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (input.value.name) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
+    }
   }
 }
