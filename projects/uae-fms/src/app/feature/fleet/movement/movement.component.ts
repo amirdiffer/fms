@@ -96,7 +96,6 @@ export class MovementComponent
             requestType: y['requestType'],
             assetType: y['assetConfigurationName'],
             reason: y['reason'],
-            date: 'Saturday 02/02 12:30',
             requestStatus: y['status'],
             operation: {
               accept: 'Confirm',
@@ -120,7 +119,6 @@ export class MovementComponent
             ownership: 'Owned'
           },
           duration: '2 Days',
-          startDate: y.request.startDate,
           endDate: y.request.endDate,
           department: y.department.name,
           operator: {
@@ -171,14 +169,6 @@ export class MovementComponent
       {
         lable: 'tables.column.reason',
         field: 'reason',
-        width: 100,
-        type: 1,
-        thumbField: '',
-        renderer: ''
-      },
-      {
-        lable: 'tables.column.date',
-        field: 'date',
         width: 100,
         type: 1,
         thumbField: '',
@@ -250,14 +240,6 @@ export class MovementComponent
       {
         lable: 'tables.column.duration',
         field: 'duration',
-        width: 100,
-        type: 1,
-        thumbField: '',
-        renderer: ''
-      },
-      {
-        lable: 'tables.column.start_date',
-        field: 'startDate',
         width: 100,
         type: 1,
         thumbField: '',

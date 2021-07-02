@@ -872,7 +872,8 @@
           "urgent": "URGENT",
           "normal": "Normal"
         },
-        "asset_type": "Asset Type"
+        "asset_type": "Asset Type",
+        "chassis_no": "Chassis No"
       },
       "reminder": {
         "add_reminder": "Add Reminder",
