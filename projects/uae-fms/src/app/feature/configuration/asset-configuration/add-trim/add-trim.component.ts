@@ -314,7 +314,6 @@ export class AddTrimComponent extends Utility implements OnInit, OnDestroy {
   }
 
   selectedColor(event, color): void {
-    console.log(event , color)
     color.value.name = event;
   }
 
