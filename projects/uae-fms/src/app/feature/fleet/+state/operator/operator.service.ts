@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IOperator, IOperatorDrivingLicense } from '@models/operator';
 import { ResponseBody } from '@models/responseBody';
@@ -79,7 +79,7 @@ export class OperatorService {
   }
 
   searchEmployee(id) {
-    return this.http.get<ResponseBody<IOperatorStatistics>>(
+    return this.http.get<ResponseBody<any>>(
       environment.baseApiUrl + 'configuration/user/employee/' + id
     );
   }
@@ -101,5 +101,13 @@ export class OperatorService {
     return this.http.get<ResponseBody<IOperatorDrivingLicense>>(
       environment.baseApiUrl + 'operator/' + id + '/driver-license'
     );
+  }
+
+  uploadDoc(data: FormData) {
+    return this.http.post(environment.baseApiUrl + 'document', data, {
+      headers: new HttpHeaders({}),
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ITechnician } from '@models/body-shop';
 import { ResponseBody } from '@models/response-body';
@@ -76,5 +76,13 @@ export class BodyShopTechnicianService {
     return this.http.get<ResponseBody<ITechnician>>(
       environment.baseApiUrl + 'workshop/bodyshop/technician/' + id
     );
+  }
+
+  uploadDoc(data: FormData) {
+    return this.http.post(environment.baseApiUrl + 'document', data, {
+      headers: new HttpHeaders({}),
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 }

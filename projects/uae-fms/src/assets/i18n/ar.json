@@ -522,6 +522,7 @@
       "total_fine": "إجمالي الغرامة",
       "plate_code": "رمز اللوحة",
       "plate_source": "مصدر اللوحة",
+      "username":"اسم االمستخدم",
       "firstname": "الاسم الأول",
       "lastname": "الكنية"
     },
@@ -1819,7 +1820,8 @@
       "upload_form": {
         "title": "تحميل صورة الملف الشخصي",
         "progressbar_title": ".pdf",
-        "content": "قم بسحب وإفلات الصورة هنا"
+        "content": "قم بسحب وإفلات الصورة هنا",
+        "preview_image": "معاينة صورة الملف الشخصي"
       },
       "full_name_arabic": "الاسم الكامل عربي",
       "full_name_english": "الاسم الكامل بالإنجليزية"
@@ -1984,7 +1986,8 @@
     "apply": "تطبيق",
     "operator_list": "قائمة المشغل",
     "receive": "الواردة",
-    "request": "الطلب"
+    "request": "الطلب",
+    "username":"اسم االمستخدم"
   },
   "login": {
     "incorrect_password": "كلمة سر خاطئة",

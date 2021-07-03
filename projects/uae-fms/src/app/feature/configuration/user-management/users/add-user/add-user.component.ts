@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, filter, map, tap } from 'rxjs/operators';
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 import { UsersFacade } from '../../../+state/users';
 import { RolePermissionFacade } from '../../../+state/role-permission';
@@ -20,6 +20,7 @@ import {
   OrganizationService
 } from '@feature/fleet/+state/organization';
 import { DialogService } from '@core/dialog/dialog-template.component';
+import { environment } from "@environments/environment";
 import { Router } from '@angular/router';
 @Component({
   selector: 'anms-add-user',
@@ -77,7 +78,7 @@ export class AddUserComponent
   form: FormGroup;
   submited = false;
 
-  employees = new Subject();
+  employees = new BehaviorSubject([]);
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
   employee_static;
@@ -89,7 +90,8 @@ export class AddUserComponent
   sectionList: any[] = [];
 
   tempImage: any = '';
-
+  avatarId;
+  avatar;
   get emails(): FormArray {
     return this.form.get('personalInformation').get('emails') as FormArray;
   }
@@ -110,7 +112,7 @@ export class AddUserComponent
     )
   );
   profileDocId = null;
-
+  employeeNotFound: boolean = false;
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
@@ -154,6 +156,8 @@ export class AddUserComponent
           .subscribe((x: any) => {
             if (x) {
               this.profileDocId = x.profileDocId ? x.profileDocId : null;
+              this.avatarId = x.profileDocId;
+              this.avatar = environment.baseFileServer + "/" + this.avatarId;
               this._user = x;
               this.departmentId = this._user.department.organizationId;
               this.sectionId = this._user.department.id;
@@ -201,6 +205,7 @@ export class AddUserComponent
               this.form.controls['personalInformation'].patchValue({
                 firstName: x.firstName,
                 lastName: x.lastName,
+                userName: x.userName,
                 callCheckbox: x.notifyByCall,
                 smsCheckbox: x.notifyBySMS,
                 whatsappCheckbox: x.notifyByWhatsApp,
@@ -308,6 +313,7 @@ export class AddUserComponent
       personalInformation: this.formBuilder.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
+        userName: [''],
         emails: new FormArray([this.createEmailField()]),
         phoneNumbers: new FormArray([this.createPhoneField()]),
         callCheckbox: false,
@@ -517,6 +523,7 @@ export class AddUserComponent
 
   employeeNumberChanged($event) {
     this.employee_static = $event;
+    this.avatar = 'data:image/png;base64,' + $event.profileImage;
     if (typeof $event != 'object') return;
     // this.form.controls['portalInformation'].patchValue({
     //   department: this.departmentsB.filter(x => x.id == parseInt($event.organizationId))
@@ -527,6 +534,7 @@ export class AddUserComponent
     this.form.controls['personalInformation'].patchValue({
       firstName: $event.nameEn,
       lastName: $event.name,
+      userName: $event.userName,
       phoneNumbers: [{ phoneNumber: $event.mobileNumber }],
       emails: [{ email: $event.emailAddress }]
     });
@@ -570,6 +578,57 @@ export class AddUserComponent
   getEmployee(event) {
     this.getEmployeesList.next(event);
     this.employeeId = event.query;
+  }
+
+  employeeEnter(event) {
+    this.employeeNotFound = false;
+    if (event.keyCode == 13) {
+      if (this.employees.value && this.employees.value.length > 0) {
+        this.employeeNumberChanged(this.employees.value[0]);
+      } else {
+        this.employeeId = event.target.value;
+        this.userService.searchEmployee(this.employeeId).subscribe((y:any) => {
+          if (y) {
+            this.employeeNumberChanged({ ...y.message, employeeId: this.employeeId })
+
+            this.uploadProfilePicture(y.message.profileImage, this.employeeId);
+
+            this.employeeNotFound = false;
+          } else {
+            this.employeeNotFound = true;
+          }
+        });
+      }
+    }
+    else {
+      this.employees.next([]);
+    }
+  }
+
+  uploadProfilePicture(image: string, userId) {
+    let file: File = this.dataURLtoFile('data:image/png;base64,' + image, userId + ".png");
+    let formData = new FormData();
+    formData.append('doc', file);
+    this.userService.uploadDoc(formData).subscribe((x: any) => {
+      if (x && x?.body && x?.body?.message && x?.body?.message?.id) {
+        this.avatarId = x?.body?.message?.id;
+        this.profileDocId = x?.body?.message?.id;
+      }
+    })
+  }
+
+  dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
   }
 
   uploadImage($event) {

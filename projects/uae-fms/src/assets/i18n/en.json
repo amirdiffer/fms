@@ -581,6 +581,7 @@
       "total_fine": "Total fine",
       "plate_code": "Plate Code",
       "plate_source": "Plate Source",
+      "username":"User Name",
       "firstname": "First Name",
       "lastname": "Last Name"
     },
@@ -1901,7 +1902,8 @@
       "upload_form": {
         "title": "Upload Profile Picture",
         "progressbar_title": ".pdf",
-        "content": "Drag and Drop Picture Here"
+        "content": "Drag and Drop Picture Here",
+        "preview_image": "Preview Profile Image"
       },
       "full_name_english": "Full Name English",
       "full_name_arabic": "Full Name Arabic"
@@ -2068,7 +2070,8 @@
     "apply": "Apply",
     "operator_list": "Operator List",
     "receive": "Receive",
-    "request": "Request"
+    "request": "Request",
+    "username":"User Name"
   },
   "login": {
     "incorrect_password": "Incorrect Password",

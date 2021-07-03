@@ -102,6 +102,7 @@ export class OperatorComponent implements OnInit {
         width: 150,
         renderer: 'doubleLineRenderer'
       },
+      { lable: 'tables.column.username', type: 1, field: 'userName', width: 100 },
       {
         lable: 'tables.column.type',
         type: 1,
