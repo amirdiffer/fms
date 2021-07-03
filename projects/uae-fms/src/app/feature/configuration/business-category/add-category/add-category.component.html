@@ -110,6 +110,10 @@
                  placeholder="{{ 'configuration.business_category.quantity' | translate }}" type="number" numbersOnly maxValue='10'>
                    <label>{{ 'configuration.business_category.quantity' | translate }}</label>
         </span>
+        <anms-error
+          [showError]="formArrayHasError(submited, assignSubAsset, index, 'assetQuantity')"
+          error="forms.feedback.required">
+        </anms-error>
         </div>
       </div>
     </div>

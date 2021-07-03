@@ -21,13 +21,13 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   downloadBtn = 'assets/icons/download-solid.svg';
   businessCategory$ = this.facade.businessCategory$.pipe(
     map((x) =>
-      x.map((responseObject) => {
+      x.map((responseObject: any) => {
         return {
           id: responseObject.id,
           Category_Name: responseObject.name,
           Status: responseObject.status,
           Description: responseObject.description,
-          Asset_Type: responseObject.assetConfigurationId,
+          Asset_Type: responseObject.assetConfigurationName,
           Sub_Asset: responseObject.numOfSubAssetConfigurations,
           Accessory: responseObject.numOfAccessoryConfigurations,
           assetTypeName: responseObject.assetTypeName
@@ -106,7 +106,7 @@ export class BusinessCategoryComponent implements OnInit, OnDestroy {
   };
   //#endregion
 
-  constructor(private facade: BusinessCategoryFacade, private router: Router) {}
+  constructor(private facade: BusinessCategoryFacade, private router: Router) { }
 
   ngOnInit(): void {
     this.setFiltersColumns();

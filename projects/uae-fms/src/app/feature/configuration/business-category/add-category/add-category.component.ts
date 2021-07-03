@@ -118,7 +118,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
     this.addCategoryForm = this._fb.group({
       name: ['', [Validators.required]],
-      assetType: ['', [Validators.required , this.autocompleteValidation]],
+      assetType: ['', [Validators.required, this.autocompleteValidation]],
       activeCategory: [''],
       description: [''],
       assignSubAsset: new FormArray([this.createAssignSubAsset()]),
@@ -170,24 +170,28 @@ export class AddCategoryComponent extends Utility implements OnInit {
         });
 
         const subAssets = response.message['bcSubAssetConfigurations'];
+        this.assignSubAsset.clear();
         for (let i = 0; i < subAssets.length; i++) {
-          if (i > 0) {
-            this.assignSubAsset.push(this.createAssignSubAsset());
-          }
+          this.assignSubAsset.push(this.createAssignSubAsset());
+        }
+        
+        for (let i = 0; i < subAssets.length; i++) {
           this.assignSubAsset.controls[i].patchValue({
             subAsset: subAssets[i].subAssetConfigurationId,
             subAssetMake: subAssets[i].subAssetMakeId,
             subAssetModel: subAssets[i].subAssetModelId,
             assetQuantity: subAssets[i].quantity,
           });
-          this.onChangeSubAsset({value: subAssets[i].subAssetConfigurationId}, i)
+          this.onChangeSubAsset({ value: subAssets[i].subAssetConfigurationId }, i)
         }
-
+        
+        this.assignAccessory.clear();
         const accessories = response.message['bcAccessoryConfigurations'];
         for (let i = 0; i < accessories.length; i++) {
-          if (i > 0) {
-            this.assignAccessory.push(this.createAssignAccessory());
-          }
+          this.assignAccessory.push(this.createAssignAccessory());
+        }
+
+        for (let i = 0; i < accessories.length; i++) {
           let accessory = this.accessoriesB.find(
             (a) => a.id == accessories[i].accessoryConfigurationId
           );
@@ -196,7 +200,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
               id: accessories[i].accessoryConfigurationId,
               name: accessory.name
             },
-            accessoryQuantity: accessories[i].quantity,
+            accessoryQuantity: accessories[i].quantity
           });
         }
       });
@@ -206,7 +210,7 @@ export class AddCategoryComponent extends Utility implements OnInit {
   createAssignSubAsset(): FormGroup {
     return this._fb.group({
       subAsset: ['', [Validators.required]],
-      subAssetMake:  ['', [Validators.required]],
+      subAssetMake: ['', [Validators.required]],
       subAssetModel: ['', [Validators.required]],
       assetQuantity: ['']
     });
@@ -214,8 +218,8 @@ export class AddCategoryComponent extends Utility implements OnInit {
 
   createAssignAccessory(): FormGroup {
     return this._fb.group({
-      accessory: ['', [Validators.required , this.autocompleteValidation]],
-      accessoryQuantity: ['' , [Validators.required]]
+      accessory: ['', [Validators.required, this.autocompleteValidation]],
+      accessoryQuantity: ['', [Validators.required]]
     });
   }
 
@@ -242,8 +246,8 @@ export class AddCategoryComponent extends Utility implements OnInit {
     this.subAssets
       .find((x) => x.id == value)
       .makes.map((x) => {
-      this.subAssetMake[i].push(x);
-    });
+        this.subAssetMake[i].push(x);
+      });
     this.onChangeSubAssetMake(event, i)
   }
 
@@ -256,8 +260,8 @@ export class AddCategoryComponent extends Utility implements OnInit {
     this.subAssetMake[i]
       .find((x) => x.id == value)
       .models.map((x) => {
-      this.subAssetModel[i].push(x);
-    });
+        this.subAssetModel[i].push(x);
+      });
   }
 
   onChangeSubAssetModel(event, i) {
@@ -354,10 +358,10 @@ export class AddCategoryComponent extends Utility implements OnInit {
     }
   }
 
-  removeassignSubAsset(index){
+  removeassignSubAsset(index) {
     this.assignSubAsset.removeAt(index)
   }
-  removeassignAccessory(index){
+  removeassignAccessory(index) {
     this.assignAccessory.removeAt(index)
   }
 
