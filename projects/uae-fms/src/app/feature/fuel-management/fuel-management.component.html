@@ -15,7 +15,7 @@
           <button class="btn-download">
               <svg-icon [src]="downloadBtn"></svg-icon>
           </button>
-           <button *ngIf = "selectedTab != 'assetUsageTab'" class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button>
+           <!-- <button *ngIf = "selectedTab != 'assetUsageTab'" class="btn-primary-small" (click)="addClicked($event)"><i>+</i><a>{{ 'search.add' | translate }}</a></button> -->
         </span>
         <div title="tabs.fuel_cards" class="fuel-card" id="fuelCardtab">
           <app-table [setting]="fuelCardsTableSetting" [tableData]="fuelCardsTable$"></app-table>
