@@ -323,8 +323,8 @@
     "column": {
       "suppliers": "الموردين",
       "name": "الاسم",
-      "english":"الإنجليزية",
-      "arabic":"عربى",
+      "english": "الإنجليزية",
+      "arabic": "عربى",
       "total_sub_asset": "إجمالي الأصول الفرعية",
       "total_accessory": "إجمالي الملحق",
       "total": "الإجمالي",
@@ -522,7 +522,9 @@
       "total_fine": "إجمالي الغرامة",
       "plate_code": "رمز اللوحة",
       "plate_source": "مصدر اللوحة",
-      "username":"اسم االمستخدم"
+      "username":"اسم االمستخدم",
+      "firstname": "الاسم الأول",
+      "lastname": "الكنية"
     },
     "button": {
       "view_report": "عرض التقرير",
@@ -814,7 +816,8 @@
           "urgent": "العاجلة",
           "normal": "طبيعي"
         },
-        "asset_type": "نوع الأصول"
+        "asset_type": "نوع الأصول",
+        "chassis_no": "رقم الشاسيه"
       },
       "reminder": {
         "add_reminder": "إضافة تذكير",
@@ -986,7 +989,7 @@
     "department_info": "معلومات الإدارة",
     "tag": "الشعار",
     "section_department": "القسم / الإدارة",
-    "remove_section_department":" إزالة الإدارة / القسم",
+    "remove_section_department": " إزالة الإدارة / القسم",
     "department_id": "رقم الإدارة",
     "department_name": "اسم الإدارة",
     "section_name": "اسم القسم",
@@ -1130,9 +1133,9 @@
       "add_category": "إضافة فئة",
       "make": "الماركة",
       "model": "الموديل",
-      "description":"الوصف",
-      "part_number":"رقم القطعة",
-      "year":"السنة",
+      "description": "الوصف",
+      "part_number": "رقم القطعة",
+      "year": "السنة",
       "folder_info": "معلومات المجلد",
       "category_info": "معلومات الفئة",
       "item_info": "معلومات العنصر",
@@ -2032,7 +2035,8 @@
     "model_name": "اسم النموذج",
     "type_status": "اكتب الحالة",
     "description": "الوصف",
-    "category": "الفئة"
+    "category": "الفئة",
+    "origin": "أصل"
   },
   "chart": {
     "lifecycle": "دورة الحياة",
@@ -2044,22 +2048,22 @@
   },
   "traffic_fine": {
     "asset_traffic_file": {},
-    "overview":{
-      "booklet_id":"معرف الكتيب",
-      "creation_date":"تاريخ الإنشاء",
-      "location_code":"كود الموقع",
-      "location_description":"وصف الموقع",
-      "location_description_arabic":"وصف الموقع عربي",
-      "vehicle_speed":"سرعة السيارة",
-      "road_speed":"سرعة الطريق",
-      "ticket_id":"معرف التذكرة",
-      "ticket_no":"تذكرة رقم",
-      "ticket_fine":"غرامة التذكرة",
-      "ticket_date":"تاريخ التذكرة",
-      "ticket_type":"نوع التذكرة",
-      "ticket_status":"حالة التذكرة",
-      "ticket_time":"وقت التذكرة",
-      "ticket_status_date":"تاريخ حالة التذكرة"
+    "overview": {
+      "booklet_id": "معرف الكتيب",
+      "creation_date": "تاريخ الإنشاء",
+      "location_code": "كود الموقع",
+      "location_description": "وصف الموقع",
+      "location_description_arabic": "وصف الموقع عربي",
+      "vehicle_speed": "سرعة السيارة",
+      "road_speed": "سرعة الطريق",
+      "ticket_id": "معرف التذكرة",
+      "ticket_no": "تذكرة رقم",
+      "ticket_fine": "غرامة التذكرة",
+      "ticket_date": "تاريخ التذكرة",
+      "ticket_type": "نوع التذكرة",
+      "ticket_status": "حالة التذكرة",
+      "ticket_time": "وقت التذكرة",
+      "ticket_status_date": "تاريخ حالة التذكرة"
     }
   },
   "reports": {},
@@ -2084,5 +2088,24 @@
         "need_part_request_description": "وصف الطلب"
       }
     }
+  },
+  "status": {
+    "PERMANENT": "دائم",
+    "I_SERV": "IServ",
+    "TEMPORARY": "مؤقت",
+    "NEW": "جديد",
+    "REPLACEMENT": "إستبدال",
+    "REQUESTED": "طلبات",
+    "body-shop": "ورشة الصيانة",
+    "service-shop": "متجر الخدمة",
+    "Active": "مفعل",
+    "Inactive": "غير مفعل",
+    "JUST_REGISTERED": "مسجل",
+    "RECEIVED": "تم الاستلام",
+    "ARCHIVED": "مؤرشف",
+    "EXTERNAL": "خارجي",
+    "RENT": "إيجار",
+    "DEMO": "تجريبي",
+    "OWNED": "مملوكة"
   }
 }

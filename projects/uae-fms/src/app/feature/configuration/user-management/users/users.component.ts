@@ -4,6 +4,7 @@ import { FilterCardSetting } from '@core/filter';
 import { UsersFacade } from '../../+state/users';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-users',
@@ -14,6 +15,8 @@ export class UsersComponent implements OnInit {
   @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   downloadBtn = 'assets/icons/download-solid.svg';
+  filtersColumns = [];
+  showCustomFilter = false;
 
   //#region Filter
   filterCard: FilterCardSetting[] = [
@@ -60,13 +63,16 @@ export class UsersComponent implements OnInit {
   );
 
   users_Table: TableSetting = {
+    name: 'users',
     columns: [
       {
         lable: 'tables.column.user',
         type: 1,
         field: 'User',
         renderer: 'userRenderer',
-        thumbField: 'profileDocId'
+        thumbField: 'profileDocId',
+        filterApiKey: 'userName',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.department',
@@ -76,7 +82,9 @@ export class UsersComponent implements OnInit {
         rendererOptions: {
           line1: 'name',
           line2: 'organizationName'
-        }
+        },
+        filterApiKey: 'department',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.information',
@@ -93,7 +101,16 @@ export class UsersComponent implements OnInit {
         lable: 'tables.column.status',
         type: 1,
         field: 'isActive',
-        renderer: 'booleanRenderer'
+        renderer: 'booleanRenderer',
+        filterApiKey: 'isActive',
+        filterType: FilterType.status
+      },
+      {
+        lable: 'tables.column.role',
+        type: 1,
+        field: 'roleName',
+        filterType: FilterType.list,
+        filterApiKey: 'roles'
       },
       {
         lable: 'tables.column.username',
@@ -122,6 +139,13 @@ export class UsersComponent implements OnInit {
               '/configuration/user-management/users/edit-user/' + data.id
             ]);
           },
+          condition:(data)=>{
+            if(+data.id === 1){
+              return false
+            }else{
+              return true
+            }
+          },
           permission: ['USER_NORMAL_UPDATE']
         }
       ]
@@ -132,6 +156,7 @@ export class UsersComponent implements OnInit {
   constructor(private facade: UsersFacade, private router: Router) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this.facade.loadAll();
     this.facade.statistics$.subscribe((x) => {
       if (x) {
@@ -182,5 +207,38 @@ export class UsersComponent implements OnInit {
       roleName: 'roleName'
     };
     this.table.exportTable(this.users_Table, 'Users', filter);
+  }
+
+  setFiltersColumns() {
+    let removeField = ['information'];
+    let filtersColumns = Object.values({ ...this.users_Table.columns });
+    filtersColumns.splice(1, 0, {
+      lable: 'tables.column.organization',
+      field: 'organization',
+      filterApiKey: 'organization',
+      filterType: FilterType.list
+    });
+    let addition = [
+      {
+        lable: 'tables.column.email',
+        field: 'emails',
+        filterApiKey: 'emails',
+        filterType: FilterType.string
+      },
+      {
+        lable: 'tables.column.phone_number',
+        field: 'phoneNumbers',
+        filterApiKey: 'phoneNumbers',
+        filterType: FilterType.string
+      }
+    ];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
+    this.facade.loadAll();
   }
 }

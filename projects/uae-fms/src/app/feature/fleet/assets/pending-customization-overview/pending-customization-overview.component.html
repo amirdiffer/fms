@@ -70,7 +70,7 @@
                               <span class="p-float-label">
                                 <p-autoComplete (completeMethod)="filterAccessory($event)"
                                   [suggestions]="accessory" field="organizationName"
-                                  [(ngModel)]="outp.accessories[i].accessory" field="itemName" [minLength]="1"></p-autoComplete>
+                                  [(ngModel)]="outp.accessories[i].accessory" field="itemName" [minLength]="1" [dropdown]="true"></p-autoComplete>
                                 <label>{{ 'assets.accessory' | translate}} *</label>
                               </span>
                             </div>
@@ -103,7 +103,7 @@
                         <div class="autocomplete-select">
                           <span class="p-float-label">
                             <p-autoComplete (completeMethod)="filterSubAsset($event)"
-                              [suggestions]="subAsset" [(ngModel)]="outp.subAssets[i].subAsset" field="serialNumber" [minLength]="1"></p-autoComplete>
+                              [suggestions]="subAsset" [(ngModel)]="outp.subAssets[i].subAsset" field="serialNumber" [minLength]="1" [dropdown]="true"></p-autoComplete>
                             <label>{{ 'assets.sub-asset' | translate}} *</label>
                           </span>
                         </div>

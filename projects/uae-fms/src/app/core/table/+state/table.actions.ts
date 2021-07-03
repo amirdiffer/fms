@@ -38,4 +38,14 @@ export class TableActions {
     props<{ name: string }>()
   );
 
+  static filters_initial = createAction(
+    '[Table] Filters Create',
+    props<{ name: string, value: object[] }>()
+  );
+
+  static filters = createAction(
+    '[Table] Filters',
+    props<{ name: string, value: object[] }>()
+  );
+
 }

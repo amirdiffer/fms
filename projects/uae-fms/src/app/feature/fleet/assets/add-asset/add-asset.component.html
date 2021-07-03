@@ -91,7 +91,18 @@
 
                         <div class="col-12 col-md-2 p-field form-section__field options-select">
                           <span class="p-float-label">
-                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color"></p-dropdown>
+                            <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color">
+                              <ng-template pTemplate="selectedItem">
+                                <div class="color-item color-item-value" >
+                                  <span class="color-dropdown-option" [ngStyle]="{'background': color.value.hexColor}"></span>
+                                </div>
+                              </ng-template>
+                              <ng-template let-item pTemplate="item">
+                                <div class="color-item">
+                                  <span class="color-dropdown-option" [ngStyle]="{'background': item.hexColor}"></span>
+                                </div>
+                              </ng-template>
+                            </p-dropdown>
                             <label for="color">{{ 'assets.color' | translate }}</label>
                           </span>
                           <anms-error
@@ -167,6 +178,8 @@
                             </span>
                             <anms-error [showError]="hasError('department',formGroupAssetDetail.get('purchasedFor'),submitted_AssetDetail)"
                                         error="forms.feedback.required"></anms-error>
+                            <anms-error [showError]="autocompleteErrorMessage(department) && submitted_AssetDetail"
+                                        error="forms.feedback.autocomplete_select"></anms-error>
                           </div>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field">
@@ -182,6 +195,8 @@
                             </span>
                             <anms-error [showError]="hasError('section',formGroupAssetDetail.get('purchasedFor'),submitted_AssetDetail)"
                                         error="forms.feedback.required"></anms-error>
+                            <anms-error [showError]="autocompleteErrorMessage(section) && submitted_AssetDetail"
+                                        error="forms.feedback.autocomplete_select"></anms-error>
                           </div>
                         </div>
                         <div class="col-12 col-md-3 p-field form-section__field options-select">
@@ -200,7 +215,7 @@
                     <!-- form-section -->
                     <div class="form-section component_wrapper">
                       <h3 class="form-section__title">{{ 'assets.upload_form.title' | translate }}</h3>
-                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="false" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)" ></anms-uploader>
+                      <anms-uploader [files]="vehicleDoc" [multiple]="true" [preview]="true" [hasError]="vehicleDocRequired" (uploadedEvent)="uploadVehicleFiles($event)" ></anms-uploader>
                     </div>
                     <!-- end form-section -->
                   </form>
@@ -314,7 +329,7 @@
                         </div>
                         <div class="form-section component_wrapper">
                           <h3 class="form-section__title">{{ 'assets.upload_purchase_order' | translate }}</h3>
-                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="false" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
+                          <anms-uploader [files]="purchaseDoc" [multiple]="false" [preview]="true" [hasError]="purchaseDocRequired" (uploadedEvent)="uploadPurchaseFiles($event)"></anms-uploader>
                         </div>
                       </div>
                       <div *ngIf="policyType.value != '' " class="col-12 col-md-7">
@@ -438,7 +453,7 @@
                                       </div>
                                     </div>
                                     <div class="col-6 col-md-3" [class.col-md-6]="periodicService.value != '' ">
-                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="false" [hasError]="(formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.errors !== null) && formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.touched" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
+                                      <anms-uploader [files]="[warrantyDocs[i]]" [multiple]="false" [preview]="true" [hasError]="(formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.errors !== null) && formGroupMaintenance.get('warrantyItems')['controls'][i]['controls'].docId.touched" (uploadedEvent)="uploadWarrantyFiles($event , i)"></anms-uploader>
                                     </div>
                                   </div>
                                 </div>
@@ -509,7 +524,7 @@
                             </anms-error>
                           </div>
                         </div>
-                        <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="false" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
+                        <anms-uploader *ngIf="this.formGroupGenerate.get('quantity').value == 'multipleAsset'" [readCSVFile]="true" [multiple]="false" [preview]="true" [accept]="'.csv'" [hasError]="maintenanceServiceDocRequired" (uploadedEvent)="maintenanceServiceFiles($event)" (csvTextEvent)="csvReader($event)"></anms-uploader>
                       </div>
                       <div class="form-section">
                         <div class="row form-section__row">

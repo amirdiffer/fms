@@ -96,7 +96,7 @@ export class AddAccessoryComponent
         return {
           statusColor: '#00AFB9',
           Item: item.itemName,
-          Assigned_To: item.assignedToEmployeeId,
+          // Assigned_To: item.assignedToEmployeeId,
           Quantity: item.quantity
         };
       })
@@ -126,7 +126,7 @@ export class AddAccessoryComponent
             this.accessoryForm.patchValue({
               itemName: accessory.itemName,
               accessoryTypeId: accessory.accessorySpecification.id,
-              assignedToEmployeeId: accessory.assignedToEmployeeId
+              // assignedToEmployeeId: accessory.assignedToEmployeeId
             });
             this.avatarId = accessory.avatarId;
           });
@@ -263,7 +263,7 @@ export class AddAccessoryComponent
         itemName: d.itemName,
         accessoryConfigurationId: d.accessoryTypeId,
         quantity: d.quantity,
-        assignedToEmployeeId: d.assignedToEmployeeId
+        // assignedToEmployeeId: d.assignedToEmployeeId
       };
       if (!this.isEdit) {
         this._facade.addAccessory(_data);
@@ -273,7 +273,7 @@ export class AddAccessoryComponent
         .pipe(
           tap((result) => {
           if (result === 'confirm') {
-            this._facade.editAccessory(_data, this.recordId);
+            this._facade.editAccessory({avatarId:_data.avatarId , itemName:_data.itemName , accessoryConfigurationId: _data.accessoryConfigurationId}, this.recordId);
           }
           dialogClose$?.unsubscribe();
           })

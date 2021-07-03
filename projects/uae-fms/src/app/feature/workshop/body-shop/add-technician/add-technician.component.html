@@ -44,10 +44,10 @@
                     <label>{{'workshop.body_shop.technician.department' | translate}}</label>
                   </span>
                 </div>
-                <anms-error
-                  [showError]="hasError('portalInfo.department',inputForm,submited)"
-                  error="{{'workshop.body_shop.technician.employee_number_validation_error'
-                  | translate}}"></anms-error>
+                <anms-error [showError]="hasError('portalInfo.department',inputForm,submited)"
+                        error="forms.feedback.required"></anms-error>
+                <anms-error [showError]="autocompleteErrorMessage(department) && submited"
+                          error="forms.feedback.autocomplete_select"></anms-error>
               </div>
             </div>
           </div>
@@ -66,10 +66,10 @@
                     <label>{{'workshop.body_shop.technician.section' | translate}}</label>
                   </span>
                 </div>
-                <anms-error
-                  [showError]="hasError('portalInfo.section',inputForm,submited)"
-                  error="{{'workshop.body_shop.technician.employee_number_validation_error'
-                  | translate}}"></anms-error>
+                <anms-error [showError]="hasError('portalInfo.section',inputForm,submited)"
+                            error="forms.feedback.required"></anms-error>
+                <anms-error [showError]="autocompleteErrorMessage(section) && submited"
+                            error="forms.feedback.autocomplete_select"></anms-error>
               </div>
             </div>
           </div>
@@ -94,6 +94,7 @@
                 [showError]="hasError('portalInfo.payPerHours',inputForm,submited)"
                 error="{{'workshop.body_shop.technician.pay_per_hours_validation_error'
                 | translate}}"></anms-error>
+              
             </div>
           </div>
           <div class="align-self-center">
@@ -124,12 +125,15 @@
                                     [suggestions]="skillFiltered" field="name" [minLength]="1"
                                     [dropdown]="true"
                                     [class.invalid]="!inputForm.get('professional.skills')['controls'][i].valid && submited"></p-autoComplete>
+                                    <i class="pi pi-search"></i>
                                     <label>{{'workshop.body_shop.technician.skill' | translate}}</label>
                   </span>
+                  
                 </div>
-                <small class="red-font"
-                        [class.d-none]="inputForm.get('professional.skills')['controls'][i].valid || !submited">{{'workshop.body_shop.technician.skill_validation_error' | translate}}
-                </small>
+                <anms-error [showError]="formArrayHasError(submited , getSkill , i )"
+                            error="forms.feedback.required"></anms-error>
+                <anms-error [showError]="autocompleteErrorMessage(inputForm.get('professional.skills')['controls'][i]) && submited"
+                            error="forms.feedback.autocomplete_select"></anms-error>
                 <!-- <small *ngIf="last" class="error-input"
                     [class.d-none]="skill.value != null  || !addSkillValidation">{{ 'workshop.task_master.please_fill_skill' | translate }}</small> -->
               </div>
@@ -185,10 +189,10 @@
                     <label>{{'workshop.body_shop.technician.location' |
                       translate}}</label>
                   </span>
-                  <small class="red-font"
-                    [class.d-none]="inputForm.get('professional.location')['controls'][i].valid
-                    || !submited">{{'workshop.body_shop.technician.location_validation_error'
-                    | translate}}</small>
+                  <anms-error [showError]="formArrayHasError(submited , getLocation , i )"
+                            error="forms.feedback.required"></anms-error>
+                  <anms-error [showError]="autocompleteErrorMessage(inputForm.get('professional.location')['controls'][i]) && submited"
+                              error="forms.feedback.autocomplete_select"></anms-error>
                 </div>
                 <span *ngIf="!last" class='remove-icon p-inputgroup-addon' (click)="removeLocation(i)">
                   <svg-icon src='assets/icons/add.svg'

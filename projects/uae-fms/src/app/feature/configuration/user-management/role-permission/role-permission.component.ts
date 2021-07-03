@@ -11,6 +11,9 @@ import { RolePermissionFacade } from '../../+state/role-permission';
 })
 export class RolePermissionComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
+  showCustomFilter = false;
+  filtersColumns = [];
+
   data$ = this.facade.rolePermission$.pipe(
     map((x) => {
       return x.map((y) => {
@@ -24,8 +27,14 @@ export class RolePermissionComponent implements OnInit {
   );
 
   rolePermission_Table: TableSetting = {
+    name: 'rolePermission',
     columns: [
-      { lable: 'tables.column.role_name', type: 1, field: 'roleName' },
+      {
+        lable: 'tables.column.role_name',
+        type: 1,
+        field: 'roleName',
+        filterApiKey: 'name'
+      },
       { lable: 'tables.column.description', type: 1, field: 'description' },
       { lable: 'tables.column.number_of_user', type: 1, field: 'numberOfUser' },
       {
@@ -60,11 +69,11 @@ export class RolePermissionComponent implements OnInit {
               '/configuration/user-management/edit-role-permission/' + data.id
             ]);
           },
-          condition:(data)=>{
-            if(+data.roleId <= 3){
-              return false
-            }else{
-              return true
+          condition: (data) => {
+            if (+data.roleId <= 3) {
+              return false;
+            } else {
+              return true;
             }
           },
           permission: ['DROLE_UPDATE']
@@ -76,6 +85,27 @@ export class RolePermissionComponent implements OnInit {
   constructor(private facade: RolePermissionFacade, private _router: Router) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
+    this.facade.loadAll();
+  }
+
+  eventPagination() {
+    this.facade.loadAll();
+  }
+
+  setFiltersColumns() {
+    let removeField = ['description', 'numberOfUser'];
+    let filtersColumns = Object.values({
+      ...this.rolePermission_Table.columns
+    });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
     this.facade.loadAll();
   }
 }

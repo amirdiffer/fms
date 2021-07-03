@@ -1,5 +1,5 @@
-<ng-template>
-  <div [ngIf]="show" class="form-section">
+<ng-template [ngIf]="show">
+  <div class="form-section">
     <div class="row form-section__row justify-content-between">
       <div class="col-12 col-md-8">
         <div class="d-flex">
@@ -37,13 +37,106 @@
       </div>
     </div>
     <div class="row form-section__row">
-      <ng-container *ngFor="let item of customizeFilter">
-        <div class="col-12 col-md-3 p-field form-section__field">
-          <span class="p-float-label">
-            <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value" type="text">
-            <label class="pointer">{{ item.lable | translate}}</label>
-          </span>
-        </div>
+      <ng-container *ngFor="let item of customizeFilter;let i = index">
+        <ng-template [ngIf]="true" [ngSwitch]="item?.filterType">
+          <ng-template [ngSwitchCase]="filterType.list">
+            <div class="col-12 col-md-3 p-field form-section__field">
+              <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete  [(ngModel)]="item.value" (completeMethod)="searchInput($event,  item.filterApiKey)" (onSelect)="searchInputChanged($event, item.filterApiKey)"
+                                  [suggestions]="searchInputFiltered[item.filterApiKey]" field="name" [minLength]="1"
+                                  [dropdown]="true">
+                  </p-autoComplete>
+                  <i class="pi pi-search"></i>
+                  <label>{{ item.lable | translate}}</label>
+                </span>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.status">
+            <div class="col-12 col-md-3 p-field form-section__field">
+              <div class="autocomplete-select">
+                <span class="p-float-label">
+                  <p-autoComplete  [(ngModel)]="item.value" (completeMethod)="searchInput($event,  item.filterApiKey)" (onSelect)="searchInputChanged($event, item.filterApiKey)"
+                                   [suggestions]="searchInputFiltered[item.filterApiKey]" field="name" [minLength]="1"
+                                   [dropdown]="true">
+                        <ng-template let-item pTemplate="item">
+                          <div class="country-item">
+                            <div>{{'status.' + item.name | translate}}</div>
+                          </div>
+                        </ng-template>
+                  </p-autoComplete>
+                  <i class="pi pi-search"></i>
+                  <label>{{ item.lable | translate}}</label>
+                </span>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.checkbox_list">
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.string">
+            <div class="col-12 col-md-3 p-field form-section__field">
+              <span class="p-float-label">
+                <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value" type="text">
+                <label class="pointer">{{ item.lable | translate}}</label>
+              </span>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.number">
+            <div class="col-12 col-md-3 p-field form-section__field">
+              <div class='p-inputgroup'>
+                  <span class="p-inputgroup-addon">
+                    <p-dropdown (onChange)="changeComparison($event, i)" class='w-50' inputId="unit" [autoDisplayFirst]="false" [options]="comparison"
+                                id="comparison" optionLabel="name" optionValue="id"></p-dropdown>
+                  </span>
+                <span class="p-float-label">
+                <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value.val" type="number">
+                  <label class="pointer">{{ item.lable | translate}}</label>
+                </span>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.boolean">
+            <div class="col-12 col-md-3 p-field form-section__field options-select">
+              <span class="p-float-label">
+                <p-dropdown id="booleanInput" inputId="booleanInput" [autoDisplayFirst]="false"
+                            [options]="itemsBoolean" optionLabel="name"></p-dropdown>
+                <label for="booleanInput">{{ item.lable | translate}}
+                </label>
+              </span>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.date">
+            <div class="col-12 col-md-3 p-field form-section__field
+            date-input">
+              <span class="p-float-label">
+                <p-calendar inputId="basic" [(ngModel)]="item.value"></p-calendar>
+                <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                <label>{{ item.lable | translate}}
+                </label>
+              </span>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="filterType.range_date">
+            <div class="col-12 col-md-3 p-field form-section__field
+            date-input">
+              <span class="p-float-label">
+                <p-calendar inputId="basic" selectionMode="range" [(ngModel)]="item.value"></p-calendar>
+                <svg-icon class="date-icon" src='assets/icons/calendar-alt-regular.svg' [svgStyle]="{ 'width.px':'20' , 'fill': 'rgb(161 161 161)' ,'height': '100%'}"></svg-icon>
+                <label>{{ item.lable | translate}}
+                </label>
+              </span>
+            </div>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            <div class="col-12 col-md-3 p-field form-section__field">
+              <span class="p-float-label">
+                <input pInputText placeholder="{{ item.lable | translate}}" [(ngModel)]="item.value" type="text">
+                <label class="pointer">{{ item.lable | translate}}</label>
+              </span>
+            </div>
+          </ng-template>
+        </ng-template>
       </ng-container>
     </div>
   </div>

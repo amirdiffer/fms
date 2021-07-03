@@ -9,10 +9,15 @@ import {
   IRegisterAssetByChassisNumber,
   IRegisterAssetByPlateNumber
 } from './registration.entity';
+import { TableFilterService } from '@core/table/table-filter/table-filter.service';
 
 @Injectable()
 export class RegistrationService {
-  constructor(private _http: HttpClient, private _tableFacade: TableFacade) {}
+  constructor(
+    private _http: HttpClient,
+    private _tableFacade: TableFacade,
+    private _tblFilterService: TableFilterService
+  ) {}
 
   params = new HttpParams();
   getParam(name) {
@@ -26,9 +31,33 @@ export class RegistrationService {
     return this.params;
   }
 
+  getFilter() {
+    let removeFilterKey = [];
+    this._tableFacade.getFiltersByName('pendingRegistration').subscribe((x) => {
+      let filter = '';
+      if (x != null) {
+        let value: object[] = x.value ? Object.values(x.value) : [];
+        value.forEach((y) => {
+          if (y['value'] && y['value'] != '') {
+            let filterApiKey = y['filterApiKey']
+              ? y['filterApiKey']
+              : y['name'];
+            if (!removeFilterKey.includes(filterApiKey)) {
+              let b = this._tblFilterService.convertData(y);
+              filter = filter + b + ';';
+            }
+          }
+        });
+      }
+      this.params = this.params.set('filter', filter);
+    });
+  }
+
   loadAll(): Observable<ResponseBody<IPendingRegistration[]>> {
+    this.getFilter();
     return this._http.get<ResponseBody<IPendingRegistration[]>>(
-      environment.baseApiUrl + 'asset/registration'
+      environment.baseApiUrl + 'asset/registration',
+      { params: this.getParam('asset_registration') }
     );
   }
   registerAsset(data): Observable<ResponseBody<any>> {

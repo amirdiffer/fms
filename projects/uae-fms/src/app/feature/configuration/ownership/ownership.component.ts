@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { OwnershipFacade } from '../+state/ownership';
 import { TableFacade } from '@core/table/+state/table.facade';
 import { Router } from '@angular/router';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'anms-ownership',
@@ -11,20 +12,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./ownership.component.scss']
 })
 export class OwnershipComponent implements OnInit {
+  filtersColumns = [];
+  showCustomFilter = false;
   //#region Table
   ownerShip_Table: TableSetting = {
+    name: 'ownership',
     columns: [
-      { lable: 'tables.column.ownership', type: 1, field: 'Ownership' },
+      {
+        lable: 'tables.column.ownership',
+        type: 1,
+        field: 'Ownership',
+        filterApiKey: 'type',
+        filterType: FilterType.status
+      },
       { lable: 'tables.column.Owner', type: 1, field: 'Owner' },
-      { lable: 'tables.column.fleet_it_code', type: 1, field: 'Fleet_IT_Code' },
+      {
+        lable: 'tables.column.fleet_it_code',
+        type: 1,
+        field: 'Fleet_IT_Code',
+        filterApiKey: 'fleetITCode'
+      },
       {
         lable: 'tables.column.duration',
         type: 1,
         field: 'Duration',
         sortable: true,
-        width: 140
+        width: 140,
+        filterApiKey: 'duration'
       },
-      { lable: 'tables.column.purpose', type: 1, field: 'Purpose', width: 100 },
+      {
+        lable: 'tables.column.purpose',
+        type: 1,
+        field: 'Purpose',
+        width: 100,
+        filterApiKey: 'purpose'
+      },
       { lable: 'tables.column.owner_email', type: 1, field: 'Owner_Email' },
       {
         lable: 'tables.column.owner_phone_no',
@@ -96,6 +118,7 @@ export class OwnershipComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this.facade.loadAll();
   }
 
@@ -113,6 +136,20 @@ export class OwnershipComponent implements OnInit {
   }
 
   eventPagination() {
+    this.facade.loadAll();
+  }
+
+  setFiltersColumns() {
+    let removeField = ['car', 'Owner_Email', 'Owner_Phone_No', 'Owner'];
+    let filtersColumns = Object.values({ ...this.ownerShip_Table.columns });
+    let addition = [];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
     this.facade.loadAll();
   }
 }

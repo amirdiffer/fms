@@ -52,7 +52,7 @@ export class AddTechnicianServiceShopComponent
   departmentFiltered: any[];
   departmentSerive$: Subscription;
   sectionFiltered: any[];
-  sectionList: any[];
+  sectionList: any[] = [];
   depatmentSectionSevice$: Subscription;
   department_static;
   departmentId;
@@ -185,6 +185,17 @@ export class AddTechnicianServiceShopComponent
     return this.inputForm.get('professional').get('location') as FormArray;
   }
 
+  /* Autocomplete formControl */
+  get employeeNumber() {
+    return this.inputForm.get('portalInfo.employeeNumber') as FormControl;
+  }
+  get department() {
+    return this.inputForm.get('portalInfo.department') as FormControl;
+  }
+  get section() {
+    return this.inputForm.get('portalInfo.section') as FormControl;
+  }
+
   constructor(
     private _fb: FormBuilder,
     injector: Injector,
@@ -197,7 +208,7 @@ export class AddTechnicianServiceShopComponent
     private _taskMasterService: TaskMasterService,
     private _departmentService: OrganizationService,
     private _facadeTaskMaster: TaskMasterFacade,
-    private _dialogService : DialogService
+    private _dialogService: DialogService
   ) {
     super(injector);
     this._technicianFacade.resetParams();
@@ -334,36 +345,50 @@ export class AddTechnicianServiceShopComponent
       });
     this._technicianFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success' ,
-        (this.isEdit ? 'Edit technician': 'Add new technician' ),
-        (this.isEdit ? 'Changes Saved Successfully' : 'technician Added Successfully'),'Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-            this.router.navigate(['/workshop/service-shop'] , { queryParams: { id: 'technicianTab' }}).then(()=>{
-              this._technicianFacade.loadAll();
-            });
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show(
+          'success',
+          this.isEdit ? 'Edit technician' : 'Add new technician',
+          this.isEdit
+            ? 'Changes Saved Successfully'
+            : 'technician Added Successfully',
+          'Ok'
+        );
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+                this.router
+                  .navigate(['/workshop/service-shop'], {
+                    queryParams: { id: 'technicianTab' }
+                  })
+                  .then(() => {
+                    this._technicianFacade.loadAll();
+                  });
+              }
+              dialogClose$?.unsubscribe();
+            })
+          )
+          .subscribe();
       }
     });
 
     this._technicianFacade.error$.subscribe((x) => {
       if (x?.error) {
-        const dialog = this._dialogService.show('danger' ,
-          (this.isEdit ? 'Edit technician': 'Add new technician' ),
-          'We Have Some Error','Ok')
-        const dialogClose$:Subscription = dialog.dialogClosed$
-        .pipe(
-          tap((result) => {
-          if (result === 'confirm') {
-          }
-          dialogClose$?.unsubscribe();
-          })
-        ).subscribe()
+        const dialog = this._dialogService.show(
+          'danger',
+          this.isEdit ? 'Edit technician' : 'Add new technician',
+          'We Have Some Error',
+          'Ok'
+        );
+        const dialogClose$: Subscription = dialog.dialogClosed$
+          .pipe(
+            tap((result) => {
+              if (result === 'confirm') {
+              }
+              dialogClose$?.unsubscribe();
+            })
+          )
+          .subscribe();
       }
     });
     this.getEmployeesList.pipe(debounceTime(600)).subscribe((x) => {
@@ -382,15 +407,15 @@ export class AddTechnicianServiceShopComponent
       // organizationId: [null, [Validators.required]],
       // departmentId: [null, [Validators.required]],
       portalInfo: this._fb.group({
-        employeeNumber: ['', [Validators.required]],
+        employeeNumber: ['', Validators.compose([Validators.required])],
         payPerHours: ['', [Validators.required]],
-        department: ['', [Validators.required]],
-        section: ['', [Validators.required]],
+        department: ['', Validators.compose([Validators.required , this.autocompleteDepartmentValidation])],
+        section: ['', Validators.compose([Validators.required , this.autocompleteNameValidation])],
         active: [false]
       }),
       professional: this._fb.group({
-        skills: this._fb.array([this._fb.control('', [Validators.required])]),
-        location: this._fb.array([this._fb.control('', [Validators.required])])
+        skills: this._fb.array([this._fb.control('', Validators.compose([Validators.required , this.autocompleteNameValidation]))]),
+        location: this._fb.array([this._fb.control('',  Validators.compose([Validators.required , this.autocompleteAddressValidation]))])
       }),
       file: [''],
       personalInfo: this._fb.group({
@@ -530,7 +555,7 @@ export class AddTechnicianServiceShopComponent
     if (this.inputForm.get('professional.skills').invalid) {
       return;
     }
-    const skill = new FormControl(null, [Validators.required]);
+    const skill = new FormControl(null, Validators.compose([Validators.required , this.autocompleteNameValidation]));
     (<FormArray>this.inputForm.get('professional.skills')).push(skill);
   }
   removeSkill(i) {
@@ -540,7 +565,7 @@ export class AddTechnicianServiceShopComponent
     if (this.inputForm.get('professional.location').invalid) {
       return;
     }
-    const location = new FormControl(null, [Validators.required]);
+    const location = new FormControl(null,  Validators.compose([Validators.required , this.autocompleteAddressValidation]));
     (<FormArray>this.inputForm.get('professional.location')).push(location);
   }
   removeLocation(i) {
@@ -562,7 +587,6 @@ export class AddTechnicianServiceShopComponent
   removePhoneNumber(index) {
     this.phoneNumbers.removeAt(index);
   }
-
 
   getPhone(f) {
     if (f.personalInfo.phoneNumber && f.personalInfo.phoneNumber.length > 0) {
@@ -684,72 +708,86 @@ export class AddTechnicianServiceShopComponent
       this.inputForm.markAllAsTouched();
       return;
     }
-    const dialog = this._dialogService.show('warning' ,
-    (this.isEdit ? 'Edit technician' : 'Add new technician') ,
-    (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new technician?') , 'Yes','Cancel')
-    const dialogClose$:Subscription = dialog.dialogClosed$
+    const dialog = this._dialogService.show(
+      'warning',
+      this.isEdit ? 'Edit technician' : 'Add new technician',
+      this.isEdit
+        ? 'Are you sure you want to submit this changes?'
+        : 'Are you sure you want to add new technician?',
+      'Yes',
+      'Cancel'
+    );
+    const dialogClose$: Subscription = dialog.dialogClosed$
       .pipe(
         tap((result) => {
-
-        if (result === 'confirm') {
-          let f = this.inputForm.value;
-          let technicianInfo: any = {
-            employeeNumber: this.isEdit
-              ? this._technician?.employeeNumber
-              : this.employeeId,
-            organizationId: +f.portalInfo.department.id,
-            departmentId: +f.portalInfo.section.id,
-            payPerHour: f.portalInfo.payPerHours,
-            isActive: f.portalInfo.active,
-            profileDocId: this.profileDocId || 1,
-            skillIds: f.professional.skills.map((s) => s.id),
-            locationIds: f.professional.location.map((l) => l.id),
-            firstName: f.personalInfo.firstName,
-            lastName: f.personalInfo.lastName,
-            emails: f.personalInfo.email.map((x) => {
-              if (x) {
-                if (typeof x == 'string') return x;
-                else return x[0];
-              } else if (typeof x == 'object') return x[0];
-            }),
-            phoneNumbers: this.getPhone(f),
-            notifyByCall: f.personalInfo.notification.call,
-            notifyBySMS: f.personalInfo.notification.sms,
-            notifyByWhatsapp: f.personalInfo.notification.whatsapp,
-            notifyByEmail: f.personalInfo.notification.email
-          };
-
-          if (this.isEdit) {
-            technicianInfo = {
-              ...technicianInfo,
-              id: this.id
+          if (result === 'confirm') {
+            let f = this.inputForm.value;
+            let technicianInfo: any = {
+              employeeNumber: this.isEdit
+                ? this._technician?.employeeNumber
+                : this.employeeId,
+              organizationId: +f.portalInfo.department.id,
+              departmentId: +f.portalInfo.section.id,
+              payPerHour: f.portalInfo.payPerHours,
+              isActive: f.portalInfo.active,
+              profileDocId: this.profileDocId || 1,
+              skillIds: f.professional.skills.map((s) => s.id),
+              locationIds: f.professional.location.map((l) => l.id),
+              firstName: f.personalInfo.firstName,
+              lastName: f.personalInfo.lastName,
+              emails: f.personalInfo.email.map((x) => {
+                if (x) {
+                  if (typeof x == 'string') return x;
+                  else return x[0];
+                } else if (typeof x == 'object') return x[0];
+              }),
+              phoneNumbers: this.getPhone(f),
+              notifyByCall: f.personalInfo.notification.call,
+              notifyBySMS: f.personalInfo.notification.sms,
+              notifyByWhatsapp: f.personalInfo.notification.whatsapp,
+              notifyByEmail: f.personalInfo.notification.email
             };
 
-            this._technicianFacade.editTechnician(technicianInfo);
-          } else {
-            technicianInfo = {
-              ...technicianInfo
-            };
-            this._technicianFacade.addTechnician(technicianInfo);
+            if (this.isEdit) {
+              technicianInfo = {
+                ...technicianInfo,
+                id: this.id
+              };
+
+              this._technicianFacade.editTechnician(technicianInfo);
+            } else {
+              technicianInfo = {
+                ...technicianInfo
+              };
+              this._technicianFacade.addTechnician(technicianInfo);
+            }
           }
-
-        }
-        dialogClose$?.unsubscribe();
-      })
-    ).subscribe();
+          dialogClose$?.unsubscribe();
+        })
+      )
+      .subscribe();
   }
 
   cancelForm() {
-    const dialog = this._dialogService.show('warning' , 'Are you sure you want to leave?' , 'You have unsaved changes! If you leave, your changes will be lost.' , 'Yes','Cancel')
-    const dialogClose$:Subscription = dialog.dialogClosed$
-    .pipe(
-      tap((result) => {
-      if (result === 'confirm') {
-        this.router.navigate(['/workshop/service-shop'] , { queryParams: { id: 'technicianTab' }});
-      }
-      dialogClose$?.unsubscribe();
-      })
-    ).subscribe();
+    const dialog = this._dialogService.show(
+      'warning',
+      'Are you sure you want to leave?',
+      'You have unsaved changes! If you leave, your changes will be lost.',
+      'Yes',
+      'Cancel'
+    );
+    const dialogClose$: Subscription = dialog.dialogClosed$
+      .pipe(
+        tap((result) => {
+          if (result === 'confirm') {
+            this.router.navigate(['/workshop/service-shop'], {
+              queryParams: { id: 'technicianTab' }
+            });
+          }
+          dialogClose$?.unsubscribe();
+        })
+      )
+      .subscribe();
   }
 
   uploadImage($event) {
@@ -758,5 +796,56 @@ export class AddTechnicianServiceShopComponent
     }
     const docId = $event.files[0];
     this.profileDocId = docId;
+  }
+
+  /* Custom validation */
+  autocompleteEmployeeNumberValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.employeeId;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteDepartmentValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.organizationName;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteNameValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.name;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteAddressValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.address;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
+    }
   }
 }

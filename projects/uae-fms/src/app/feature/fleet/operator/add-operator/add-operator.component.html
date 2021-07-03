@@ -39,7 +39,9 @@
             <label>{{ 'configuration.users.department' | translate }} *</label>
           </span>
           <anms-error [showError]="hasError('department',form.get('portalInformation'),submited)"
-            error="forms.feedback.required"></anms-error>
+                      error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="autocompleteErrorMessage(department) && submited"
+                      error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field">
@@ -55,6 +57,8 @@
           </span>
           <anms-error [showError]="hasError('section',form.get('portalInformation'),submited)"
                       error="forms.feedback.required"></anms-error>
+          <anms-error [showError]="autocompleteErrorMessage(section) && submited"
+                      error="forms.feedback.autocomplete_select"></anms-error>
         </div>
       </div>
       <div class="col-12 col-md-3 form-section__field toggle-select">

@@ -3,9 +3,9 @@ import { FilterCardSetting } from '@core/filter/filter.component';
 import { assetsPath, environment } from '@environments/environment';
 import { ColumnType, TableComponent, TableSetting } from '@core/table';
 import { OperatorFacade } from '../+state/operator';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { FilterType } from '@core/table/table.component';
 
 @Component({
   selector: 'app-operator',
@@ -18,6 +18,8 @@ export class OperatorComponent implements OnInit {
   downloadBtn = 'assets/icons/download-solid.svg';
   showOverView = false;
   fileServerBaseUrl = environment.baseFileServer;
+  showCustomFilter = false;
+  filtersColumns = [];
 
   //#region Filter
   filterCard: FilterCardSetting[] = [
@@ -74,6 +76,7 @@ export class OperatorComponent implements OnInit {
   );
 
   operator_Table: TableSetting = {
+    name: 'operator',
     columns: [
       {
         lable: 'tables.column.operator',
@@ -88,7 +91,9 @@ export class OperatorComponent implements OnInit {
         type: 1,
         field: 'Organization',
         width: 150,
-        renderer: 'doubleLineRenderer'
+        renderer: 'doubleLineRenderer',
+        filterApiKey: 'organization',
+        filterType: FilterType.list
       },
       {
         lable: 'tables.column.information',
@@ -98,8 +103,22 @@ export class OperatorComponent implements OnInit {
         renderer: 'doubleLineRenderer'
       },
       { lable: 'tables.column.username', type: 1, field: 'userName', width: 100 },
-      { lable: 'tables.column.type', type: 1, field: 'Type', width: 100 },
-      { lable: 'tables.column.status', type: 1, field: 'Status', width: 100 },
+      {
+        lable: 'tables.column.type',
+        type: 1,
+        field: 'Type',
+        width: 100,
+        filterType: FilterType.list,
+        filterApiKey: 'roles'
+      },
+      {
+        lable: 'tables.column.status',
+        type: 1,
+        field: 'Status',
+        width: 100,
+        filterType: FilterType.status,
+        filterApiKey: 'isActive'
+      },
       /* {
         lable: 'tables.column.asset',
         type: 1,
@@ -169,6 +188,7 @@ export class OperatorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setFiltersColumns();
     this._operatorFacade.loadStatistics();
 
     this._operatorFacade.statistics$.subscribe((response) => {
@@ -207,6 +227,51 @@ export class OperatorComponent implements OnInit {
   }
 
   eventPagination() {
+    this._operatorFacade.loadAll();
+  }
+
+  setFiltersColumns() {
+    let removeField = ['Operator', 'Information'];
+    let filtersColumns = Object.values({ ...this.operator_Table.columns });
+    filtersColumns.splice(2, 0, {
+      lable: 'tables.column.department',
+      field: 'department',
+      filterApiKey: 'department',
+      filterType: FilterType.list
+    });
+    let addition = [
+      {
+        lable: 'tables.column.firstname',
+        field: 'firstName',
+        filterApiKey: 'firstName',
+        filterType: FilterType.string
+      },
+      {
+        lable: 'tables.column.lastname',
+        field: 'lastName',
+        filterApiKey: 'lastName',
+        filterType: FilterType.string
+      },
+      {
+        lable: 'tables.column.email',
+        field: 'emails',
+        filterApiKey: 'emails',
+        filterType: FilterType.string
+      },
+      {
+        lable: 'tables.column.phone_number',
+        field: 'phoneNumbers',
+        filterApiKey: 'phoneNumbers',
+        filterType: FilterType.string
+      }
+    ];
+    filtersColumns = filtersColumns.concat(addition);
+    this.filtersColumns = filtersColumns.filter(
+      (x) => !removeField.includes(x['field'])
+    );
+  }
+
+  customFilterEvent(data: object[]) {
     this._operatorFacade.loadAll();
   }
 }

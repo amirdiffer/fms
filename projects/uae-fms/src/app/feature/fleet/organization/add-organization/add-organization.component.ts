@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import {
@@ -92,6 +92,11 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     return this.organizationForm.get('section') as FormArray;
   }
 
+   /* Autocomplete formControl */
+   get departmentId() {
+    return this.organizationForm.get('departmentId') as FormControl;
+  }
+
   constructor(
     injector: Injector,
     private _fb: FormBuilder,
@@ -113,7 +118,7 @@ export class AddOrganizationComponent extends Utility implements OnInit {
     // this.facade.loadAll();
 
     this.organizationForm = this._fb.group({
-      departmentId: ['', [Validators.required]],
+      departmentId: ['', [Validators.required , this.autocompleteDepartmentValidation]],
       departmentName: ['', [Validators.required]],
       tags: new FormArray([this.createTagField()]),
       section: new FormArray([this.createSection()])
@@ -311,6 +316,26 @@ export class AddOrganizationComponent extends Utility implements OnInit {
         })
       ).subscribe();
 
+    }
+  }
+
+  /* Custom validation */
+  autocompleteDepartmentValidation(input: FormControl) {
+    if(input.value && input.value !== null){
+      const inputValid = input.value.organizationName;
+      if (inputValid) {
+        return null;
+      } else {
+        return { needsExclamation: true };
+      }
+    }
+  }
+  autocompleteErrorMessage(formControl:FormControl){
+    if(formControl.invalid && formControl.errors && formControl.errors !== null){
+      if(formControl.errors.required){
+        return;
+      }
+      return formControl.errors.needsExclamation
     }
   }
 

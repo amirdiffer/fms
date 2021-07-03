@@ -382,8 +382,8 @@
     "column": {
       "suppliers": "Suppliers",
       "name": "Name",
-      "english":"English",
-      "arabic":"Arabic",
+      "english": "English",
+      "arabic": "Arabic",
       "total_sub_asset": "Total Sub Asset",
       "total_accessory": "Total Accessory",
       "total": "Total",
@@ -581,7 +581,9 @@
       "total_fine": "Total fine",
       "plate_code": "Plate Code",
       "plate_source": "Plate Source",
-      "username":"User Name"
+      "username":"User Name",
+      "firstname": "First Name",
+      "lastname": "Last Name"
     },
     "button": {
       "view_report": "View Report",
@@ -873,7 +875,8 @@
           "urgent": "URGENT",
           "normal": "Normal"
         },
-        "asset_type": "Asset Type"
+        "asset_type": "Asset Type",
+        "chassis_no": "Chassis No"
       },
       "reminder": {
         "add_reminder": "Add Reminder",
@@ -1210,9 +1213,9 @@
       "add_category": "Add Category",
       "make": "Make",
       "model": "Model",
-      "description":"Description",
-      "part_number":"Part Number",
-      "year":"Year",
+      "description": "Description",
+      "part_number": "Part Number",
+      "year": "Year",
       "folder_info": "Folder Info",
       "category_info": "Category Info",
       "item_info": "Item Info",
@@ -2118,7 +2121,8 @@
     "description": "Description",
     "category": "Category",
     "edit_make_for": "Edit Make For",
-    "edit_model_for": "Edit Model For"
+    "edit_model_for": "Edit Model For",
+    "origin": "Origin"
   },
   "chart": {
     "lifecycle": "Lifecycle",
@@ -2136,22 +2140,22 @@
         "status": "Status"
       }
     },
-    "overview":{
-      "booklet_id":"Booklet ID",
-      "creation_date":"Creation Date",
-      "location_code":"Location Code",
-      "location_description":"Location Description",
-      "location_description_arabic":"Location Description A",
-      "vehicle_speed":"Vehicle Speed",
-      "road_speed":"Road Speed",
-      "ticket_id":"Ticket ID",
-      "ticket_no":"Ticket No",
-      "ticket_fine":"Ticket Fine",
-      "ticket_date":"Ticket Date",
-      "ticket_type":"Ticket Type",
-      "ticket_status":"Ticket status",
-      "ticket_time":"Ticket Time",
-      "ticket_status_date":"Ticket Status Date"
+    "overview": {
+      "booklet_id": "Booklet ID",
+      "creation_date": "Creation Date",
+      "location_code": "Location Code",
+      "location_description": "Location Description",
+      "location_description_arabic": "Location Description A",
+      "vehicle_speed": "Vehicle Speed",
+      "road_speed": "Road Speed",
+      "ticket_id": "Ticket ID",
+      "ticket_no": "Ticket No",
+      "ticket_fine": "Ticket Fine",
+      "ticket_date": "Ticket Date",
+      "ticket_type": "Ticket Type",
+      "ticket_status": "Ticket status",
+      "ticket_time": "Ticket Time",
+      "ticket_status_date": "Ticket Status Date"
     }
   },
   "reports": {},
@@ -2179,5 +2183,24 @@
         "need_part_request_description": "Request description"
       }
     }
+  },
+  "status": {
+    "PERMANENT": "Permanent",
+    "I_SERV": "IServ",
+    "TEMPORARY": "Temporary",
+    "NEW": "New",
+    "REPLACEMENT": "Replacement",
+    "REQUESTED": "Requested",
+    "body-shop": "Body Shop",
+    "service-shop": "Service Shop",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "JUST_REGISTERED": "Just Registered",
+    "RECEIVED": "Received",
+    "ARCHIVED": "Archived",
+    "EXTERNAL": "External",
+    "RENT": "Rent",
+    "DEMO": "Demo",
+    "OWNED": "Owned"
   }
 }

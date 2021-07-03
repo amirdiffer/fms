@@ -1,7 +1,7 @@
 {
   "name": "uae-fms",
   "version": "0.2.3",
-  "build": "4",
+  "build": "5",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

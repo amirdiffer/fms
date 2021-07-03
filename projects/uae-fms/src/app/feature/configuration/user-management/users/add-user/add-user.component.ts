@@ -15,9 +15,13 @@ import { UsersService } from '../../../+state/users/users.service';
 
 import { FilterCardSetting } from '@core/filter';
 import { Utility } from '@shared/utility/utility';
-import { OrganizationFacade, OrganizationService } from '@feature/fleet/+state/organization';
+import {
+  OrganizationFacade,
+  OrganizationService
+} from '@feature/fleet/+state/organization';
 import { DialogService } from '@core/dialog/dialog-template.component';
 import { environment } from "@environments/environment";
+import { Router } from '@angular/router';
 @Component({
   selector: 'anms-add-user',
   templateUrl: './add-user.component.html',
@@ -32,7 +36,6 @@ export class AddUserComponent
   departmentId;
   sectionId;
 
-
   //#region Filter
 
   filter: FilterCardSetting[] = [
@@ -41,28 +44,28 @@ export class AddUserComponent
       filterTitle: 'statistic.this_month',
       filterCount: '0',
       filterTagColor: '#fff',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.total',
       filterCount: '13',
       filterTagColor: '#6EBFB5',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.active',
       filterCount: '08',
       filterTagColor: '#6870B4',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     },
     {
       filterTitle: 'statistic.inactive',
       filterCount: '02',
       filterTagColor: '#BA7967',
       filterSupTitle: 'statistic.user',
-      onActive(index: number) { }
+      onActive(index: number) {}
     }
   ];
 
@@ -84,7 +87,7 @@ export class AddUserComponent
   departments = [];
   departmentsB;
   sectionFiltered: any[];
-  sectionList: any[];
+  sectionList: any[] = [];
 
   tempImage: any = '';
   avatarId;
@@ -102,7 +105,11 @@ export class AddUserComponent
   private _user;
   users$ = this.userFacade.users$;
   roles$ = this.roleFacade.rolePermission$.pipe(
-    map((y) => y.map((x) => ({ id: x.roleId, name: x.roleName })).filter(z => z.id != 1 && z.id != 2 && z.id != 3))
+    map((y) =>
+      y
+        .map((x) => ({ id: x.roleId, name: x.roleName }))
+        .filter((z) => z.id != 1 && z.id != 2 && z.id != 3)
+    )
   );
   profileDocId = null;
   employeeNotFound: boolean = false;
@@ -114,7 +121,8 @@ export class AddUserComponent
     private roleFacade: RolePermissionFacade,
     private userService: UsersService,
     private _departmentService: OrganizationService,
-    private _dialogService: DialogService
+    private _dialogService: DialogService,
+    private _router:Router
   ) {
     super(injector);
     this.userFacade.resetParams();
@@ -139,6 +147,9 @@ export class AddUserComponent
 
       if (this.isEdit) {
         this.id = +params[params.length - 1].path;
+        if(this.id === 1){
+          this._router.navigate(['/configuration/user-management/users'])
+        }
         this.userService
           .getUserById(params[params.length - 1].path)
           .pipe(map((x) => x.message))
@@ -225,28 +236,39 @@ export class AddUserComponent
 
     this.userFacade.submitted$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('success',
-          (this.isEdit ? 'Edit User' : 'Add New User'),
-          (this.isEdit ? 'Changes Saved Successfully' : 'User Added Successfully'), 'Ok')
+        const dialog = this._dialogService.show(
+          'success',
+          this.isEdit ? 'Edit User' : 'Add New User',
+          this.isEdit
+            ? 'Changes Saved Successfully'
+            : 'User Added Successfully',
+          'Ok'
+        );
         const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
               if (result === 'confirm') {
-                this.router.navigate(['configuration/user-management/users']).then(() => {
-                  this.userFacade.loadAll()
-                });
+                this.router
+                  .navigate(['configuration/user-management/users'])
+                  .then(() => {
+                    this.userFacade.loadAll();
+                  });
               }
               dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
       }
     });
 
     this.userFacade.error$.subscribe((x) => {
       if (x) {
-        const dialog = this._dialogService.show('danger',
-          (this.isEdit ? 'Edit User' : 'Add New User'),
-          'We Have Some Error', 'Ok')
+        const dialog = this._dialogService.show(
+          'danger',
+          this.isEdit ? 'Edit User' : 'Add New User',
+          'We Have Some Error',
+          'Ok'
+        );
         const dialogClose$: Subscription = dialog.dialogClosed$
           .pipe(
             tap((result) => {
@@ -254,7 +276,8 @@ export class AddUserComponent
               }
               dialogClose$?.unsubscribe();
             })
-          ).subscribe()
+          )
+          .subscribe();
       }
     });
 
@@ -328,7 +351,13 @@ export class AddUserComponent
   }
 
   cancel(): void {
-    const dialog = this._dialogService.show('warning', 'Are you sure you want to leave?', 'You have unsaved changes! If you leave, your changes will be lost.', 'Yes', 'Cancel')
+    const dialog = this._dialogService.show(
+      'warning',
+      'Are you sure you want to leave?',
+      'You have unsaved changes! If you leave, your changes will be lost.',
+      'Yes',
+      'Cancel'
+    );
     const dialogClose$: Subscription = dialog.dialogClosed$
       .pipe(
         tap((result) => {
@@ -337,7 +366,8 @@ export class AddUserComponent
           }
           dialogClose$?.unsubscribe();
         })
-      ).subscribe();
+      )
+      .subscribe();
   }
 
   submit(): void {
@@ -345,9 +375,15 @@ export class AddUserComponent
     if (this.form.invalid) {
       return;
     }
-    const dialog = this._dialogService.show('warning',
-      (this.isEdit ? 'Edit User' : 'Add New User'),
-      (this.isEdit ? 'Are you sure you want to submit this changes?' : 'Are you sure you want to add new user?'), 'Yes', 'Cancel')
+    const dialog = this._dialogService.show(
+      'warning',
+      this.isEdit ? 'Edit User' : 'Add New User',
+      this.isEdit
+        ? 'Are you sure you want to submit this changes?'
+        : 'Are you sure you want to add new user?',
+      'Yes',
+      'Cancel'
+    );
     const dialogClose$: Subscription = dialog.dialogClosed$
       .pipe(
         tap((result) => {
@@ -393,7 +429,8 @@ export class AddUserComponent
                 overdueInspections: this._user.overdueInspections || false,
                 newFaults: this._user.newFaults || false,
                 newRecalls: this._user.newRecalls || false,
-                notifyByNewIssueEmail: this._user.notifyByNewIssueEmail || false,
+                notifyByNewIssueEmail:
+                  this._user.notifyByNewIssueEmail || false,
                 notifyByNewIssuePush: this._user.notifyByNewIssuePush || false,
                 notifyByIssueAssignedEmail:
                   this._user.notifyByIssueAssignedEmail || false,
@@ -407,8 +444,10 @@ export class AddUserComponent
                   this._user.notifyByIssueResolvedEmail || false,
                 notifyByIssueResolvedPush:
                   this._user.notifyByIssueResolvedPush || false,
-                notifyByIssueCloseEmail: this._user.notifyByIssueCloseEmail || false,
-                notifyByIssueClosePush: this._user.notifyByIssueClosePush || false
+                notifyByIssueCloseEmail:
+                  this._user.notifyByIssueCloseEmail || false,
+                notifyByIssueClosePush:
+                  this._user.notifyByIssueClosePush || false
               };
 
               this.userFacade.editUser(userInfo);
@@ -441,9 +480,8 @@ export class AddUserComponent
           }
           dialogClose$?.unsubscribe();
         })
-      ).subscribe();
-
-
+      )
+      .subscribe();
   }
 
   filterDepartments(event) {
@@ -502,7 +540,6 @@ export class AddUserComponent
     });
   }
 
-
   ngOnDestroy(): void {
     this.formChangesSubscription?.unsubscribe();
     this.departmentSubscription.unsubscribe();
@@ -517,7 +554,7 @@ export class AddUserComponent
         if (
           typeof f.personalInformation.phoneNumbers[0] == 'object' &&
           typeof f.personalInformation.phoneNumbers[0].phoneNumber ==
-          'string' &&
+            'string' &&
           f.personalInformation.phoneNumbers[0].phoneNumber.length < 5
         )
           return [];
