@@ -67,7 +67,7 @@ export class MovementConfirmComponent extends Utility implements OnInit {
     this._assetFacade.assetMaster$.subscribe((x) => {
       this.assetSuggestsB = x.map((y) => ({
         id: y.id,
-        name: y['makeName'] + ' ' + y['modelName']
+        name: y.dpd
       }));
     });
 
