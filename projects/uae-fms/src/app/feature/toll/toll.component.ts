@@ -63,13 +63,13 @@ export class TollComponent implements OnInit, OnDestroy {
           thumbField: '',
           renderer: ''
         },
-        {
+        /* {
           lable: 'sidebar.fleets.assets',
           field: 'relatedAsset',
           type: 2,
           thumbField: '',
           renderer: 'assignNow'
-        },
+        }, */
         {
           lable: 'tables.column.purshate_date',
           field: 'purchaseDate',
