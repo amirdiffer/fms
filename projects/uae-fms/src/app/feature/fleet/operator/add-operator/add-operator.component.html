@@ -1,5 +1,5 @@
 
-<form [formGroup]='form' (ngSubmit)="submit()">
+<form [formGroup]='form' (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()">
   <div class="button-container">
     <button class="btn-primary-medium btn-scondary-green" type="button" (click)="cancel()">{{ 'forms.cancel' | translate
       }}</button>
@@ -15,9 +15,8 @@
       <div class="col-12 col-md-3 p-field form-section__field">
         <div class="autocomplete-select">
           <span class="p-float-label" *ngIf="!isEdit">
-            <p-autoComplete formControlName="employeeNumber" (completeMethod)="getEmployee($event)"
-              [suggestions]="employees$|async" field="employeeId" [minLength]="1" (onSelect)="employeeNumberChanged($event)"
-              required [disabled]="isEdit"></p-autoComplete>
+            <input formControlName="employeeNumber" pInputText type="number" (keyup)="employeeEnter($event)"
+              field="employeeId" [minLength]="1" required [disabled]="isEdit">
             <i class="pi pi-search"></i>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
           </span>
@@ -25,9 +24,7 @@
             <input formControlName="employeeNumber" pInputText type="text" disabled>
             <label>{{ 'configuration.users.employee_number' | translate }} *</label>
           </span>
-          <anms-error [showError]="hasError('employeeNumber',form.get('portalInformation'),submited)"
-            error="forms.feedback.required">
-          </anms-error>
+          <anms-error [showError]="employeeNotFound" error="forms.feedback.employee_not_found"></anms-error>
         </div>
       </div>
       <div class="col-12 col-md-3 p-field form-section__field">
@@ -99,15 +96,14 @@
     <div class='col-4 d-flex' formGroupName='fileUpload'>
       <div class=" form-section w-100">
         <div>
-          <p class='font-weight-bold'>{{ 'configuration.users.upload_form.title' | translate }}</p>
+          <p class='font-weight-bold'>{{ 'configuration.users.upload_form.preview_image' | translate }}</p>
         </div>
-        <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true"
-          [multiple]="false"
-          [preview]="true" [accept]="['.png', '.jpg']"
-          (uploadedEvent)="uploadImage($event)"
-          [isImage]="true"
-          [files]="avatarId"
-          ></anms-uploader>
+        <div class="image-container">
+          <img [src]="avatar" alt="">
+        </div>
+        <!-- <anms-uploader [iconIsHidden]="true" [iconIsHidden]="true" [multiple]="false" [preview]="true"
+          [accept]="['.png', '.jpg']" (uploadedEvent)="uploadImage($event)" [isImage]="true" [files]="avatarId">
+        </anms-uploader> -->
       </div>
     </div>
     <div class="col-8" formGroupName="personalInformation">

@@ -11,10 +11,11 @@ import {
 import { IOperator } from '@models/operator';
 import { Utility } from '@shared/utility/utility';
 
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { IOrganization } from '@models/organization';
 import { DialogService } from '@core/dialog/dialog-template.component';
+import { environment } from "@environments/environment";
 @Component({
   selector: 'anms-add-operator',
   templateUrl: './add-operator.component.html',
@@ -71,7 +72,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
   form: FormGroup;
   submited = false;
 
-  employees = new Subject();
+  employees = new BehaviorSubject([]);
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
 
@@ -84,9 +85,9 @@ export class AddOperatorComponent extends Utility implements OnInit {
   departmentId;
   sectionId;
   avatarId = [];
-
+  avatar;
   departments = [];
-
+  employeeNotFound: boolean = false;
   roles = [
     { name: 'Police', id: 1 },
     { name: 'Manager', id: 2 },
@@ -95,7 +96,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
   ];
 
   tempImage: any = '';
-
+  loadingEmployeeByEnter = false;
   get emails(): FormArray {
     return this.form.get('personalInformation').get('emails') as FormArray;
   }
@@ -191,6 +192,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
                 fileName: x.profileDocId
               });
               this.avatarId = [x.profileDocId];
+              this.avatar = environment.baseFileServer + "/" + this.avatarId;
             }
           });
       } else {
@@ -463,6 +465,7 @@ export class AddOperatorComponent extends Utility implements OnInit {
 
   employeeNumberChanged($event) {
     this.employee_static = $event;
+    this.avatar = 'data:image/png;base64,' + $event.profileImage;
     if (typeof $event != 'object') return;
     this.form.controls['portalInformation'].patchValue({
       department: $event.organizationId
@@ -543,10 +546,56 @@ export class AddOperatorComponent extends Utility implements OnInit {
     this.employeeId = event.query;
   }
 
-  // getDepartment(event) {
-  //   this.getDepartmentList.next(event);
-  //   this.departmentId = event.query
-  // }
+  employeeEnter(event) {
+    this.employeeNotFound = false;
+    if (event.keyCode == 13) {
+      if (this.employees.value && this.employees.value.length > 0) {
+        this.employeeNumberChanged(this.employees.value[0]);
+      } else {
+        this.employeeId = event.target.value;
+        this.operatorService.searchEmployee(this.employeeId).subscribe((y) => {
+          if (y) {
+            this.employeeNumberChanged({ ...y.message, employeeId: this.employeeId })
+
+            this.uploadProfilePicture(y.message.profileImage, this.employeeId);
+
+            this.employeeNotFound = false;
+          } else {
+            this.employeeNotFound = true;
+          }
+        });
+      }
+    }
+    else {
+      this.employees.next([]);
+    }
+  }
+
+  uploadProfilePicture(image: string, userId) {
+    let file: File = this.dataURLtoFile('data:image/png;base64,' + image, userId + ".png");
+    let formData = new FormData();
+    formData.append('doc', file);
+    this.operatorService.uploadDoc(formData).subscribe((x: any) => {
+      if (x && x?.body && x?.body?.message && x?.body?.message?.id) {
+        this.avatarId = x?.body?.message?.id;
+        this.profileDocId = x?.body?.message?.id;
+      }
+    })
+  }
+
+  dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
 
   searchDepartment(event) {
     let query = event.query;

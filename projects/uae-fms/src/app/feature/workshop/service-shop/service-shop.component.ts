@@ -182,6 +182,7 @@ export class ServiceShopComponent implements OnInit {
   technicianData$ = this._facadeTechnician.serviceShop$.pipe(
     map((x) => {
       return x.map((y) => {
+        console.log(y)
         return {
           ...y,
           technician: {

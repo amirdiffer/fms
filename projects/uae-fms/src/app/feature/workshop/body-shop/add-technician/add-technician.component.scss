@@ -24,3 +24,13 @@
 .button-container{
   top:-4em !important;
 }
+
+.image-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  img{
+      max-width: 90%;
+      max-height: 90%;
+  }
+}

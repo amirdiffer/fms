@@ -20,3 +20,13 @@
     flex: 1 0 85%;
     overflow: visible;
 }
+
+.image-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  img{
+      max-width: 90%;
+      max-height: 90%;
+  }
+}

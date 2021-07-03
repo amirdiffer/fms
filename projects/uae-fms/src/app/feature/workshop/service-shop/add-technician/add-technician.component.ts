@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { ColumnType, TableSetting } from '@core/table';
 import { Utility } from '@shared/utility/utility';
 import { debounceTime, map, tap } from 'rxjs/operators';
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { UsersService } from '@feature/configuration/+state/users';
 import {
   TaskMasterFacade,
@@ -26,7 +26,7 @@ import {
   ServiceShopLocationService
 } from '@feature/workshop/+state/service-shop/location';
 import { DialogService } from '@core/dialog/dialog-template.component';
-
+import { environment } from "@environments/environment";
 @Component({
   selector: 'anms-add-technician',
   templateUrl: './add-technician.component.html',
@@ -43,7 +43,7 @@ export class AddTechnicianServiceShopComponent
   submited = false;
   progressBarValue = 50;
   bufferValue = 70;
-  employees = new Subject();
+  employees = new BehaviorSubject([]);
   employees$ = this.employees.asObservable();
   getEmployeesList = new Subject();
   employeeId;
@@ -56,7 +56,8 @@ export class AddTechnicianServiceShopComponent
   depatmentSectionSevice$: Subscription;
   department_static;
   departmentId;
-  avatarId = [];
+  avatarId;
+  avatar;
   section_static;
   sectionId;
   skillList: any[] = [];
@@ -166,6 +167,8 @@ export class AddTechnicianServiceShopComponent
   skills: any[];
   skillsB;
   profileDocId: number;
+  employeeNotFound: boolean = false;
+
   get emails(): FormArray {
     return this.inputForm.get('personalInfo').get('email') as FormArray;
   }
@@ -233,6 +236,8 @@ export class AddTechnicianServiceShopComponent
           .subscribe((x) => {
             if (x) {
               this._technician = x;
+              this.avatarId = x.user.profileDocId;
+              this.avatar = environment.baseFileServer + "/" + this.avatarId;
               this.avatarId = Array.isArray(x.user.profileDocId)
                 ? x.user.profileDocId
                 : [x.user.profileDocId];
@@ -590,16 +595,68 @@ export class AddTechnicianServiceShopComponent
     this.employeeId = event.query;
   }
 
+  employeeEnter(event) {
+    this.employeeNotFound = false;
+    if (event.keyCode == 13) {
+      if (this.employees.value && this.employees.value.length > 0) {
+        this.employeeNumberChanged(this.employees.value[0]);
+      } else {
+        this.employeeId = event.target.value;
+        this.userService.searchEmployee(this.employeeId).subscribe((y: any) => {
+          if (y) {
+            this.employeeNumberChanged({ ...y.message, employeeId: this.employeeId })
+
+            this.uploadProfilePicture(y.message.profileImage, this.employeeId);
+
+            this.employeeNotFound = false;
+          } else {
+            this.employeeNotFound = true;
+          }
+        });
+      }
+    }
+    else {
+      this.employees.next([]);
+    }
+  }
+
+  uploadProfilePicture(image: string, userId) {
+    let file: File = this.dataURLtoFile('data:image/png;base64,' + image, userId + ".png");
+    let formData = new FormData();
+    formData.append('doc', file);
+    this._technicalService.uploadDoc(formData).subscribe((x: any) => {
+      if (x && x?.body && x?.body?.message && x?.body?.message?.id) {
+        this.avatarId = x?.body?.message?.id;
+        this.profileDocId = x?.body?.message?.id;
+      }
+    })
+  }
+
+  dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
   employeeNumberChanged($event) {
     this.employee_static = $event;
+    this.avatar = 'data:image/png;base64,' + $event.profileImage;
     if (typeof $event != 'object') return;
     // this.inputForm.get('organizationId').patchValue($event.organizationId);
     // this.inputForm.get('departmentId').patchValue($event.organizationId);
     this.inputForm.get('personalInfo').patchValue({
       phoneNumber: [$event.mobileNumber],
       email: [$event.emailAddress],
-      userName: $event.userName,
       firstName: $event.nameEn,
+      userName: $event.userName,
       lastName: $event.name
     });
     this.inputForm.get('personalInfo.firstName').markAsDirty();

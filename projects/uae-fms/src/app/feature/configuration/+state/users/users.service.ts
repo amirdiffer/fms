@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseBody } from '@models/response-body';
 import { IUser } from '@models/configuration';
@@ -58,5 +58,13 @@ export class UsersService {
     return this.http.get<ResponseBody<IUser>>(
       environment.baseApiUrl + 'configuration/user/' + id
     );
+  }
+
+  uploadDoc(data: FormData) {
+    return this.http.post(environment.baseApiUrl + 'document', data, {
+      headers: new HttpHeaders({}),
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 }

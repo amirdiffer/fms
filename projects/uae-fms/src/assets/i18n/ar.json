@@ -1817,7 +1817,8 @@
       "upload_form": {
         "title": "تحميل صورة الملف الشخصي",
         "progressbar_title": ".pdf",
-        "content": "قم بسحب وإفلات الصورة هنا"
+        "content": "قم بسحب وإفلات الصورة هنا",
+        "preview_image": "معاينة صورة الملف الشخصي"
       },
       "full_name_arabic": "الاسم الكامل عربي",
       "full_name_english": "الاسم الكامل بالإنجليزية"
