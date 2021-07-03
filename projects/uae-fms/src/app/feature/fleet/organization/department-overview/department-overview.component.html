@@ -1,4 +1,8 @@
 <div class='row' style="position: relative" *hasPermission="['ORGANIZATION_VIEW_DETAILS' , 'ORGANIZATION_VIEW_USERS' , 'ORGANIZATION_VIEW_TRAFFIC_FINES' , 'ORGANIZATION_VIEW_MOVEMENT_HISTORY']">
+  <div class="button-container">
+    <button class="btn-primary-medium btn-scondary-green" type="button" routerLink="/fleet/department">{{ 'forms.back' | translate }}</button>
+    <button class="btn-primary-medium add" [routerLink]="['/fleet/department/edit-department/' + itemId]">{{ 'forms.edit' | translate }}</button>
+  </div>
   <div class='col-lg-3'>
     <div class='component_wrapper form-section'>
       <div class='flex-lg-column person'>
