@@ -63,22 +63,34 @@
                     </div>
                   </div>
                 </div>
-                <div class='d-flex my-3' formArrayName='colors'>
+              </div>
+              <div class='col-6'>
+                <span class='font-weight-bold'>{{'filter.upload_asset_picture' | translate}}</span>
+                <anms-uploader [isImage]="true" [iconIsHidden]='true' [multiple]='false' [title]=''
+                               [preview]='true' [accept]="['.png', '.jpg']" (uploadedEvent)='uploadAssetPicture($event, index)'>
+                </anms-uploader>
+              </div>
+              <div class="col-12">
+                <div class='d-flex my-3 align-items-center' formArrayName='colors'>
                   <p class='mt-1 font-weight-bold'>{{'filter.colors' | translate}}</p>
-                  <span class='color-circle mb-2 ml-2 mr-2' *ngFor='let color of colors(index).controls; let j = index'
+                  <div class="mx-2 d-flex">
+                    <span class='color-circle mb-2 ml-2 mr-2' *ngFor='let color of colors(index).controls; let j = index'
                         [formGroupName]='j'
+                        [ngStyle]="{'background': color.value.hexColor}"
+                        
                         [class.bg-dark]="color.value.hexColor.toLowerCase() === 'ffffff' || color.value.hexColor.toLowerCase() === '#ffffff'">
-                    <svg-icon [(colorPicker)]='color.value.hexColor' (colorPickerClose)='selectedColor($event, color)'
-                              *ngIf="color.value.hexColor.includes('#')"
-                              src='assets/icons/car-solid.svg' class='car-icon'
-                              [svgStyle]="{ 'width.px':20 , 'fill': color.value.hexColor , 'height': '100%'}">
-                    </svg-icon>
-                    <svg-icon [(colorPicker)]='color.value.hexColor' (colorPickerClose)='selectedColor($event, color)'
-                              *ngIf="!color.value.hexColor.includes('#')"
-                              src='assets/icons/car-solid.svg' class='car-icon'
-                              [svgStyle]="{ 'width.px':20 , 'fill': '#' + color.value.hexColor , 'height': '100%'}">
-                    </svg-icon>
-                </span>
+                      <svg-icon [(colorPicker)]='color.value.hexColor' (colorPickerClose)='selectedColor($event, color)'
+                                *ngIf="color.value.hexColor.includes('#')"
+                                src='assets/icons/car-solid.svg' class='car-icon'
+                                [svgStyle]="{ 'width.px':20 , 'fill': '#fff' , 'height': '80%'}">
+                      </svg-icon>
+                      <svg-icon [(colorPicker)]='color.value.hexColor' (colorPickerClose)='selectedColor($event, color)'
+                                *ngIf="!color.value.hexColor.includes('#')"
+                                src='assets/icons/car-solid.svg' class='car-icon'
+                                [svgStyle]="{ 'width.px':20 , 'fill': '#' + 'fff' , 'height': '80%'}">
+                      </svg-icon>
+                    </span>
+                  </div>
                   <span class='new-color-circle ml-2'>
                     <svg-icon src='assets/icons/add.svg' class='add-color-icon' (click)='addColor(index)'
                               [svgStyle]="{ 'width.px':18 , 'fill': '#0DA06E' , 'height': '100%'}">
@@ -90,12 +102,6 @@
                     </svg-icon>
                   </span>
                 </div>
-              </div>
-              <div class='col-6'>
-                <span class='font-weight-bold'>{{'filter.upload_asset_picture' | translate}}</span>
-                <anms-uploader [isImage]="true" [iconIsHidden]='true' [multiple]='false' [title]=''
-                               [preview]='true' [accept]="['.png', '.jpg']" (uploadedEvent)='uploadAssetPicture($event, index)'>
-                </anms-uploader>
               </div>
             </div>
           </div>

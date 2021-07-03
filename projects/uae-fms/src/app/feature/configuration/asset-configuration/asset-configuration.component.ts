@@ -227,7 +227,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
       {
         lable: 'tables.column.color',
         field: 'color',
-        width: 100,
+        width: '13em',
         type: 1,
         thumbField: '',
         renderer: 'trimColorRenderer'
@@ -432,7 +432,7 @@ export class AssetConfigurationComponent implements OnInit, OnDestroy {
           {
             lable: 'tables.column.color',
             field: 'color',
-            width: 100,
+            width: '13em',
             type: 1,
             thumbField: '',
             renderer: 'trimColorRenderer'

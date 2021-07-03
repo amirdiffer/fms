@@ -94,12 +94,12 @@
                             <p-dropdown inputId="color" [placeholder]="'assets.color' | translate" [options]="color$ | async" optionLabel="name" dataKey="id" formControlName="color">
                               <ng-template pTemplate="selectedItem">
                                 <div class="color-item color-item-value" >
-                                  <span class="color-dropdown-option" [ngStyle]="{'background': color.value.hexColor}"></span>
+                                  <span class="color-dropdown-option" [ngStyle]="{'background': color.value.hexColor.includes('#') ? color.value.hexColor : ('#' + color.value.hexColor)}"></span>
                                 </div>
                               </ng-template>
                               <ng-template let-item pTemplate="item">
                                 <div class="color-item">
-                                  <span class="color-dropdown-option" [ngStyle]="{'background': item.hexColor}"></span>
+                                  <span class="color-dropdown-option" [ngStyle]="{'background': item.hexColor.includes('#') ? item.hexColor : ('#' + item.hexColor)}"></span>
                                 </div>
                               </ng-template>
                             </p-dropdown>
