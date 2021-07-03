@@ -99,14 +99,18 @@
                           </div>
                       </div>
 
-                      <div class="col-3 form-section__field my-0" *ngIf="outp.subAssets[i].checked" [hidden]='outp.subAssets[i].subAssetId'>
-                        <div class="autocomplete-select">
+                      <div class="col-3 p-field form-section__field options-select my-0" *ngIf="outp.subAssets[i].checked" [hidden]='outp.subAssets[i].subAssetId'>
+                        <!-- <div class="autocomplete-select">
                           <span class="p-float-label">
                             <p-autoComplete (completeMethod)="filterSubAsset($event)"
                               [suggestions]="subAsset" [(ngModel)]="outp.subAssets[i].subAsset" field="serialNumber" [minLength]="1" [dropdown]="true"></p-autoComplete>
                             <label>{{ 'assets.sub-asset' | translate}} *</label>
                           </span>
-                        </div>
+                        </div> -->
+                        <span class="p-float-label">
+                          <p-dropdown inputId="subAsset" [placeholder]="'assets.sub-asset' | translate"  [options]="subAsset" optionLabel="serialNumber" [(ngModel)]="outp.subAssets[i].subAsset"></p-dropdown>
+                          <label>{{ 'assets.sub-asset' | translate}} *</label>
+                        </span>
                       </div>
                     </div>
                   </div>
