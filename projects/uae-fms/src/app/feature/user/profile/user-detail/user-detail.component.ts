@@ -11,7 +11,8 @@ export class UserDetailComponent implements OnInit {
   @Input() hasActivate: boolean = false;
   @Input() data$: Observable<IOperator>;
   @Input() position: string;
-  userImage = 'assets/user-profile.svg';
+  // userImage = 'assets/user-profile.svg';
+  userImage = '';
   organizationIcon = 'assets/icons/organization.svg';
   emailIcon = 'assets/icons/envelope.svg';
   phoneIcon = 'assets/icons/phone.svg';
@@ -22,6 +23,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.data$?.subscribe((x) => {
       if (x) {
+        this.userImage = x.profileDocId ? environment.baseApiUrl + `document/${x.profileDocId}` : 'assets/thumb.png';
         this.activeChecked = x.isActive;
       }
     });
